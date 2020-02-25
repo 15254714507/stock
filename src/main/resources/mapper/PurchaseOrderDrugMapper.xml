@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.PurchaseOrderDrugDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.PurchaseOrderDrug">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
+        <result column="production_lot_number" property="productionLotNumber" jdbcType="VARCHAR"/>
+        <result column="provider_id" property="providerId" jdbcType="BIGINT"/>
+        <result column="provider_name" property="providerName" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            code,
+            drug_code,
+            production_lot_number,
+            provider_id,
+            provider_name,
+            price,
+            number,
+            expire_date,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getPurchaseOrderDrug" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase_order_drug
+        where is_delete=0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertPurchaseOrderDrug" parameterType="com.drug.stock.entity.domain.PurchaseOrderDrug">
+        insert
+        into purchase_order_drug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            code,
+            drug_code,
+            production_lot_number,
+            provider_id,
+            provider_name,
+            price,
+            number,
+            expire_date,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{code,jdbcType=VARCHAR},
+            #{drugCode,jdbcType=VARCHAR},
+            #{productionLotNumber,jdbcType=VARCHAR},
+            #{providerId,jdbcType=BIGINT},
+            #{providerName,jdbcType=VARCHAR},
+            #{price,jdbcType=DECIMAL},
+            #{number,jdbcType=INTEGER},
+            #{expireDate,jdbcType=TIMESTAMP},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updatePurchaseOrderDrug" parameterType="com.drug.stock.entity.domain.PurchaseOrderDrug">
+        update purchase_order_drug
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="drugCode !=null and drugCode != '' ">
+                    drug_code=#{drugCode,jdbcType=VARCHAR},
+                </if>
+                <if test="code !=null and code != '' ">
+                    code= #{code,jdbcType=VARCHAR},
+                </if>
+                <if test="productionLotNumber !=null and productionLotNumber != '' ">
+                    production_lot_number= #{productionLotNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="providerId !=null">
+                    provider_id=#{providerId,jdbcType=BIGINT},
+                </if>
+                <if test="providerName !=null and providerName != '' ">
+                    provider_name=#{providerName,jdbcType=VARCHAR},
+                </if>
+                <if test="price !=null">
+                    price=#{price,jdbcType=DECIMAL},
+                </if>
+                <if test="number!=null">
+                    number=#{number,jdbcType=INTEGER},
+                </if>
+                <if test="expireDate!=null">
+                    expire_date= #{expireDate,jdbcType=TIMESTAMP},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER}+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deletePurchaseOrderDrug" parameterType="Long">
+        update purchase_order_drug
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getPurchaseOrderDrugByCode" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase_order_drug
+        where is_delete=0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+    <select id="listPurchaseOrderDrug" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.PurchaseOrderDrugCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from purchase_order_drug
+        where is_delete = 0
+        <if test="code !=null and code != '' ">
+            and code= #{code,jdbcType=VARCHAR}
+        </if>
+        <if test="drugCode !=null and drugCode != '' ">
+            and drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        <if test="providerId !=null">
+            and provider_id=#{providerId,jdbcType=BIGINT}
+        </if>
+        <if test="providerName !=null and providerName != '' ">
+            and provider_name=#{providerName,jdbcType=VARCHAR}
+        </if>
+        <if test="price !=null">
+            and price=#{price,jdbcType=DECIMAL}
+        </if>
+        <if test="expireDate!=null">
+            and expire_date= #{expireDate,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="countPurchaseOrderDrugByCode" parameterType="String" resultType="Long">
+        select
+        count(code)
+        from purchase_order_drug
+        where is_delete =0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+</mapper>

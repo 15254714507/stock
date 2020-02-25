@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.DrugDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.Drug">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="specs" property="specs" jdbcType="VARCHAR"/>
+        <result column="dosage_form" property="dosageForm" jdbcType="VARCHAR"/>
+        <result column="approval_number" property="approvalNumber" jdbcType="VARCHAR"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="storage" property="storage" jdbcType="VARCHAR"/>
+        <result column="packaging" property="packaging" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            code,
+            name,
+            specs,
+            dosage_form,
+            approval_number,
+            number,
+            storage,
+            packaging,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getDrug" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from drug
+        where is_delete=0
+        and id =#{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertDrug" parameterType="com.drug.stock.entity.domain.Drug">
+        insert
+        into drug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            code,
+            name,
+            specs,
+            dosage_form,
+            approval_number,
+            number,
+            storage,
+            packaging,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{code,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{specs,jdbcType=VARCHAR},
+            #{dosageForm,jdbcType=VARCHAR},
+            #{approvalNumber,jdbcType=VARCHAR},
+            #{number,jdbcType=INTEGER},
+            #{storage,jdbcType=VARCHAR},
+            #{packaging,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateDrug" parameterType="com.drug.stock.entity.domain.Drug">
+        update drug
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="code !=null and code != '' ">
+                    code=#{code,jdbcType=VARCHAR},
+                </if>
+                <if test="name !=null and name != '' ">
+                    name= #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="specs !=null and specs != '' ">
+                    specs= #{specs,jdbcType=VARCHAR},
+                </if>
+                <if test="dosageForm !=null and dosageForm != '' ">
+                    dosage_form= #{dosageForm,jdbcType=VARCHAR},
+                </if>
+                <if test="approvalNumber !=null and approvalNumber != '' ">
+                    approval_number=#{approvalNumber,jdbcType=VARCHAR},
+                </if>
+                <if test="number !=null">
+                    number= #{number,jdbcType=INTEGER},
+                </if>
+                <if test="storage !=null and storage != '' ">
+                    storage= #{storage,jdbcType=VARCHAR},
+                </if>
+                <if test="packaging !=null and packaging != '' ">
+                    packaging= #{packaging,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER},
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteDrug" parameterType="Long">
+        update drug
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getDrugByCode" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from drug
+        where is_delete=0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+    <select id="listDrug" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.DrugCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from drug
+        where is_delete=0
+        <if test="code !=null and code != '' ">
+            and code=#{code,jdbcType=VARCHAR}
+        </if>
+        <if test="name !=null and name != '' ">
+            and name= #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="specs !=null and specs != '' ">
+            and specs= #{specs,jdbcType=VARCHAR}
+        </if>
+        <if test="dosageForm !=null and dosageForm != '' ">
+            and dosage_form= #{dosageForm,jdbcType=VARCHAR}
+        </if>
+        <if test="approvalNumber !=null and approvalNumber != '' ">
+            and approval_number=#{approvalNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="number !=null">
+            and number= #{number,jdbcType=INTEGER}
+        </if>
+        <if test="storage !=null and storage != '' ">
+            and storage= #{storage,jdbcType=VARCHAR}
+        </if>
+        <if test="packaging !=null and packaging != '' ">
+            and packaging= #{packaging,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="countDrugByCode" parameterType="String" resultType="Long">
+         select
+        count(code)
+        from drug
+        where is_delete =0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+</mapper>

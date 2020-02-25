@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.DeliveryOrderDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.DeliveryOrder">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="user_account" property="userAccount" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            code,
+            user_account,
+            user_name,
+            description,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getDeliveryOrder" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from delivery_order
+        where is_delete=0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertDeliveryOrder" parameterType="com.drug.stock.entity.domain.DeliveryOrder">
+        insert
+        into delivery_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            code,
+            user_account,
+            user_name,
+            description,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{code,jdbcType=VARCHAR},
+            #{userAccount,jdbcType=VARCHAR},
+            #{userName,jdbcType=VARCHAR},
+            #{description,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateDeliveryOrder" parameterType="com.drug.stock.entity.domain.DeliveryOrder">
+        update delivery_order
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                code=#{code,jdbcType=VARCHAR},
+                user_account=#{userAccount,jdbcType=VARCHAR},
+                user_name=#{userName,jdbcType=VARCHAR},
+                description=#{description,jdbcType=VARCHAR},
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER}+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteDeliveryOrder" parameterType="Long">
+        update delivery_order
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getDeliveryOrderByCode" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from delivery_order
+        where is_delete = 0
+        and code= #{code,jdbcType=VARCHAR}
+    </select>
+    <select id="listDeliveryOrder" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.DeliveryOrderCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from delivery_order
+        where is_delete =0
+        <if test="code!=null and code !=''">
+            and code=#{code,jdbcType=VARCHAR}
+        </if>
+        <if test="userAccount!=null and userAccount!=''">
+            and user_account=#{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="userName!=null and userName!=''">
+            and user_name=#{userName,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <select id="countDeliveryOrderByCode" parameterType="String" resultType="Long">
+        select
+        count(code)
+        from delivery_order
+        where is_delete =0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+</mapper>

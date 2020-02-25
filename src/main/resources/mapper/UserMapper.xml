@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="is_super_admin" property="superAdmin" jdbcType="TINYINT"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            account,
+            password,
+            name,
+            phone,
+            email,
+            is_super_admin,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getUser" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where is_delete = 0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertUser" parameterType="com.drug.stock.entity.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert
+        into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            account,
+            password,
+            name,
+            is_super_admin,
+            phone,
+            email,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{account,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{superAdmin,jdbcType=TINYINT},
+            #{phone,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateUser" parameterType="com.drug.stock.entity.domain.User">
+        update user
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="password !=null and password != '' ">
+                    password=#{password,jdbcType=VARCHAR},
+                </if>
+                <if test="name !=null and name != '' ">
+                    name=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="phone !=null and phone != '' ">
+                    phone=#{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="email !=null and email != '' ">
+                    email=#{email,jdbcType=VARCHAR},
+                </if>
+                <if test="superAdmin !=null">
+                    is_super_admin=#{superAdmin,jdbcType=TINYINT},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER}+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <!--逻辑删除-->
+    <update id="deleteUser" parameterType="Long">
+        update user
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getUserByAccount" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where is_delete = 0
+        and account = #{account,jdbcType=VARCHAR}
+    </select>
+    <select id="listUser" resultMap="BaseResultMap" parameterType="com.drug.stock.entity.condition.UserCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where is_delete =0
+        <if test="account !=null and account != '' ">
+            and account=#{account,jdbcType=VARCHAR}
+        </if>
+        <if test="name !=null and name != '' ">
+            and name=#{name,jdbcType=VARCHAR}
+        </if>
+        <if test="superAdmin !=null">
+            and is_super_admin=#{superAdmin,jdbcType=TINYINT}
+        </if>
+    </select>
+    <select id="countUserByAccount" parameterType="String" resultType="Long">
+        select
+        count(account)
+        from user
+        where is_delete =0
+        and account=#{account,jdbcType=VARCHAR}
+    </select>
+</mapper>

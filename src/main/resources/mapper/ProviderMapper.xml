@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.ProviderDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.Provider">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="company" property="company" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            code,
+            company,
+            name,
+            phone,
+            email,
+            city,
+            address,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getProvider" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from provider
+        where is_delete=0
+        and id = #{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertProvider" parameterType="com.drug.stock.entity.domain.Provider">
+        insert
+        into provider
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            code,
+            company,
+            name,
+            phone,
+            email,
+            city,
+            address,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{code,jdbcType=VARCHAR},
+            #{company,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{phone,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            #{city,jdbcType=VARCHAR},
+            #{address,jdbcType=VARCHAR},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateProvider" parameterType="com.drug.stock.entity.domain.Provider">
+        update provider
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="code !=null and code != '' ">
+                    code=#{code,jdbcType=VARCHAR},
+                </if>
+                <if test="company !=null and company != '' ">
+                    company= #{company,jdbcType=VARCHAR},
+                </if>
+                <if test="name !=null and name != '' ">
+                    name=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="phone !=null and phone != '' ">
+                    phone=#{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="email !=null and email != '' ">
+                    email=#{email,jdbcType=VARCHAR},
+                </if>
+                <if test="city !=null and city != '' ">
+                    city=#{city,jdbcType=VARCHAR},
+                </if>
+                <if test="address !=null and address != '' ">
+                    address=#{address,jdbcType=VARCHAR},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER}+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteProvider" parameterType="Long">
+        update provider
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="getProviderByCode" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        from provider
+        where is_delete=0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+    <select id="listProvider" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.ProviderCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from provider
+        where is_delete = 0
+        <if test="code !=null and code != '' ">
+            and code=#{code,jdbcType=VARCHAR}
+        </if>
+        <if test="company !=null and company != '' ">
+            and company= #{company,jdbcType=VARCHAR}
+        </if>
+        <if test="name !=null and name != '' ">
+            and name=#{name,jdbcType=VARCHAR}
+        </if>
+        <if test="phone !=null and phone != '' ">
+            and phone=#{phone,jdbcType=VARCHAR}
+        </if>
+        <if test="email !=null and email != '' ">
+            and email=#{email,jdbcType=VARCHAR}
+        </if>
+        <if test="city !=null and city != '' ">
+            and city=#{city,jdbcType=VARCHAR}
+        </if>
+        <if test="address !=null and address != '' ">
+            and address=#{address,jdbcType=VARCHAR}
+        </if>
+
+    </select>
+    <select id="countProviderByCode" parameterType="String" resultType="Long">
+        select
+        count(code)
+        from provider
+        where is_delete =0
+        and code=#{code,jdbcType=VARCHAR}
+    </select>
+</mapper>
