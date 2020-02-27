@@ -440,7 +440,7 @@
                 </ul>
             </div>
 
-            <iframe id="iframe" style="border:0; width:100%; background-color:#FFF;"name="iframe" frameborder="0" src="home.html">  </iframe>
+            <iframe id="iframe" style="border:0; width:100%; background-color:#FFF;"name="iframe" frameborder="0" src="/home.do">  </iframe>
 
 
             <!-- /.page-content -->
