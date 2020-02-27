@@ -1,43 +1,75 @@
 $('#login_btn').on('click', function () {
     debugger;
-    var num = 0;
-    var str = "";
-    $("input[type$='text'],input[type$='password']").each(function (n) {
-        if ($(this).val() == "") {
-            layer.alert(str += "" + $(this).attr("name") + "不能为空！\r\n", {
-                title: '提示框',
-                icon: 0,
-            });
-            num++;
-            return false;
-        }
-    });
-    if (num > 0) {
+    //验证账号不能为空，长度要符合要求 验证密码不能为空，长度要符合要求
+    if (!validateAccount() || !validatePassword()) {
         return false;
-    } else {
-        // layer.alert('登陆成功！', {
-        //     title: '提示框',
-        //     icon: 1,
-        // });
-        // location.href = "index.html";
-        document.getElementById("form").submit();
     }
-
+    document.getElementById("form").submit();
 });
+
+/**
+ * 校验账号
+ * @returns {boolean}
+ */
+function validateAccount() {
+    let userAccountDom = $("#username");
+    if (userAccountDom.val() === "") {
+        layer.alert( "账号不能为空！\r\n", {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    let userAccountLength = userAccountDom.val().length;
+    if (userAccountLength < 6 || userAccountLength.length > 16) {
+        layer.alert( "账号长度要大于6小于16！\r\n", {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    return true;
+}
+
+/**
+ * 校验密码
+ * @returns {boolean}
+ */
+function validatePassword() {
+    let userPasswordDom = $("#userpwd");
+    if (userPasswordDom.val() === "") {
+        layer.alert( "密码不能为空！\r\n", {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    let userPasswordLength = userPasswordDom.val().length;
+    if (userPasswordLength < 2 || userPasswordLength.length > 12) {
+        layer.alert( "密码长度要大于1小于12！\r\n", {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    return true;
+}
+
 $(document).ready(function () {
-    $("input[type='text'],input[type='password']").blur(function () {
-        var $el = $(this);
-        var $parent = $el.parent();
+    let user = $("#username,#userpwd");
+    user.blur(function () {
+        let $el = user;
+        let $parent = $el.parent();
         $parent.attr('class', 'frame_style').removeClass(' form_error');
-        if ($el.val() == '') {
+        if ($el.val() === '') {
             $parent.attr('class', 'frame_style').addClass(' form_error');
         }
     });
-    $("input[type='text'],input[type='password']").focus(function () {
-        var $el = $(this);
-        var $parent = $el.parent();
+    user.focus(function () {
+        let $el = user;
+        let $parent = $el.parent();
         $parent.attr('class', 'frame_style').removeClass(' form_errors');
-        if ($el.val() == '') {
+        if ($el.val() === '') {
             $parent.attr('class', 'frame_style').addClass(' form_errors');
         } else {
             $parent.attr('class', 'frame_style').removeClass(' form_errors');

@@ -3,6 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--禁止缓存，禁止刷新重新提交表单-->
+     <META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+     <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+
     <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
     <!--[if IE 7]>
@@ -27,7 +32,6 @@
 
 <body class="login-layout Reg_log_style">
 <div class="logintop">
-    <span>欢迎后台管理界面平台</span>
     <ul>
         <li><a href="#">返回首页</a></li>
         <li><a href="#">帮助</a></li>
@@ -60,17 +64,23 @@
                             <fieldset>
                                 <ul>
                                     <li class="frame_style form_error"><label class="user_icon"></label><input
-                                                name="userAccount" type="text" id="username"/><i>用户名</i></li>
+                                                name="userAccount" type="text" id="username" value="${(account) !}" placeholder="用户名"/></li>
+
                                     <li class="frame_style form_error"><label class="password_icon"></label><input
-                                                name="password" type="password" id="userpwd"/><i>密码</i></li>
+                                                name="password" type="password" id="userpwd" value="${(password) !}" placeholder="密码"/></li>
 
                                 </ul>
+                                <div>
+                                    <span style="color: red">${(accountError) !}</span>
+                                    <span style="color: red">${(passwordError) !}</span>
+                                    <span style="color: red">${(systemError) !}</span>
+                                </div>
                                 <div class="space"></div>
                                 <div class="clearfix">
-                                    <label class="inline">
-                                        <input type="checkbox" class="ace">
-                                        <span class="lbl">保存密码</span>
-                                    </label>
+<#--                                    <label class="inline">-->
+<#--                                        <input type="checkbox" class="ace">-->
+<#--                                        <span class="lbl">保存密码</span>-->
+<#--                                    </label>-->
 
                                     <button type="button" class="width-35 pull-right btn btn-sm btn-primary"
                                             id="login_btn">
