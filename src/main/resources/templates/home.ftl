@@ -31,6 +31,7 @@
         <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
         <i class="icon-ok green"></i>欢迎使用<strong class="green">药品库存管理系统<small>(v1.0)</small></strong>
     </div>
+    <!--第一行-->
     <div class="state-overview clearfix">
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
@@ -52,7 +53,7 @@
                 </div>
                 <div class="value">
                     <h1>140</h1>
-                    <p>分销记录</p>
+                    <p>过期药品</p>
                 </div>
             </section>
         </div>
@@ -63,7 +64,7 @@
                 </div>
                 <div class="value">
                     <h1>345</h1>
-                    <p>商城订单</p>
+                    <p>入库订单</p>
                 </div>
             </section>
         </div>
@@ -74,7 +75,45 @@
                 </div>
                 <div class="value">
                     <h1>￥34,500</h1>
-                    <p>交易记录</p>
+                    <p>分析报表</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!--第二行-->
+    <div class="state-overview clearfix">
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <a href="#" title="账号数量">
+                    <div class="symbol terques">
+                        <i class="icon-list-alt"></i>
+                    </div>
+                    <div class="value">
+                        <h1>34522</h1>
+                        <p>供应商</p>
+                    </div>
+                </a>
+            </section>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol yellow">
+                    <i class="icon-th-list"></i>
+                </div>
+                <div class="value">
+                    <h1>345</h1>
+                    <p>出库订单</p>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+                <div class="symbol blue">
+                    <i class="icon-pushpin"></i>
+                </div>
+                <div class="value">
+                    <h1>1200</h1>
+                    <p>库存异常</p>
                 </div>
             </section>
         </div>
