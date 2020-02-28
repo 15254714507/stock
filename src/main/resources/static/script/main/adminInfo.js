@@ -87,17 +87,36 @@ function change_Password() {
                 });
                 return false;
             } else {
-                layer.alert('修改成功！', {
-                    title: '提示框',
-                    icon: 1,
+                $.ajax({
+                    url: "/changePassword.do",
+                    type: "POST",
+                    cache: false,
+                    data: $("#changePasswordForm").serialize(),
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.code === 200) {
+                            //顶层页面跳转到登录页重新登录
+                            top.location.href="/";
+                        } else {
+                            layer.alert(result.msg, {
+                                title: '错误框',
+                                icon: 2,
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        alert("连接服务器异常，请刷新后重试")
+                    }
                 });
                 layer.close(index);
             }
         }
     });
 }
+
 jQuery(function ($) {
-    var oTable1 = $('#sample-table').dataTable({
+    let oTable1 = $('#sample-table').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
         "bStateSave": true,//状态保存
         "aoColumnDefs": [

@@ -12,7 +12,7 @@ public class Result {
     /***
      * 是否成功的标志
      */
-    private Boolean success;
+    private Integer code;
     /**
      * 返回前端的信息提示
      */
@@ -22,4 +22,21 @@ public class Result {
      * 返回的对象
      */
     private Object object;
+
+    public Result(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
+    public Result(Integer code, Object object) {
+        this.code = code;
+        this.object = object;
+    }
+
+    public Result(Integer code, String msg, Object object) {
+        this.code = code;
+        this.msg = msg;
+        this.object = object;
+    }
+
 }

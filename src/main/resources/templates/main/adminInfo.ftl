@@ -33,7 +33,9 @@
             <div class="xinxi">
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">账号： </label>
-                    <div class="col-sm-9"><span>${(user.account)!}</span>
+                    <div class="col-sm-9">
+                        <input type="text" name="userAccount" class="col-xs-7" style="border: 0px;"
+                               disabled="disabled" value="${(user.account)!}"/>
                         &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="change_Password()"
                                              class="btn btn-warning btn-xs">修改密码</a>
                     </div>
@@ -41,7 +43,7 @@
                 </div>
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">姓名： </label>
-                    <div class="col-sm-9"><input type="text" name="userAccount" id="website-title"
+                    <div class="col-sm-9"><input type="text" name="userName" id="website-title"
                                                  value="${(user.name)!}"
                                                  class="col-xs-7 text_info" disabled="disabled">
                     </div>
@@ -58,53 +60,56 @@
                             </span>
                     </div>
                 </div>
-                    <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
-                                                   for="form-field-1">年龄： </label>
-                        <div class="col-sm-9"><span>${(user.age)!}</span></div>
-                    </div>
-                    <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
-                                                   for="form-field-1">移动电话： </label>
-                        <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="${(user.phone)!}"
-                                                     class="col-xs-7 text_info" disabled="disabled"></div>
-                    </div>
-                    <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
-                                                   for="form-field-1">电子邮箱： </label>
-                        <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="${(user.email)!}"
-                                                     class="col-xs-7 text_info" disabled="disabled"></div>
-                    </div>
-                    <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
-                                                   for="form-field-1">权限： </label>
-                        <div class="col-sm-9"><span>
+                <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">年龄： </label>
+                    <div class="col-sm-9"><span>${(user.age)!}</span></div>
+                </div>
+                <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">移动电话： </label>
+                    <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="${(user.phone)!}"
+                                                 class="col-xs-7 text_info" disabled="disabled"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">电子邮箱： </label>
+                    <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="${(user.email)!}"
+                                                 class="col-xs-7 text_info" disabled="disabled"></div>
+                </div>
+                <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">权限： </label>
+                    <div class="col-sm-9"><span>
                             <#if user.superAdmin>
                                 超级管理员
                             <#else>
                                 普通管理员
                             </#if>
                         </span></div>
-                    </div>
-                    <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
-                                                   for="form-field-1">注册时间： </label>
-                        <div class="col-sm-9"><span>${(user.createTime)?string("yyyy-MM-dd") !}</span></div>
-                    </div>
-                    <div class="Button_operation clearfix">
-                        <button onclick="modify();" class="btn btn-danger radius" type="submit">修改信息</button>
-                        <button onclick="save_info();" class="btn btn-success radius" type="button">保存修改</button>
-                    </div>
+                </div>
+                <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
+                                               for="form-field-1">注册时间： </label>
+                    <div class="col-sm-9"><span>${(user.createTime)?string("yyyy-MM-dd") !}</span></div>
+                </div>
+                <div class="Button_operation clearfix">
+                    <button onclick="modify();" class="btn btn-danger radius" type="submit">修改信息</button>
+                    <button onclick="save_info();" class="btn btn-success radius" type="button">保存修改</button>
                 </div>
             </div>
         </div>
     </div>
-    <!--修改个人信息-->
-    <div class="change_Pass_style" id="change_Pass">
+</div>
+<!--修改密码的弹出框-->
+<div class="change_Pass_style" id="change_Pass">
+    <form action="" id="changePasswordForm">
+        <input name="userAccount" value="${(user.account)!}" style="display:none"/>
         <ul class="xg_style">
-            <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="原密码" type="password" class=""
+            <li><label class="label_name">原&nbsp;&nbsp;密&nbsp;码</label><input name="oldPassword" type="password"
                                                                               id="password"></li>
-            <li><label class="label_name">新&nbsp;&nbsp;密&nbsp;码</label><input name="新密码" type="password" class=""
+            <li><label class="label_name">新&nbsp;&nbsp;密&nbsp;码</label><input name="newPassword" type="password"
                                                                               id="Nes_pas"></li>
-            <li><label class="label_name">确认密码</label><input name="再次确认密码" type="password" class="" id="c_mew_pas"></li>
+            <li><label class="label_name">确认密码</label><input name="" type="password"
+                                                             id="c_mew_pas"></li>
         </ul>
-        <!--       <div class="center"> <button class="btn btn-primary" type="button" id="submit">确认修改</button></div>-->
-    </div>
-    <script type="text/javascript" src="script/main/adminInfo.js"></script>
+    </form>
+</div>
+<script type="text/javascript" src="script/main/adminInfo.js"></script>
 </body>
 </html>

@@ -17,12 +17,12 @@ public class UserForm {
      * 账号，限制长度
      */
     @NotNull
-    @Size(min=6, max=10)
+    @Size(min=6, max=12)
     private String userAccount;
     /**
      * 密码，限制长度
      */
     @NotNull
-    @Size(min=2, max=16)
+    @Size(min=6, max=12)
     private String password;
 }
