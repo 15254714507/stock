@@ -27,6 +27,14 @@ public class UserCondition {
      */
     private String name;
     /**
+     * 性别，0 女  1 男
+     */
+    private Integer sex;
+    /**
+     * 年龄
+     */
+    private Integer age;
+    /**
      * 手机号
      * */
     private String phone;

@@ -25,6 +25,8 @@ public class UserServiceTest {
         user.setAccount(UUID.randomUUID().toString());
         user.setPassword(UUID.randomUUID().toString());
         user.setName(UUID.randomUUID().toString());
+        user.setSex(0);
+        user.setAge(16);
         user.setPhone(UUID.randomUUID().toString());
         user.setEmail(UUID.randomUUID().toString());
         user.setSuperAdmin(false);
@@ -72,6 +74,9 @@ public class UserServiceTest {
         Assert.assertNotNull(user.getPhone());
         Assert.assertNotNull(user.getEmail());
         Assert.assertFalse(user.getDelete());
+        Assert.assertEquals(16,user.getAge().intValue());
+        Assert.assertEquals(0,user.getSex().intValue());
+
     }
     @Test
     @Transactional

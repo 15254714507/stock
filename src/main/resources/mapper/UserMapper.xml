@@ -7,6 +7,8 @@
         <result column="account" property="account" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="TINYINT"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="is_super_admin" property="superAdmin" jdbcType="TINYINT"/>
@@ -23,6 +25,8 @@
             account,
             password,
             name,
+            sex,
+            age,
             phone,
             email,
             is_super_admin,
@@ -48,9 +52,11 @@
             account,
             password,
             name,
-            is_super_admin,
+            sex,
+            age,
             phone,
             email,
+            is_super_admin,
             create_user,
             update_user,
             create_time,
@@ -61,9 +67,11 @@
             #{account,jdbcType=VARCHAR},
             #{password,jdbcType=VARCHAR},
             #{name,jdbcType=VARCHAR},
-            #{superAdmin,jdbcType=TINYINT},
+            #{sex,jdbcType=TINYINT},
+            #{age,jdbcType=INTEGER},
             #{phone,jdbcType=VARCHAR},
             #{email,jdbcType=VARCHAR},
+            #{superAdmin,jdbcType=TINYINT},
             #{createUser,jdbcType=VARCHAR},
             #{updateUser,jdbcType=VARCHAR},
             #{createTime,jdbcType=TIMESTAMP},

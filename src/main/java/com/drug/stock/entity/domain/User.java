@@ -6,7 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *  账号信息
+ * 账号信息
+ *
  * @author lenovo
  */
 @Data
@@ -28,12 +29,20 @@ public class User implements Serializable {
      */
     private String name;
     /**
+     * 性别  0 女  1 男
+     */
+    private Integer sex;
+    /**
+     * 年龄
+     */
+    private Integer age;
+    /**
      * 手机号
-     * */
+     */
     private String phone;
     /**
      * 邮箱
-     * */
+     */
     private String email;
     /***
      * 是否是超级管理员
