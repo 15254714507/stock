@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
     <link href="assets/css/codemirror.css" rel="stylesheet">
     <!--[if IE 7]>
-    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css"/>
     <![endif]-->
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
     <![endif]-->
     <script src="assets/js/ace-extra.min.js"></script>
     <!--[if lt IE 9]>

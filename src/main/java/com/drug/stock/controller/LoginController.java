@@ -1,6 +1,5 @@
 package com.drug.stock.controller;
 
-import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
 import com.drug.stock.sumbit.UserForm;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Objects;
@@ -70,7 +68,7 @@ public class LoginController {
         }
         session.setAttribute(session.getId(), user.getAccount());
         model.addAttribute("userName", user.getName());
-        return "main";
+        return "main/main";
     }
 
     /**

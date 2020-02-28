@@ -7,14 +7,14 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
     <!--[if IE 7]>
-    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css"/>
     <![endif]-->
     <link rel="stylesheet" href="assets/css/ace.min.css" />
     <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
     <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="css/style.css"/>
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
     <![endif]-->
     <script src="assets/js/ace-extra.min.js"></script>
     <!--[if lt IE 9]>
@@ -216,10 +216,9 @@
                         <i class="icon-caret-down"></i>
                     </a>
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li><a href="javascript:void(0)" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-cog"></i>网站设置</a></li>
-                        <li><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
+                        <li><a href="javascript:void(0)" name="/gotoAdminInformation.do" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
                         <li class="divider"></li>
-                        <li><a href="javascript:ovid(0)" id="Exit_system"><i class="icon-off"></i>退出</a></li>
+                        <li><a href="javascript:void(0)" id="Exit_system"><i class="icon-off"></i>退出</a></li>
                     </ul>
                 </li>
                 <li class="purple">

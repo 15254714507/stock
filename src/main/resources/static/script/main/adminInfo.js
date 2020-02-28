@@ -1,0 +1,119 @@
+//按钮点击事件
+function modify() {
+    $('.text_info').attr("disabled", false);
+    $('.text_info').addClass("add");
+    $('#Personal').find('.xinxi').addClass("hover");
+    $('#Personal').find('.btn-success').css({'display': 'block'});
+};
+
+function save_info() {
+    var num = 0;
+    var str = "";
+    $(".xinxi input[type$='text']").each(function (n) {
+        if ($(this).val() == "") {
+
+            layer.alert(str += "" + $(this).attr("name") + "不能为空！\r\n", {
+                title: '提示框',
+                icon: 0,
+            });
+            num++;
+            return false;
+        }
+    });
+    if (num > 0) {
+        return false;
+    } else {
+
+        layer.alert('修改成功！', {
+            title: '提示框',
+            icon: 1,
+        });
+        $('#Personal').find('.xinxi').removeClass("hover");
+        $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
+        $('#Personal').find('.btn-success').css({'display': 'none'});
+        layer.close(index);
+
+    }
+};
+//初始化宽度、高度
+$(".admin_modify_style").height($(window).height());
+$(".recording_style").width($(window).width() - 400);
+//当文档窗口发生改变时 触发
+$(window).resize(function () {
+    $(".admin_modify_style").height($(window).height());
+    $(".recording_style").width($(window).width() - 400);
+});
+
+//修改密码
+function change_Password() {
+    layer.open({
+        type: 1,
+        title: '修改密码',
+        area: ['300px', '300px'],
+        shadeClose: true,
+        content: $('#change_Pass'),
+        btn: ['确认修改'],
+        yes: function (index, layero) {
+            if ($("#password").val() == "") {
+                layer.alert('原密码不能为空!', {
+                    title: '提示框',
+                    icon: 0,
+
+                });
+                return false;
+            }
+            if ($("#Nes_pas").val() == "") {
+                layer.alert('新密码不能为空!', {
+                    title: '提示框',
+                    icon: 0,
+
+                });
+                return false;
+            }
+
+            if ($("#c_mew_pas").val() == "") {
+                layer.alert('确认新密码不能为空!', {
+                    title: '提示框',
+                    icon: 0,
+
+                });
+                return false;
+            }
+            if (!$("#c_mew_pas").val || $("#c_mew_pas").val() != $("#Nes_pas").val()) {
+                layer.alert('密码不一致!', {
+                    title: '提示框',
+                    icon: 0,
+
+                });
+                return false;
+            } else {
+                layer.alert('修改成功！', {
+                    title: '提示框',
+                    icon: 1,
+                });
+                layer.close(index);
+            }
+        }
+    });
+}
+jQuery(function ($) {
+    var oTable1 = $('#sample-table').dataTable({
+        "aaSorting": [[1, "desc"]],//默认第几个排序
+        "bStateSave": true,//状态保存
+        "aoColumnDefs": [
+            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+            {"orderable": false, "aTargets": [0, 2, 3, 4, 5, 6]}// 制定列不参与排序
+        ]
+    });
+
+
+    $('table th input:checkbox').on('click', function () {
+        var that = this;
+        $(this).closest('table').find('tr > td:first-child input:checkbox')
+            .each(function () {
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
+            });
+
+    });
+});
