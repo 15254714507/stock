@@ -34,7 +34,7 @@
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">账号： </label>
                     <div class="col-sm-9">
-                        <input type="text" name="userAccount" class="col-xs-7" style="border: 0px;"
+                        <input type="text" id ="account" name="userAccount" class="col-xs-7" style="border: 0px;"
                                disabled="disabled" value="${(user.account)!}"/>
                         &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onclick="change_Password()"
                                              class="btn btn-warning btn-xs">修改密码</a>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">姓名： </label>
-                    <div class="col-sm-9"><input type="text" name="userName" id="website-title"
+                    <div class="col-sm-9"><input type="text" name="userName" id="name"
                                                  value="${(user.name)!}"
                                                  class="col-xs-7 text_info" disabled="disabled">
                     </div>
@@ -66,12 +66,12 @@
                 </div>
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">移动电话： </label>
-                    <div class="col-sm-9"><input type="text" name="移动电话" id="website-title" value="${(user.phone)!}"
+                    <div class="col-sm-9"><input type="text" name="phone" id="phone" value="${(user.phone)!}"
                                                  class="col-xs-7 text_info" disabled="disabled"></div>
                 </div>
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"
                                                for="form-field-1">电子邮箱： </label>
-                    <div class="col-sm-9"><input type="text" name="电子邮箱" id="website-title" value="${(user.email)!}"
+                    <div class="col-sm-9"><input type="text" name="email" id="email" value="${(user.email)!}"
                                                  class="col-xs-7 text_info" disabled="disabled"></div>
                 </div>
                 <div class="form-group"><label class="col-sm-3 control-label no-padding-right"

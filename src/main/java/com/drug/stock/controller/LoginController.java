@@ -2,7 +2,7 @@ package com.drug.stock.controller;
 
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
-import com.drug.stock.sumbit.UserForm;
+import com.drug.stock.sumbit.LoginForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,15 +39,15 @@ public class LoginController {
     }
 
     /**
-     *
+     * 登录验证
      * @param model
-     * @param userForm
+     * @param loginForm
      * @param bindingResult
      * @param session
      * @return
      */
     @PostMapping(value = "/Login.do")
-    public String login(Model model, @Valid UserForm userForm, BindingResult bindingResult, HttpSession session) {
+    public String login(Model model, @Valid LoginForm loginForm, BindingResult bindingResult, HttpSession session) {
         //表单验证信息是否符合要求
         if (bindingResult.hasErrors()) {
             model.addAttribute("systemError", SYSTEM_ERROR);
@@ -55,15 +55,15 @@ public class LoginController {
         }
         User user = null;
         try {
-            user = userService.getUserByAccount(userForm.getUserAccount());
+            user = userService.getUserByAccount(loginForm.getUserAccount());
         } catch (Exception e) {
-            log.error("登录获取user失败，account：{}", userForm.getUserAccount(), e);
+            log.error("登录获取user失败，account：{}", loginForm.getUserAccount(), e);
             model.addAttribute("systemError", SYSTEM_ERROR);
             return  "login";
         }
-        if (!validateUser(model, user, userForm)) {
-            model.addAttribute("account",userForm.getUserAccount());
-            model.addAttribute("password",userForm.getPassword());
+        if (!validateUser(model, user, loginForm)) {
+            model.addAttribute("account", loginForm.getUserAccount());
+            model.addAttribute("password", loginForm.getPassword());
             return "login";
         }
         session.setAttribute(session.getId(), user.getAccount());
@@ -76,15 +76,15 @@ public class LoginController {
      *
      * @param model
      * @param user     数据库中查出的user信息
-     * @param userForm 登录提交的表单
+     * @param loginForm 登录提交的表单
      * @return
      */
-    private Boolean validateUser(Model model, User user, UserForm userForm) {
+    private Boolean validateUser(Model model, User user, LoginForm loginForm) {
         if (user == null) {
             model.addAttribute("accountError", ACCOUNT_ERROR);
             return false;
         }
-        if (!Objects.equals(user.getPassword(), userForm.getPassword())) {
+        if (!Objects.equals(user.getPassword(), loginForm.getPassword())) {
             model.addAttribute("passwordError", PASSWORD_ERROR);
             return false;
         }

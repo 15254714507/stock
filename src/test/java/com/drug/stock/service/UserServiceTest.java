@@ -147,4 +147,28 @@ public class UserServiceTest {
         num = userService.countUserByAccount(account);
         Assert.assertEquals(1,num.intValue());
     }
+    @Test
+    @Transactional
+    public  void updateUserByAccount(){
+        User user = createUser();
+        user = addIdentity(user);
+        String account = user.getAccount();
+        Long num = userService.insertUser(user);
+        Assert.assertTrue(num > 0);
+        user = userService.getUserByAccount(account);
+        user.setPassword(UUID.randomUUID().toString());
+        user.setName(UUID.randomUUID().toString());
+        user.setPhone(UUID.randomUUID().toString());
+        user.setEmail(UUID.randomUUID().toString());
+        user.setSuperAdmin(true);
+        num = userService.updateUserByAccount(user);
+        Assert.assertTrue(num==1);
+        User user1 = userService.getUser(user.getId());
+        Assert.assertEquals(user.getEmail(),user1.getEmail());
+        Assert.assertEquals(user.getName(),user1.getName());
+        Assert.assertEquals(user.getPhone(),user1.getPhone());
+        Assert.assertTrue(user1.getSuperAdmin());
+        Assert.assertEquals(user.getAccount(),user1.getAccount());
+        Assert.assertEquals(user.getVersion() +1,user1.getVersion().intValue());
+    }
 }

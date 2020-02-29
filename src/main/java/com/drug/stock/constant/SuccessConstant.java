@@ -14,4 +14,9 @@ public interface SuccessConstant {
      * 修改密码成功的提示信息
      */
     String CHANGE_PASSWORD_SUCCESS = "修改密码成功";
+    /***
+     * 修改个人信息成功的提示信息
+     *
+     */
+    String CHANGE_INFORMATION_SUCCESS = "修改个人信息成功";
 }

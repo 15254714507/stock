@@ -7,33 +7,65 @@ function modify() {
 };
 
 function save_info() {
-    var num = 0;
-    var str = "";
-    $(".xinxi input[type$='text']").each(function (n) {
-        if ($(this).val() == "") {
+    let num = 0;
+    let str = "";
+    if ($("#name").val() === "") {
+        layer.alert('姓名不能为空!', {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    if ($("#phone").val() === "") {
+        layer.alert('手机号码不能为空!', {
+            title: '提示框',
+            icon: 0,
 
-            layer.alert(str += "" + $(this).attr("name") + "不能为空！\r\n", {
-                title: '提示框',
-                icon: 0,
-            });
-            num++;
-            return false;
+        });
+        return false;
+    }
+    if ($("#email").val() === "") {
+        layer.alert('邮箱地址不能为空!', {
+            title: '提示框',
+            icon: 0,
+        });
+        return false;
+    }
+    $.ajax({
+        url: "/changeInformation.do",
+        type: "POST",
+        cache: false,
+        data: {
+            userAccount: $("#account").val(),
+            name: $("#name").val(),
+            phone: $("#phone").val(),
+            email: $("#email").val()
+        },
+        dataType: "json",
+        success: function (result) {
+            if (result.code === 200) {
+                layer.alert(result.msg, {
+                    title: '成功框',
+                    icon: 1,
+                });
+            } else {
+                layer.alert(result.msg, {
+                    title: '错误框',
+                    icon: 2,
+                });
+            }
+
+        },
+        error: function () {
+            alert("连接服务器异常，请刷新后重试")
         }
     });
-    if (num > 0) {
-        return false;
-    } else {
+    $('#Personal').find('.xinxi').removeClass("hover");
+    $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
+    $('#Personal').find('.btn-success').css({'display': 'none'});
+    layer.close(index);
 
-        layer.alert('修改成功！', {
-            title: '提示框',
-            icon: 1,
-        });
-        $('#Personal').find('.xinxi').removeClass("hover");
-        $('#Personal').find('.text_info').removeClass("add").attr("disabled", true);
-        $('#Personal').find('.btn-success').css({'display': 'none'});
-        layer.close(index);
 
-    }
 };
 //初始化宽度、高度
 $(".admin_modify_style").height($(window).height());
@@ -96,7 +128,7 @@ function change_Password() {
                     success: function (result) {
                         if (result.code === 200) {
                             //顶层页面跳转到登录页重新登录
-                            top.location.href="/";
+                            top.location.href = "/";
                         } else {
                             layer.alert(result.msg, {
                                 title: '错误框',

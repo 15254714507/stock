@@ -38,6 +38,15 @@ public interface UserManager {
     public Long updateUser(User user) throws DaoException;
 
     /**
+     * 修改用户信息，通过account来做条件
+     *
+     * @param user
+     * @return
+     * @throws DaoException
+     */
+    public Long updateUserByAccount(User user) throws DaoException;
+
+    /**
      * 删除用户信息，逻辑删除
      *
      * @param id

@@ -2,27 +2,34 @@ package com.drug.stock.sumbit;
 
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
- * 登录提交的表单
+ * 添加/修改用户信息提交的表单
  *
  * @author lenovo
  */
 @Data
 public class UserForm {
     /**
-     * 账号，限制长度
+     * 账号
      */
     @NotNull
-    @Size(min=6, max=12)
     private String userAccount;
     /**
-     * 密码，限制长度
+     * 姓名
      */
     @NotNull
-    @Size(min=6, max=12)
-    private String password;
+    private String name;
+    /**
+     * 手机号
+     */
+    @NotNull
+    private String phone;
+    /***
+     * 邮箱
+     */
+    @NotNull
+    private String email;
+
 }

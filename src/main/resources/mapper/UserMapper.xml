@@ -105,6 +105,33 @@
         WHERE is_delete = 0
         and id = #{id,jdbcType=BIGINT};
     </update>
+    <update id="updateUserByAccount" parameterType="com.drug.stock.entity.domain.User">
+        update user
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="password !=null and password != '' ">
+                    password=#{password,jdbcType=VARCHAR},
+                </if>
+                <if test="name !=null and name != '' ">
+                    name=#{name,jdbcType=VARCHAR},
+                </if>
+                <if test="phone !=null and phone != '' ">
+                    phone=#{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="email !=null and email != '' ">
+                    email=#{email,jdbcType=VARCHAR},
+                </if>
+                <if test="superAdmin !=null">
+                    is_super_admin=#{superAdmin,jdbcType=TINYINT},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=#{version,jdbcType=INTEGER}+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and account = #{account,jdbcType=VARCHAR};
+    </update>
     <!--逻辑删除-->
     <update id="deleteUser" parameterType="Long">
         update user

@@ -36,6 +36,14 @@ public interface UserDao {
     public Long updateUser(User user);
 
     /**
+     * 修改用户信息，通过account来做条件
+     *
+     * @param user
+     * @return
+     */
+    public Long updateUserByAccount(User user);
+
+    /**
      * 删除用户信息，逻辑删除
      *
      * @param id

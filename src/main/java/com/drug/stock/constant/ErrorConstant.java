@@ -16,9 +16,9 @@ public interface ErrorConstant {
      */
     String CHANGE_PASSWORD_LENGTH_ERROR = "请确认密码的长度是否符合要求";
     /**
-     * 修改密码时如果请求修改的账号和当前账号不一致，返回此错误信息
+     * 当提交的表单和session中的account不一致时返回下列错误
      */
-    String CHANGE_PASSWORD_ACCOUNT_DIFFERENCE_ERROR = "要修改密码的账号不一致，请刷新后重试";
+    String ACCOUNT_DIFFERENCE_ERROR = "要修改账号出现错误，请刷新后重试";
     /***
      * 修改密码时没有在数据库中找到此账号
      */
@@ -32,4 +32,12 @@ public interface ErrorConstant {
      * 修改密码过程中如果出现问题就会提示
      */
     String CHANGE_PASSWORD_ERROR = "修改密码失败,请重新操作";
+    /**
+     * 当修改个人信息时提交表单不符合规则时
+     */
+    String CHANGE_INFORMATION_FORM_ERROR = "修改的信息不符合规则，请重新修改";
+    /**
+     * 修改数据库失败，返回结果为0
+     */
+    String CHANGE_INFORMATION_ERROR = "修改个人信息失败，请重新操作";
 }

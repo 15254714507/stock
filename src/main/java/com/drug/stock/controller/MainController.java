@@ -7,6 +7,7 @@ import com.drug.stock.constant.SystemConstant;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
 import com.drug.stock.sumbit.ChangePasswordForm;
+import com.drug.stock.sumbit.UserForm;
 import com.drug.stock.until.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,7 @@ public class MainController {
         if (result != null) {
             return result;
         }
-        User user = fillUser(changePasswordForm);
+        User user = fillUserByChangePasswordForm(changePasswordForm);
         try {
             Long isSuccess = userService.updateUser(user);
             if (isSuccess.intValue() != 1) {
@@ -110,7 +111,7 @@ public class MainController {
         }
         if (!Objects.equals(account, changePasswordForm.getUserAccount())) {
             log.error("请求修改密码的账号和实际修改密码的账号不一致，session 中的account:{},请求修改密码的account：{}", account, changePasswordForm.getUserAccount());
-            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.CHANGE_PASSWORD_ACCOUNT_DIFFERENCE_ERROR);
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_DIFFERENCE_ERROR);
         }
         User user = null;
         try {
@@ -137,10 +138,52 @@ public class MainController {
      * @param changePasswordForm
      * @return
      */
-    private User fillUser(ChangePasswordForm changePasswordForm) {
+    private User fillUserByChangePasswordForm(ChangePasswordForm changePasswordForm) {
         User user = new User();
         user.setId(changePasswordForm.getId());
         user.setPassword(changePasswordForm.getNewPassword());
+        return user;
+    }
+
+    @PostMapping(value = "/changeInformation.do")
+    @ResponseBody
+    public Result changeInformation(@Valid UserForm userForm, BindingResult bindingResult, HttpSession session) {
+        Result result = validateChangeInformation(userForm, bindingResult, (String) session.getAttribute(session.getId()));
+        if (result != null) {
+            return result;
+        }
+        User user = fillUserByUserForm(userForm);
+        try {
+            Long isSuccess = userService.updateUserByAccount(user);
+            if (isSuccess.intValue() != 1) {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.CHANGE_INFORMATION_ERROR);
+            } else {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.CHANGE_INFORMATION_SUCCESS);
+            }
+        } catch (Exception e) {
+            log.error("修改个人信息时发生异常 user:{}", JSON.toJSONString(user), e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
+
+    private Result validateChangeInformation(UserForm userForm, BindingResult bindingResult, String account) {
+        if (bindingResult.hasErrors()) {
+            log.warn("提交的修改个人信息的表单不符合规则 userForm {}", JSON.toJSONString(userForm));
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.CHANGE_INFORMATION_FORM_ERROR);
+        }
+        if (!Objects.equals(account, userForm.getUserAccount())) {
+            log.error("请求修改密码的账号和实际修改密码的账号不一致，session 中的account:{},请求修改信息的account：{}", account, userForm.getUserAccount());
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_DIFFERENCE_ERROR);
+        }
+        return null;
+    }
+
+    private User fillUserByUserForm(UserForm userForm) {
+        User user = new User();
+        user.setAccount(userForm.getUserAccount());
+        user.setPhone(userForm.getPhone());
+        user.setEmail(userForm.getEmail());
         return user;
     }
 }

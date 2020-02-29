@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Long updateUserByAccount(User user) throws DaoException {
+        return userManager.updateUserByAccount(user);
+    }
+
+    @Override
     public Long deleteUser(Long id) throws DaoException {
         return userManager.deleteUser(id);
     }

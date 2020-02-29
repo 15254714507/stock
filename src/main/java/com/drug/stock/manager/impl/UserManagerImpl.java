@@ -68,6 +68,21 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public Long updateUserByAccount(User user) throws DaoException {
+        if (getUserByAccount(user.getAccount()) == null) {
+            throw new DaoException("修改的用户信息不存在 user:" + JSON.toJSONString(user));
+        }
+        user.setUpdateTime(TimestampFactory.getTimestamp());
+        try {
+            return userDao.updateUserByAccount(user);
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long deleteUser(Long id) throws DaoException {
         if (getUser(id) == null) {
             throw new DaoException("删除的用户不存在 id：" + id);
