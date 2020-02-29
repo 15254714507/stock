@@ -1,15 +1,17 @@
 package com.drug.stock.entity.condition;
 
+import com.drug.stock.entity.page.BasePage;
 import lombok.Data;
 
 import java.util.Date;
 
 /**
  * 账号的搜索条件
+ *
  * @author lenovo
  */
 @Data
-public class UserCondition {
+public class UserCondition extends BasePage {
     /**
      * 主键
      */
@@ -36,11 +38,11 @@ public class UserCondition {
     private Integer age;
     /**
      * 手机号
-     * */
+     */
     private String phone;
     /**
      * 邮箱
-     * */
+     */
     private String email;
     /***
      * 是否是超级管理员

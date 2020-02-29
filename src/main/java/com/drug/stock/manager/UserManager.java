@@ -3,6 +3,7 @@ package com.drug.stock.manager;
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -81,4 +82,13 @@ public interface UserManager {
      * @throws DaoException
      */
     public Long countUserByAccount(String account) throws DaoException;
+
+    /**
+     * 获得User的分页数据
+     *
+     * @param userCondition
+     * @return
+     * @throws DaoException
+     */
+    public Page<User> findUserPage(UserCondition userCondition) throws DaoException;
 }

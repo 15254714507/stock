@@ -7,6 +7,8 @@ import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.UserManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,4 +123,20 @@ public class UserManagerImpl implements UserManager {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public Page<User> findUserPage(UserCondition userCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，实现了limit,必须加判断
+        if (userCondition.getPage() != null && userCondition.getRows() != null) {
+            PageHelper.startPage(userCondition.getPage(), userCondition.getRows());
+        }
+
+        try {
+            return userDao.findUserPage(userCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
+
+    }
+
 }

@@ -2,6 +2,7 @@ package com.drug.stock.service;
 
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
+import com.github.pagehelper.Page;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,6 @@ public class UserServiceTest {
     }
 
     @Test
-    @Transactional
     public void insertUserTest() {
         User user = createUser();
         user = addIdentity(user);
@@ -57,9 +57,10 @@ public class UserServiceTest {
         Assert.assertFalse(user.getDelete());
         Assert.assertEquals(1, user.getVersion().intValue());
     }
+
     @Test
     @Transactional
-    public void getUserTest(){
+    public void getUserTest() {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
@@ -74,13 +75,14 @@ public class UserServiceTest {
         Assert.assertNotNull(user.getPhone());
         Assert.assertNotNull(user.getEmail());
         Assert.assertFalse(user.getDelete());
-        Assert.assertEquals(16,user.getAge().intValue());
-        Assert.assertEquals(0,user.getSex().intValue());
+        Assert.assertEquals(16, user.getAge().intValue());
+        Assert.assertEquals(0, user.getSex().intValue());
 
     }
+
     @Test
     @Transactional
-    public void updateUserTest(){
+    public void updateUserTest() {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
@@ -93,18 +95,19 @@ public class UserServiceTest {
         user.setEmail(UUID.randomUUID().toString());
         user.setSuperAdmin(true);
         num = userService.updateUser(user);
-        Assert.assertTrue(num==1);
+        Assert.assertTrue(num == 1);
         User user1 = userService.getUser(user.getId());
-        Assert.assertEquals(user.getEmail(),user1.getEmail());
-        Assert.assertEquals(user.getName(),user1.getName());
-        Assert.assertEquals(user.getPhone(),user1.getPhone());
+        Assert.assertEquals(user.getEmail(), user1.getEmail());
+        Assert.assertEquals(user.getName(), user1.getName());
+        Assert.assertEquals(user.getPhone(), user1.getPhone());
         Assert.assertTrue(user1.getSuperAdmin());
-        Assert.assertEquals(user.getAccount(),user1.getAccount());
-        Assert.assertEquals(user.getVersion() +1,user1.getVersion().intValue());
+        Assert.assertEquals(user.getAccount(), user1.getAccount());
+        Assert.assertEquals(user.getVersion() + 1, user1.getVersion().intValue());
     }
+
     @Test
     @Transactional
-    public void deleteUserTest(){
+    public void deleteUserTest() {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
@@ -112,13 +115,14 @@ public class UserServiceTest {
         Assert.assertTrue(num > 0);
         user = userService.getUserByAccount(account);
         num = userService.deleteUser(user.getId());
-        Assert.assertTrue(num>0);
+        Assert.assertTrue(num > 0);
         user = userService.getUserByAccount(account);
         Assert.assertNull(user);
     }
+
     @Test
     @Transactional
-    public void listUserTest(){
+    public void listUserTest() {
         User user = createUser();
         user = addIdentity(user);
 
@@ -130,26 +134,28 @@ public class UserServiceTest {
         String account = user.getAccount();
         Long num = userService.insertUser(user);
 
-        List<User> userList =userService.listUser(userCondition);
+        List<User> userList = userService.listUser(userCondition);
         Assert.assertNotNull(userList);
-        Assert.assertTrue(userList.size()==1);
-        Assert.assertEquals(user.getAccount(),userList.get(0).getAccount());
+        Assert.assertTrue(userList.size() == 1);
+        Assert.assertEquals(user.getAccount(), userList.get(0).getAccount());
 
     }
+
     @Test
     @Transactional
-    public  void countUserByAccount(){
+    public void countUserByAccount() {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
         Long num = userService.insertUser(user);
         Assert.assertTrue(num > 0);
         num = userService.countUserByAccount(account);
-        Assert.assertEquals(1,num.intValue());
+        Assert.assertEquals(1, num.intValue());
     }
+
     @Test
     @Transactional
-    public  void updateUserByAccount(){
+    public void updateUserByAccount() {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
@@ -162,13 +168,30 @@ public class UserServiceTest {
         user.setEmail(UUID.randomUUID().toString());
         user.setSuperAdmin(true);
         num = userService.updateUserByAccount(user);
-        Assert.assertTrue(num==1);
+        Assert.assertTrue(num == 1);
         User user1 = userService.getUser(user.getId());
-        Assert.assertEquals(user.getEmail(),user1.getEmail());
-        Assert.assertEquals(user.getName(),user1.getName());
-        Assert.assertEquals(user.getPhone(),user1.getPhone());
+        Assert.assertEquals(user.getEmail(), user1.getEmail());
+        Assert.assertEquals(user.getName(), user1.getName());
+        Assert.assertEquals(user.getPhone(), user1.getPhone());
         Assert.assertTrue(user1.getSuperAdmin());
-        Assert.assertEquals(user.getAccount(),user1.getAccount());
-        Assert.assertEquals(user.getVersion() +1,user1.getVersion().intValue());
+        Assert.assertEquals(user.getAccount(), user1.getAccount());
+        Assert.assertEquals(user.getVersion() + 1, user1.getVersion().intValue());
+    }
+
+    @Test
+    @Transactional
+    public void findUserPage() {
+        for (int i = 0; i < 20; i++) {
+            User user = createUser();
+            Long isSuc = userService.insertUser(user);
+            Assert.assertEquals(1, isSuc.intValue());
+        }
+        UserCondition userCondition = new UserCondition();
+        Page<User> userPage = userService.findUserPage(userCondition);
+        List<User> userList=userPage.getResult();
+
+        Assert.assertEquals(10,userList.size());
+        Assert.assertEquals(1,userPage.getPageNum());
+
     }
 }
