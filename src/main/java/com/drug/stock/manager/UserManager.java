@@ -91,4 +91,13 @@ public interface UserManager {
      * @throws DaoException
      */
     public Page<User> findUserPage(UserCondition userCondition) throws DaoException;
+
+    /**
+     * 获得不同身份的数量
+     *
+     * @param superAdmin
+     * @return
+     * @throws DaoException
+     */
+    public Long countUserBySuperAdmin(Boolean superAdmin) throws DaoException;
 }

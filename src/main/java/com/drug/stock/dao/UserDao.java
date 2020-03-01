@@ -83,4 +83,11 @@ public interface UserDao {
      * @return
      */
     public Page<User> findUserPage(UserCondition userCondition);
+
+    /**
+     * 获得不同身份的数量
+     * @param superAdmin
+     * @return
+     */
+    public Long countUserBySuperAdmin(Boolean superAdmin);
 }

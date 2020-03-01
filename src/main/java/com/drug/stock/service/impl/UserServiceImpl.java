@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
     public Page<User> findUserPage(UserCondition userCondition) throws DaoException {
         return userManager.findUserPage(userCondition);
     }
+
+    @Override
+    public Long countUserBySuperAdmin(Boolean superAdmin) throws DaoException {
+        return userManager.countUserBySuperAdmin(superAdmin);
+    }
 }

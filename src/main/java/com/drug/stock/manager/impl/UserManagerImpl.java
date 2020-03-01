@@ -130,13 +130,21 @@ public class UserManagerImpl implements UserManager {
         if (userCondition.getPage() != null && userCondition.getRows() != null) {
             PageHelper.startPage(userCondition.getPage(), userCondition.getRows());
         }
-
         try {
             return userDao.findUserPage(userCondition);
         } catch (Exception e) {
             throw new DaoException(e);
         }
 
+    }
+
+    @Override
+    public Long countUserBySuperAdmin(Boolean superAdmin) throws DaoException {
+        try {
+            return userDao.countUserBySuperAdmin(superAdmin);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
     }
 
 }

@@ -184,4 +184,11 @@
             and is_super_admin=#{superAdmin,jdbcType=TINYINT}
         </if>
     </select>
+    <select id="countUserBySuperAdmin" parameterType="Boolean" resultType="Long">
+        select
+        count(account)
+        from user
+        where is_delete =0
+        and is_super_admin=#{superAdmin,jdbcType=TINYINT}
+    </select>
 </mapper>
