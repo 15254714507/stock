@@ -187,11 +187,17 @@ public class UserServiceTest {
             Assert.assertEquals(1, isSuc.intValue());
         }
         UserCondition userCondition = new UserCondition();
+        userCondition.setPage(2);
         Page<User> userPage = userService.findUserPage(userCondition);
         List<User> userList=userPage.getResult();
-
+        //这一页有多少数据
         Assert.assertEquals(10,userList.size());
-        Assert.assertEquals(1,userPage.getPageNum());
+        //当前页是第几页
+        Assert.assertEquals(2,userPage.getPageNum());
+        //这一页最后一个数据的序号，如果第一个，最后一个序号为10，如果是第二页序号为20,和 getStartRow()相反
+        Assert.assertEquals(20,userPage.getEndRow());
+        //总页数
+        Assert.assertEquals(4,userPage.getPages());
 
     }
 }
