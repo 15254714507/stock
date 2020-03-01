@@ -3,6 +3,7 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -181,23 +182,23 @@ public class UserServiceTest {
     @Test
     @Transactional
     public void findUserPage() {
-//        for (int i = 0; i < 20; i++) {
-//            User user = createUser();
-//            Long isSuc = userService.insertUser(user);
-//            Assert.assertEquals(1, isSuc.intValue());
-//        }
-//        UserCondition userCondition = new UserCondition();
-//        userCondition.setPage(2);
-//        Page<User> userPage = userService.findUserPage(userCondition);
-//        List<User> userList = userPage.getResult();
-//        //这一页有多少数据
-//        Assert.assertEquals(10, userList.size());
-//        //当前页是第几页
-//        Assert.assertEquals(2, userPage.getPageNum());
-//        //这一页最后一个数据的序号，如果第一个，最后一个序号为10，如果是第二页序号为20,和 getStartRow()相反
-//        Assert.assertEquals(20, userPage.getEndRow());
-//        //总页数
-//        Assert.assertEquals(4, userPage.getPages());
+        for (int i = 0; i < 20; i++) {
+            User user = createUser();
+            Long isSuc = userService.insertUser(user);
+            Assert.assertEquals(1, isSuc.intValue());
+        }
+        UserCondition userCondition = new UserCondition();
+        userCondition.setPage(2);
+        PageInfo<User> userPage = userService.findUserPage(userCondition);
+        List<User> userList = userPage.getList();
+        //这一页有多少数据
+        Assert.assertEquals(10, userList.size());
+        //当前页是第几页
+        Assert.assertEquals(2, userPage.getPageNum());
+        //这一页最后一个数据的序号，如果第一个，最后一个序号为10，如果是第二页序号为20,和 getStartRow()相反
+        Assert.assertEquals(20, userPage.getEndRow());
+        //总页数
+        Assert.assertEquals(4, userPage.getPages());
 
     }
 
