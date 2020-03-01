@@ -4,6 +4,7 @@ import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -90,7 +91,7 @@ public interface UserService {
      * @return
      * @throws DaoException
      */
-    public Page<User> findUserPage(UserCondition userCondition) throws DaoException;
+    public PageInfo<User> findUserPage(UserCondition userCondition) throws DaoException;
 
     /**
      * 获得不同身份的数量

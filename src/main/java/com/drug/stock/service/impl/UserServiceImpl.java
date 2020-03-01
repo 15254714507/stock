@@ -7,6 +7,7 @@ import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.UserManager;
 import com.drug.stock.service.UserService;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findUserPage(UserCondition userCondition) throws DaoException {
+    public PageInfo<User> findUserPage(UserCondition userCondition) throws DaoException {
         return userManager.findUserPage(userCondition);
     }
 

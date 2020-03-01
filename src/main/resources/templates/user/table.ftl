@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <#list page as user>
+    <#list page.list as user>
         <tr>
             <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
             <td>0</td>

@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +47,7 @@ public class UserController {
     public String getUserTable(Model model) {
         UserCondition userCondition = new UserCondition();
         try {
-            Page<User> page = userService.findUserPage(userCondition);
+            PageInfo<User> page = userService.findUserPage(userCondition);
             model.addAttribute("page", page);
         } catch (Exception e) {
             log.error("获期用户信息列表出现错误", e);

@@ -169,21 +169,6 @@
         where is_delete =0
         and account=#{account,jdbcType=VARCHAR}
     </select>
-    <select id="findUserPage" resultMap="BaseResultMap" parameterType="com.drug.stock.entity.condition.UserCondition">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        where is_delete =0
-        <if test="account !=null and account != '' ">
-            and account=#{account,jdbcType=VARCHAR}
-        </if>
-        <if test="name !=null and name != '' ">
-            and name=#{name,jdbcType=VARCHAR}
-        </if>
-        <if test="superAdmin !=null">
-            and is_super_admin=#{superAdmin,jdbcType=TINYINT}
-        </if>
-    </select>
     <select id="countUserBySuperAdmin" parameterType="Boolean" resultType="Long">
         select
         count(account)

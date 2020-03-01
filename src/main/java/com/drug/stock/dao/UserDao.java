@@ -3,6 +3,7 @@ package com.drug.stock.dao;
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -77,15 +78,8 @@ public interface UserDao {
     public Long countUserByAccount(String account);
 
     /**
-     * 获得用户的分页数据
-     *
-     * @param userCondition
-     * @return
-     */
-    public Page<User> findUserPage(UserCondition userCondition);
-
-    /**
      * 获得不同身份的数量
+     *
      * @param superAdmin
      * @return
      */
