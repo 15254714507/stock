@@ -127,8 +127,15 @@ function change_Password() {
                     dataType: "json",
                     success: function (result) {
                         if (result.code === 200) {
-                            //顶层页面跳转到登录页重新登录
-                            top.location.href = "/";
+                            layer.alert("密码更新成功，需要重新登录", {
+                                title: '成功框',
+                                icon: 1
+                            }, function(){
+                                //顶层页面跳转到登录页重新登录
+                                top.location.href = "/";
+                            });
+
+
                         } else {
                             layer.alert(result.msg, {
                                 title: '错误框',
