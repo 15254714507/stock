@@ -31,17 +31,13 @@ function checkLength(which) {
 //初始化宽度、高度
 $(".widget-box").height($(window).height() - 215);
 $(".table_menu_list").width($(window).width() - 260);
-$(".table_menu_list").height($(window).height() - 215);
+$(".table_menu_list").height($(window).height()-68);
 //当文档窗口发生改变时 触发
 $(window).resize(function () {
     $(".widget-box").height($(window).height() - 215);
     $(".table_menu_list").width($(window).width() - 260);
-    $(".table_menu_list").height($(window).height() - 215);
+    $(".table_menu_list").height($(window).height()-68);
 })
-laydate({
-    elem: '#start',
-    event: 'focus'
-});
 
 /*产品-编辑*/
 function member_edit(title, url, id, w, h) {

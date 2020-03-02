@@ -31,26 +31,14 @@
 <div class="page-content clearfix">
     <div class="administrator">
         <div class="d_Confirm_Order_style">
-            <div class="search_style">
-
-                <ul class="search_content clearfix">
-                    <li><label class="l_f">管理员名称</label><input name="" type="text" class="text_add" placeholder=""
-                                                               style=" width:400px"/></li>
-                    <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start"
-                                                              style=" margin-left:10px;"></li>
-                    <li style="width:90px;">
-                        <button type="button" class="btn_search"><i class="fa fa-search"></i>查询</button>
-                    </li>
-                </ul>
-            </div>
             <!--操作-->
-            <div class="border clearfix">
+      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:void(0)" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加管理员</a>
         <a href="javascript:void(0)" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
        </span>
                 <span class="r_f">共：<b>${(adminNum+superAdminNum)!}</b>人</span>
-            </div>
+        </div>
             <!--管理员列表-->
             <div class="clearfix administrator_style" id="administrator">
                 <div class="left_style">
@@ -74,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="table_menu_list" id="testIframe">
+                <div class="table_menu_list" style="height: 600px" id="testIframe">
                     <!--这里是load的table.ftl里的表格-->
                 </div>
             </div>

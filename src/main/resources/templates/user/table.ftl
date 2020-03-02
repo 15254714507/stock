@@ -4,13 +4,13 @@
         <th width="25px"><label><input type="checkbox" class="ace"><span class="lbl"></span></label>
         </th>
         <th width="80px">序号</th>
-        <th width="250px">账号</th>
-        <th width="250px">姓名</th>
-        <th width="100px">手机</th>
-        <th width="100px">邮箱</th>
-        <th width="100px">角色</th>
-        <th width="180px">添加时间</th>
-        <th width="200px">操作</th>
+        <th width="100px">账号</th>
+        <th width="100px">姓名</th>
+        <th width="150px">手机</th>
+        <th width="150px">邮箱</th>
+        <th width="150px">角色</th>
+        <th width="150px">添加时间</th>
+        <th width="150px">操作</th>
     </tr>
     </thead>
     <tbody>

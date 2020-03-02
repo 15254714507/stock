@@ -32,7 +32,7 @@ function saveClick() {
                     title: '成功框',
                     icon: 1
                 }, function(){
-                    parent.layer.closeAll();
+                    $("#testIframe").load("/gotoUserTable.do");
                 });
             } else {
                 layer.alert(result.msg, {
