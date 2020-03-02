@@ -14,15 +14,16 @@
     </tr>
     </thead>
     <tbody>
+    <#assign num = page.startRow>
     <#list page.list as user>
         <tr>
             <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-            <td>0</td>
+            <td>${(num)!}</td>
+            <#assign num = num+1>
             <td>${(user.account)!}</td>
             <td>${(user.name)!}</td>
             <td>${(user.phone)!}</td>
             <td>${(user.email)!}</td>
-            <td>${(user.phone)!}</td>
             <td>
                 <#if user.superAdmin>
                     超级管理员
@@ -42,3 +43,4 @@
     </#list>
     </tbody>
 </table>
+<script type="text/javascript" src="script/user/table.js"></script>

@@ -1,18 +1,28 @@
 package com.drug.stock.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.drug.stock.constant.ErrorConstant;
+import com.drug.stock.constant.SuccessConstant;
+import com.drug.stock.constant.SystemConstant;
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
+import com.drug.stock.sumbit.UserForm;
+import com.drug.stock.until.Result;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * @author lenovo
@@ -54,5 +64,98 @@ public class UserController {
             return "error/404";
         }
         return "user/table";
+    }
+
+    /***
+     * 跳转到添加或者修改管理员页面
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/gotoAddAdmin.do")
+    public String gotoAddAdmin(Model model) {
+        try {
+            String a = "";
+        } catch (Exception e) {
+            log.error("跳转到添加管理员页面出错", e);
+            return "error/404";
+        }
+        return "user/addAdmin";
+    }
+
+    /**
+     * @param userForm
+     * @param bindingResult
+     * @param session
+     * @return
+     */
+    @PostMapping(value = "/saveUser.do")
+    @ResponseBody
+    public Result saveUser(@Valid UserForm userForm, BindingResult bindingResult, HttpSession session) {
+        Result result = validateUserForm(userForm, bindingResult);
+        if (result != null) {
+            return result;
+        }
+        User user = fillUser(userForm, (String) session.getAttribute(session.getId()));
+        try {
+            Long isSuc = userService.insertUser(user);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.INSERT_USER_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_EXIST_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("添加用户时发生异常 user:{}", JSON.toJSONString(user), e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
+
+    /**
+     * 校验提交的用户表单不能为空
+     *
+     * @param userForm
+     * @param bindingResult
+     * @return
+     */
+    private Result validateUserForm(@Valid UserForm userForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.INSERT_USER_FORM_ERROR);
+        }
+        //对userForm中没有加@notNull的加校验，不能为空
+        if (userForm.getPassword() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.INSERT_USER_FORM_ERROR);
+        }
+        if (userForm.getAge() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.INSERT_USER_FORM_ERROR);
+        }
+        if (userForm.getSex() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.INSERT_USER_FORM_ERROR);
+        }
+        if (userForm.getSuperAdmin() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.INSERT_USER_FORM_ERROR);
+        }
+        return null;
+    }
+
+    /**
+     * 组装user
+     *
+     * @param userForm
+     * @param createUser
+     * @return
+     */
+    private User fillUser(UserForm userForm, String createUser) {
+        User user = new User();
+        user.setAccount(userForm.getUserAccount());
+        user.setPassword(userForm.getPassword());
+        user.setName(userForm.getName());
+        user.setAge(userForm.getAge());
+        user.setSex(userForm.getSex());
+        user.setPhone(userForm.getPhone());
+        user.setEmail(userForm.getEmail());
+        user.setSuperAdmin(userForm.getSuperAdmin());
+        user.setCreateUser(createUser);
+        user.setUpdateUser(createUser);
+        return user;
     }
 }

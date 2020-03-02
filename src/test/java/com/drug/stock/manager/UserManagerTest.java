@@ -1,8 +1,8 @@
-package com.drug.stock.service;
+package com.drug.stock.manager;
 
 import com.drug.stock.entity.condition.UserCondition;
 import com.drug.stock.entity.domain.User;
-import com.github.pagehelper.Page;
+import com.drug.stock.manager.UserManager;
 import com.github.pagehelper.PageInfo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,15 +12,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTest {
+public class UserManagerTest {
     @Resource
-    UserService userService;
+    UserManager userManager;
 
     private User createUser() {
         User user = new User();
@@ -46,9 +45,9 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long id = userService.insertUser(user);
+        Long id = userManager.insertUser(user);
         Assert.assertTrue(id > 0);
-        user = userService.getUserByAccount(account);
+        user = userManager.getUserByAccount(account);
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getAccount());
         Assert.assertNotNull(user.getPassword());
@@ -65,10 +64,10 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long id = userService.insertUser(user);
+        Long id = userManager.insertUser(user);
         Assert.assertTrue(id > 0);
-        user = userService.getUserByAccount(account);
-        user = userService.getUser(user.getId());
+        user = userManager.getUserByAccount(account);
+        user = userManager.getUser(user.getId());
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getAccount());
         Assert.assertNotNull(user.getPassword());
@@ -87,17 +86,17 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long num = userService.insertUser(user);
+        Long num = userManager.insertUser(user);
         Assert.assertTrue(num > 0);
-        user = userService.getUserByAccount(account);
+        user = userManager.getUserByAccount(account);
         user.setPassword(UUID.randomUUID().toString());
         user.setName(UUID.randomUUID().toString());
         user.setPhone(UUID.randomUUID().toString());
         user.setEmail(UUID.randomUUID().toString());
         user.setSuperAdmin(true);
-        num = userService.updateUser(user);
+        num = userManager.updateUser(user);
         Assert.assertTrue(num == 1);
-        User user1 = userService.getUser(user.getId());
+        User user1 = userManager.getUser(user.getId());
         Assert.assertEquals(user.getEmail(), user1.getEmail());
         Assert.assertEquals(user.getName(), user1.getName());
         Assert.assertEquals(user.getPhone(), user1.getPhone());
@@ -112,12 +111,12 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long num = userService.insertUser(user);
+        Long num = userManager.insertUser(user);
         Assert.assertTrue(num > 0);
-        user = userService.getUserByAccount(account);
-        num = userService.deleteUser(user.getId());
+        user = userManager.getUserByAccount(account);
+        num = userManager.deleteUser(user.getId());
         Assert.assertTrue(num > 0);
-        user = userService.getUserByAccount(account);
+        user = userManager.getUserByAccount(account);
         Assert.assertNull(user);
     }
 
@@ -133,9 +132,9 @@ public class UserServiceTest {
         userCondition.setSuperAdmin(user.getSuperAdmin());
 
         String account = user.getAccount();
-        Long num = userService.insertUser(user);
+        Long num = userManager.insertUser(user);
 
-        List<User> userList = userService.listUser(userCondition);
+        List<User> userList = userManager.listUser(userCondition);
         Assert.assertNotNull(userList);
         Assert.assertTrue(userList.size() == 1);
         Assert.assertEquals(user.getAccount(), userList.get(0).getAccount());
@@ -148,9 +147,9 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long num = userService.insertUser(user);
+        Long num = userManager.insertUser(user);
         Assert.assertTrue(num > 0);
-        num = userService.countUserByAccount(account);
+        num = userManager.countUserByAccount(account);
         Assert.assertEquals(1, num.intValue());
     }
 
@@ -160,17 +159,17 @@ public class UserServiceTest {
         User user = createUser();
         user = addIdentity(user);
         String account = user.getAccount();
-        Long num = userService.insertUser(user);
+        Long num = userManager.insertUser(user);
         Assert.assertTrue(num > 0);
-        user = userService.getUserByAccount(account);
+        user = userManager.getUserByAccount(account);
         user.setPassword(UUID.randomUUID().toString());
         user.setName(UUID.randomUUID().toString());
         user.setPhone(UUID.randomUUID().toString());
         user.setEmail(UUID.randomUUID().toString());
         user.setSuperAdmin(true);
-        num = userService.updateUserByAccount(user);
+        num = userManager.updateUserByAccount(user);
         Assert.assertTrue(num == 1);
-        User user1 = userService.getUser(user.getId());
+        User user1 = userManager.getUser(user.getId());
         Assert.assertEquals(user.getEmail(), user1.getEmail());
         Assert.assertEquals(user.getName(), user1.getName());
         Assert.assertEquals(user.getPhone(), user1.getPhone());
@@ -184,12 +183,12 @@ public class UserServiceTest {
     public void findUserPage() {
         for (int i = 0; i < 20; i++) {
             User user = createUser();
-            Long isSuc = userService.insertUser(user);
+            Long isSuc = userManager.insertUser(user);
             Assert.assertEquals(1, isSuc.intValue());
         }
         UserCondition userCondition = new UserCondition();
         userCondition.setPage(2);
-        PageInfo<User> userPage = userService.findUserPage(userCondition);
+        PageInfo<User> userPage = userManager.findUserPage(userCondition);
         List<User> userList = userPage.getList();
         //这一页有多少数据
         Assert.assertEquals(10, userList.size());
@@ -205,9 +204,9 @@ public class UserServiceTest {
     @Test
     @Transactional
     public void countUserBySuperAdmin() {
-        Long num = userService.countUserBySuperAdmin(true);
+        Long num = userManager.countUserBySuperAdmin(true);
         Assert.assertTrue(num.intValue()==2);
-        num = userService.countUserBySuperAdmin(false);
+        num = userManager.countUserBySuperAdmin(false);
         Assert.assertTrue(num.intValue()>0);
     }
 }

@@ -40,4 +40,12 @@ public interface ErrorConstant {
      * 修改数据库失败，返回结果为0
      */
     String CHANGE_INFORMATION_ERROR = "修改个人信息失败，请重新操作";
+    /**
+     * 添加user时对提交的表单进行校验不符合规则的返回错误信息
+     */
+    String INSERT_USER_FORM_ERROR = "添加用户的信息填写错误，请认真填写";
+    /**
+     * 添加失败，账号已存在
+     */
+    String ACCOUNT_EXIST_ERROR = "添加失败，请确认账号是否唯一";
 }

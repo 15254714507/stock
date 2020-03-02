@@ -16,7 +16,7 @@ public class BasePage {
      */
     private Integer page = 1;
     /**
-     * 每一页有多少条数据，默认10条
+     * 每一页有多少条数据，设置为最大值，所有数据都放前端，让前端分页去
      */
-    private Integer rows = 10;
+    private Integer rows = Integer.MAX_VALUE;
 }

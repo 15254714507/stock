@@ -19,4 +19,8 @@ public interface SuccessConstant {
      *
      */
     String CHANGE_INFORMATION_SUCCESS = "修改个人信息成功";
+    /**
+     *
+     */
+    String INSERT_USER_SUCCESS = "添加用户成功";
 }

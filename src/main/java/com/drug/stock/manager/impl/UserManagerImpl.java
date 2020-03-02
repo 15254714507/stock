@@ -43,7 +43,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional(rollbackFor = Exception.class)
     public Long insertUser(User user) throws DaoException {
         if (countUserByAccount(user.getAccount()) > 0) {
-            throw new DaoException("新添加用户已存在 user：" + JSON.toJSONString(user));
+            log.error("新添加用户已存在 user {}", JSON.toJSONString(user));
+            return 0L;
         }
         user.setCreateTime(TimestampFactory.getTimestamp());
         user.setUpdateTime(user.getCreateTime());
@@ -59,7 +60,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updateUser(User user) throws DaoException {
         if (getUser(user.getId()) == null) {
-            throw new DaoException("修改的用户信息不存在 user:" + JSON.toJSONString(user));
+            log.error("修改的用户信息不存在 user{}", JSON.toJSONString(user));
+            return 0L;
         }
         user.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -74,7 +76,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updateUserByAccount(User user) throws DaoException {
         if (getUserByAccount(user.getAccount()) == null) {
-            throw new DaoException("修改的用户信息不存在 user:" + JSON.toJSONString(user));
+            log.error("修改的用户信息不存在 user{}", JSON.toJSONString(user));
+            return 0L;
         }
         user.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -89,7 +92,8 @@ public class UserManagerImpl implements UserManager {
     @Transactional(rollbackFor = Exception.class)
     public Long deleteUser(Long id) throws DaoException {
         if (getUser(id) == null) {
-            throw new DaoException("删除的用户不存在 id：" + id);
+            log.error("删除的用户不存在 id{}", id);
+            return 0L;
         }
         try {
             return userDao.deleteUser(id);
