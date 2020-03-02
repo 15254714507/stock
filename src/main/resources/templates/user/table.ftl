@@ -9,7 +9,7 @@
         <th width="100px">手机</th>
         <th width="100px">邮箱</th>
         <th width="100px">角色</th>
-        <th width="180px">加入时间</th>
+        <th width="180px">添加时间</th>
         <th width="200px">操作</th>
     </tr>
     </thead>
@@ -31,7 +31,7 @@
                     普通管理员
                 </#if>
             </td>
-            <td>${(user.createTime)?string("yyyy-MM-dd")!}</td>
+            <td>${(user.createTime)?string("yyyy-MM-dd HH:mm")!}</td>
             <td class="td-manage">
                 <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')"
                    href="javascript:;" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>
