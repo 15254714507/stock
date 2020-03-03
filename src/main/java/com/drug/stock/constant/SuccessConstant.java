@@ -27,4 +27,8 @@ public interface SuccessConstant {
      * 删除用户成功的提示信息
      */
     String DELETE_USER_SUCCESS = "删除用户成功";
+    /**
+     * 添加药品成功的提示信息
+     */
+    String INSERT_DRUG_SUCCESS = "添加药品成功";
 }

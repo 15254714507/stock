@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.Drug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DrugManager;
 import com.drug.stock.service.DrugService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +53,10 @@ public class DrugServiceImpl implements DrugService {
     @Override
     public Long countDrugByCode(String code) throws DaoException {
         return drugManager.countDrugByCode(code);
+    }
+
+    @Override
+    public PageInfo<Drug> findDrugPage(DrugCondition drugCondition) throws DaoException {
+        return drugManager.findDrugPage(drugCondition);
     }
 }

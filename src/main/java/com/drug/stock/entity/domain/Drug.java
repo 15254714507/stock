@@ -1,5 +1,6 @@
 package com.drug.stock.entity.domain;
 
+import com.drug.stock.entity.page.BasePage;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.Date;
  * @author lenovo
  */
 @Data
-public class Drug implements Serializable {
+public class Drug extends BasePage implements Serializable {
 
     /**
      * 主键

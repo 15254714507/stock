@@ -52,7 +52,7 @@
             <label class="form-label"><span class="c-red">*</span>年龄：</label>
             <div class="formControls">
                 <input type="text" class="input-text" value="${(user.age)!}" id="age" name="age"
-                       nullmsg="年龄">
+                       datatype="*1-3" nullmsg="年龄">
             </div>
             <div class="col-4"><span class="Validform_checktip"></span></div>
         </div>

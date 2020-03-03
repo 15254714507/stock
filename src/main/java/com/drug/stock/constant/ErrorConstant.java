@@ -52,4 +52,12 @@ public interface ErrorConstant {
      * 删除用户失败的信息
      */
     String DELETE_USER_ERROR = "删除用户失败，请刷新重试";
+    /**
+     * 当添加药品时提交的表单不符合规则，返回的错误信息
+     */
+    String SAVE_DRUG_FORM_ERROR = "添加药品信息不符合规则，请重新提交";
+    /**
+     * 添加药品时查到数据库中有此编码了，返回的错误信息
+     */
+    String SAVE_DRUG_CODE_EXIST = "药品编码已存在，请修改后重试";
 }

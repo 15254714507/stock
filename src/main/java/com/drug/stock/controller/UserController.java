@@ -181,6 +181,7 @@ public class UserController {
     }
 
     /**
+     * 修改用户信息
      * @param userForm
      * @param bindingResult
      * @param session

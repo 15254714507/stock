@@ -70,7 +70,7 @@
     <!--添加管理员-->
 
 </div>
-<script type="text/javascript" src="script/user/admin.js"></script>
+<script type="text/javascript" src="script/user/adminList.js"></script>
 </body>
 </html>
 

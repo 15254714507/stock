@@ -9,25 +9,6 @@ $(function () {
         spacingh: 270,//设置显示时间距
     });
 });
-
-//字数限制
-function checkLength(which) {
-    var maxChars = 100; //
-    if (which.value.length > maxChars) {
-        layer.open({
-            icon: 2,
-            title: '提示框',
-            content: '您输入的字数超过限制!',
-        });
-        // 超过限制的字数了就将 文本框中的内容按规定的字数 截取
-        which.value = which.value.substring(0, maxChars);
-        return false;
-    } else {
-        var curr = maxChars - which.value.length; //250 减去 当前输入的
-        document.getElementById("sy").innerHTML = curr.toString();
-        return true;
-    }
-};
 //初始化宽度、高度
 $(".widget-box").height($(window).height() - 215);
 $(".table_menu_list").width($(window).width() - 260);
