@@ -29,6 +29,7 @@ public class DrugServiceTest {
         drug.setNumber(111);
         drug.setSpecs(UUID.randomUUID().toString());
         drug.setStorage(UUID.randomUUID().toString());
+        drug.setWareHouse(1);
         drug.setCreateUser("zhengwenju");
         drug.setUpdateUser("zhengwenju");
         return drug;
@@ -56,7 +57,7 @@ public class DrugServiceTest {
         Assert.assertNotNull(drug.getStorage());
         Assert.assertNotNull(drug.getUpdateTime());
         Assert.assertNotNull(drug.getUpdateUser());
-
+        Assert.assertNotNull(drug.getWareHouse());
 
     }
 
@@ -89,7 +90,7 @@ public class DrugServiceTest {
         drug.setNumber(222);
         drug.setSpecs(UUID.randomUUID().toString());
         drug.setStorage(UUID.randomUUID().toString());
-
+        drug.setWareHouse(2);
         Thread.sleep(1000);
         isSuc = drugService.updateDrug(drug);
         Assert.assertEquals(1, isSuc.intValue());
@@ -142,7 +143,7 @@ public class DrugServiceTest {
         drugCondition.setNumber(drug.getNumber());
         drugCondition.setSpecs(drug.getSpecs());
         drugCondition.setStorage(drug.getStorage());
-
+        drugCondition.setWareHouse(drug.getWareHouse());
         List<Drug> drugList = drugService.listDrug(drugCondition);
         Assert.assertEquals(1,drugList.size());
 

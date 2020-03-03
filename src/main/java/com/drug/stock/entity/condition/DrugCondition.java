@@ -47,6 +47,11 @@ public class DrugCondition {
      * */
     private String packaging;
     /**
+     * 库房号
+     */
+    private Integer wareHouse;
+
+    /**
      * 创建者
      */
     private String createUser;

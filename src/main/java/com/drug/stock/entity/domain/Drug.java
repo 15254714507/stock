@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
  * 药品信息
+ *
  * @author lenovo
  */
 @Data
@@ -50,6 +50,10 @@ public class Drug implements Serializable {
      * 包装方式
      * */
     private String packaging;
+    /**
+     * 库房号
+     */
+    private Integer wareHouse;
     /**
      * 创建者
      */
