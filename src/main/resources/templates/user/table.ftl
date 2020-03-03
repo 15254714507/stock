@@ -33,9 +33,9 @@
             </td>
             <td>${(user.createTime)?string("yyyy-MM-dd HH:mm")!}</td>
             <td class="td-manage">
-                <a title="编辑" onclick="member_edit('编辑','member-add.html','4','','510')"
-                   href="javascript:;" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>
-                <a title="删除" href="javascript:;" onclick="member_del(this,'1')"
+                <a title="编辑" onclick="member_edit(this,'${user.getId()}')"
+                href="javascript:;" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>
+                <a title="删除" href="javascript:;" onclick="member_del(this,'${user.getId()}')"
                    class="btn btn-xs btn-warning"><i class="fa fa-trash  bigger-120"></i></a>
             </td>
 

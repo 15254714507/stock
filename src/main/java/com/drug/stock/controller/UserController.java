@@ -9,8 +9,6 @@ import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.UserService;
 import com.drug.stock.sumbit.UserForm;
 import com.drug.stock.until.Result;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author lenovo
@@ -157,5 +156,77 @@ public class UserController {
         user.setCreateUser(createUser);
         user.setUpdateUser(createUser);
         return user;
+    }
+
+    /**
+     * 前往修改用户页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/gotoUpdateUser.do")
+    public String gotoUpdateUser(@Valid @NotNull Long id, Model model) {
+        User user = null;
+        try {
+            user = userService.getUser(id);
+        } catch (Exception e) {
+            log.error("跳转到修改用户信息页面时获取User数据发生错误 id:{}", id, e);
+        }
+        if (user == null) {
+            return "error/404";
+        }
+        model.addAttribute("user", user);
+        return "user/updateAdmin";
+    }
+
+    /**
+     * @param userForm
+     * @param bindingResult
+     * @param session
+     * @return
+     */
+    @PostMapping(value = "/updateUser.do")
+    @ResponseBody
+    public Result updateUser(@Valid UserForm userForm, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors() || userForm.getId() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_DIFFERENCE_ERROR);
+        }
+        User user = fillUser(userForm, (String) session.getAttribute(session.getId()));
+        //这里需要id才加上
+        user.setId(userForm.getId());
+        //修改信息，不应该修改创建人
+        user.setCreateUser(null);
+        Result result = null;
+        try {
+            Long isSuc = userService.updateUser(user);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.CHANGE_INFORMATION_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_DIFFERENCE_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("修改用户信息出错 user:{}", JSON.toJSONString(user), e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
+
+    @PostMapping(value = "/deleteUser.do")
+    @ResponseBody
+    public Result deleteUser(@Valid @NotNull Long id) {
+        Result result = null;
+        try {
+            Long isSuc = userService.deleteUser(id);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_USER_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELETE_USER_ERROR);
+            }
+        } catch (Exception e) {
+            log.error("删除用户出错 id:{}", id, e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
     }
 }

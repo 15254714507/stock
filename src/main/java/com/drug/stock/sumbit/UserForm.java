@@ -13,6 +13,10 @@ import java.io.Serializable;
 @Data
 public class UserForm implements Serializable {
     /**
+     * id
+     */
+    private Long id;
+    /**
      * 账号
      */
     @NotNull

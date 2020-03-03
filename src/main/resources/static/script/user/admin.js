@@ -37,21 +37,7 @@ $(window).resize(function () {
     $(".widget-box").height($(window).height() - 215);
     $(".table_menu_list").width($(window).width() - 260);
     $(".table_menu_list").height($(window).height()-68);
-})
-
-/*产品-编辑*/
-function member_edit(title, url, id, w, h) {
-    layer_show(title, url, w, h);
-}
-
-/*产品-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
-        $(obj).parents("tr").remove();
-        layer.msg('已删除!', {icon: 1, time: 1000});
-    });
-}
-
+});
 /*添加管理员*/
 $('#administrator_add').on('click', function () {
     layer.open({
@@ -62,4 +48,4 @@ $('#administrator_add').on('click', function () {
         shadeClose: false,
         content: ['/gotoAddAdmin.do', 'yes'],
     });
-})
+});

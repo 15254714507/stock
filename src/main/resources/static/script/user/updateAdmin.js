@@ -1,5 +1,5 @@
 //表单验证提交
-$("#form-admin-add").Validform({
+$("#form-admin-update").Validform({
 
     tiptype: 2,
 
@@ -19,12 +19,12 @@ $("#form-admin-add").Validform({
 
 });
 //保存用户
-function saveClick() {
+function updateClick() {
     $.ajax({
-        url: "/saveUser.do",
+        url: "/updateUser.do",
         type: "POST",
         cache: false,
-        data: $("#form-admin-add").serialize(),
+        data: $("#form-admin-update").serialize(),
         dataType: "json",
         success: function (result) {
             if (result.code === 200) {

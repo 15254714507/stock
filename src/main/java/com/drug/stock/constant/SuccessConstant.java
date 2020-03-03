@@ -18,9 +18,13 @@ public interface SuccessConstant {
      * 修改个人信息成功的提示信息
      *
      */
-    String CHANGE_INFORMATION_SUCCESS = "修改个人信息成功";
+    String CHANGE_INFORMATION_SUCCESS = "修改信息成功";
     /**
      *
      */
     String INSERT_USER_SUCCESS = "添加用户成功";
+    /**
+     * 删除用户成功的提示信息
+     */
+    String DELETE_USER_SUCCESS = "删除用户成功";
 }

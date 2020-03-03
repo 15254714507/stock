@@ -48,4 +48,8 @@ public interface ErrorConstant {
      * 添加失败，账号已存在
      */
     String ACCOUNT_EXIST_ERROR = "添加失败，请确认账号是否唯一";
+    /**
+     * 删除用户失败的信息
+     */
+    String DELETE_USER_ERROR = "删除用户失败，请刷新重试";
 }

@@ -35,7 +35,6 @@
       <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:void(0)" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加管理员</a>
-        <a href="javascript:void(0)" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
        </span>
                 <span class="r_f">共：<b>${(adminNum+superAdminNum)!}</b>人</span>
         </div>
