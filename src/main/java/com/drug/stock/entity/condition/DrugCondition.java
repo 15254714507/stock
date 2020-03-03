@@ -51,7 +51,10 @@ public class DrugCondition extends BasePage {
      * 库房号
      */
     private Integer wareHouse;
-
+    /**
+     * 价格
+     */
+    private Double price;
     /**
      * 创建者
      */

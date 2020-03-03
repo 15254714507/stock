@@ -13,6 +13,7 @@
         <result column="storage" property="storage" jdbcType="VARCHAR"/>
         <result column="packaging" property="packaging" jdbcType="VARCHAR"/>
         <result column="ware_house" property="wareHouse" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -32,6 +33,7 @@
             storage,
             packaging,
             ware_house,
+            price,
             create_user,
             update_user,
             create_time,
@@ -110,6 +112,9 @@
                 </if>
                 <if test="wareHouse !=null">
                     ware_house= #{wareHouse,jdbcType=INTEGER},
+                </if>
+                <if test="price !=null">
+                    price=#{price,jdbcType=DECIMAL},
                 </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},

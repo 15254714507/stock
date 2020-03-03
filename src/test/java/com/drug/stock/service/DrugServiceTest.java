@@ -30,6 +30,7 @@ public class DrugServiceTest {
         drug.setSpecs(UUID.randomUUID().toString());
         drug.setStorage(UUID.randomUUID().toString());
         drug.setWareHouse(1);
+        drug.setPrice(2.22);
         drug.setCreateUser("zhengwenju");
         drug.setUpdateUser("zhengwenju");
         return drug;
@@ -91,6 +92,7 @@ public class DrugServiceTest {
         drug.setSpecs(UUID.randomUUID().toString());
         drug.setStorage(UUID.randomUUID().toString());
         drug.setWareHouse(2);
+        drug.setPrice(3.33);
         Thread.sleep(1000);
         isSuc = drugService.updateDrug(drug);
         Assert.assertEquals(1, isSuc.intValue());

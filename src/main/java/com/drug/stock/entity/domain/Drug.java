@@ -56,6 +56,10 @@ public class Drug extends BasePage implements Serializable {
      */
     private Integer wareHouse;
     /**
+     * 价格
+     */
+    private Double price;
+    /**
      * 创建者
      */
     private String createUser;

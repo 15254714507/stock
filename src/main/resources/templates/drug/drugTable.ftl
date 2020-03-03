@@ -1,13 +1,14 @@
 <table class="table table-striped table-bordered table-hover" id="sample-table">
     <thead>
     <tr>
-        <th width="50px" >序号</th>
-        <th width="100px">编码</th>
+        <th width="50px">序号</th>
+        <th width="70px">编码</th>
         <th width="100px">名称</th>
-        <th width="100px">规格</th>
+        <th width="70px">规格</th>
         <th width="50px">剂型</th>
         <th width="100px">批准文号</th>
         <th width="50px">库存</th>
+        <th width="50px">价格</th>
         <th width="50px">贮藏</th>
         <th width="50px">包装</th>
         <th width="50px">库房号</th>
@@ -26,6 +27,7 @@
             <td>${(drug.dosageForm)!}</td>
             <td>${(drug.approvalNumber)!}</td>
             <td>${(drug.number)!}</td>
+            <td>${(drug.price)?string("0.##")}</td>
             <td>${(drug.storage)!}</td>
             <td>${(drug.packaging)!}</td>
             <td>${(drug.wareHouse)!}</td>
