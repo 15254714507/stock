@@ -63,4 +63,8 @@ public class DrugForm implements Serializable {
      */
     @NotNull
     private Integer wareHouse;
+    /**
+     * 价格
+     */
+    private Double price;
 }

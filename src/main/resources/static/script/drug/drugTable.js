@@ -15,11 +15,11 @@ $(function() {
 function member_edit(obj, id) {
     layer.open({
         type: 2,
-        title: '修改信息',
+        title: '修改药品信息',
         closeBtn: 1, //显示关闭按钮
-        area: ['600px', '550px'],
+        area: ['600px', '600px'],
         shadeClose: false,
-        content: ['/gotoUpdateUser.do?id=' + id, 'yes'],
+        content: ['/gotoUpdateDrug.do?id=' + id, 'yes'],
     });
 }
 
@@ -27,7 +27,7 @@ function member_edit(obj, id) {
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
-            url: "/deleteUser.do",
+            url: "/deleteDrug.do",
             type: "POST",
             cache: false,
             data: {
@@ -36,7 +36,7 @@ function member_del(obj, id) {
             dataType: "json",
             success: function (result) {
                 if (result.code === 200) {
-                    layer.alert("删除成功", {
+                    layer.alert(result.msg, {
                             title: '成功框',
                             icon: 1
                         },function(){

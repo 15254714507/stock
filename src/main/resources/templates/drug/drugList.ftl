@@ -29,7 +29,7 @@
             <ul class="search_content clearfix">
                 <li><label class="l_f">编码:</label><input type="text" class="text_add" style="width:250px"></li>
                 <li><label class="l_f">名称:</label><input id="" type="text" class="inline" style="width:250px"></li>
-                <li style="width:90px;"><button type="button" class="btn_search"><i class="fa fa-search"></i>查询</button></li>
+                <li style="width:90px;"><button type="button" id="search_button" class="btn_search"><i class="fa fa-search"></i>查询</button></li>
                 <!--无用的，为了样式规整-->
                 <li> <input id ="start" type="hidden"/></li>
                 <li>

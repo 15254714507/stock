@@ -60,4 +60,12 @@ public interface ErrorConstant {
      * 添加药品时查到数据库中有此编码了，返回的错误信息
      */
     String SAVE_DRUG_CODE_EXIST = "药品编码已存在，请修改后重试";
+    /**
+     * 当修改药品时，查到数据库没有此药品
+     */
+    String UPDATE_DRUG_CODE_NOT = "要修改的药品不存在，请刷新后重试";
+    /**
+     * 删除药品时没有查到数据库中有此药品
+     */
+    String DELETE_DRUG_ERROR_NOT_CODE = "删除药品失败，请确认此药品存在";
 }

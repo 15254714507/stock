@@ -6,8 +6,10 @@ import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.constant.SystemConstant;
 import com.drug.stock.entity.condition.DrugCondition;
 import com.drug.stock.entity.domain.Drug;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.service.DrugService;
 import com.drug.stock.sumbit.DrugForm;
+import com.drug.stock.sumbit.UserForm;
 import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import javax.annotation.Resource;
 import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author lenovo
@@ -68,13 +71,16 @@ public class DrugController {
             return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.SAVE_DRUG_FORM_ERROR);
         }
         Drug drug = fillDrug(drugForm, (String) session.getAttribute(session.getId()));
+        //创建药品时应该没有价格和库存
+        drug.setPrice(null);
+        drug.setNumber(null);
         Result result = null;
         try {
             Long isSuc = drugService.insertDrug(drug);
             if (isSuc == 1) {
                 result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.INSERT_DRUG_SUCCESS);
             } else {
-                result = new Result(ErrorConstant.ERROR_CODE,ErrorConstant.SAVE_DRUG_CODE_EXIST);
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.SAVE_DRUG_CODE_EXIST);
             }
         } catch (Exception e) {
             log.error("添加药品信息时发生异常 drugForm:{}", JSON.toJSONString(drugForm), e);
@@ -93,9 +99,86 @@ public class DrugController {
         drug.setStorage(drugForm.getStorage());
         drug.setPackaging(drugForm.getPackaging());
         drug.setWareHouse(drugForm.getWareHouse());
+        drug.setNumber(drugForm.getNumber());
+        drug.setPrice(drugForm.getPrice());
         drug.setCreateUser(createUser);
         drug.setUpdateUser(createUser);
         return drug;
     }
 
+    /**
+     * 前往修改药品页面
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/gotoUpdateDrug.do")
+    public String gotoUpdateDrug(@Valid @NotNull Long id, Model model) {
+        Drug drug = null;
+        try {
+            drug = drugService.getDrug(id);
+        } catch (Exception e) {
+            log.error("跳转到修改药品信息页面时获取Drug数据发生错误 id:{}", id, e);
+        }
+        if (drug == null) {
+            return "error/404";
+        }
+        model.addAttribute("drug", drug);
+        return "drug/updateDrug";
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param drugForm
+     * @param bindingResult
+     * @param session
+     * @return
+     */
+    @PostMapping(value = "/updateDrug.do")
+    @ResponseBody
+    public Result updateDrug(@Valid DrugForm drugForm, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors() || drugForm.getId() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ACCOUNT_DIFFERENCE_ERROR);
+        }
+        Drug drug = fillDrug(drugForm, (String) session.getAttribute(session.getId()));
+        //这里需要id才加上
+        drug.setId(drugForm.getId());
+        //修改信息，不应该修改创建人
+        drug.setCreateUser(null);
+        //药品的编码在创建的时候就确了，不允许修改
+        drug.setCode(null);
+        Result result = null;
+        try {
+            Long isSuc = drugService.updateDrug(drug);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.CHANGE_INFORMATION_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.UPDATE_DRUG_CODE_NOT);
+            }
+        } catch (Exception e) {
+            log.error("修改药品信息出错 drug:{}", JSON.toJSONString(drug), e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
+
+    @PostMapping(value = "/deleteDrug.do")
+    @ResponseBody
+    public Result deleteDrug(@Valid @NotNull Long id) {
+        Result result = null;
+        try {
+            Long isSuc = drugService.deleteDrug(id);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_DRUG_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELETE_DRUG_ERROR_NOT_CODE);
+            }
+        } catch (Exception e) {
+            log.error("删除药品出错 id:{}", id, e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
 }

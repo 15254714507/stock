@@ -66,18 +66,12 @@ public class UserController {
     }
 
     /***
-     * 跳转到添加或者修改管理员页面
+     * 跳转到添加管理员页面
      * @param model
      * @return
      */
     @RequestMapping(value = "/gotoAddAdmin.do")
     public String gotoAddAdmin(Model model) {
-        try {
-            String a = "";
-        } catch (Exception e) {
-            log.error("跳转到添加管理员页面出错", e);
-            return "error/404";
-        }
         return "user/addAdmin";
     }
 

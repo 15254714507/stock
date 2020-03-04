@@ -31,4 +31,8 @@ public interface SuccessConstant {
      * 添加药品成功的提示信息
      */
     String INSERT_DRUG_SUCCESS = "添加药品成功";
+    /***
+     * 删除药品成功
+     */
+    String DELETE_DRUG_SUCCESS = "删除药品成功";
 }
