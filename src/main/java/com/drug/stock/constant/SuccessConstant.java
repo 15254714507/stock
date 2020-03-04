@@ -35,4 +35,16 @@ public interface SuccessConstant {
      * 删除药品成功
      */
     String DELETE_DRUG_SUCCESS = "删除药品成功";
+    /**
+     * 添加供应商成功返回的信息
+     */
+    String INSERT_PROVIDER_SUCCESS = "添加供应商成功";
+    /**
+     * 修改供应商信息成功后返回的信息
+     */
+    String UPDATE_PROVIDER_SUCCESS = "修改供应商信息成功";
+    /***
+     * 删除供应商成功返回的信息
+     */
+    String DELETE_PROVIDER_SUCCESS = "删除供应商成功";
 }

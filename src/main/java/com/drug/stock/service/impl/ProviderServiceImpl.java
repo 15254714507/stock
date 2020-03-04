@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.Provider;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.ProviderManager;
 import com.drug.stock.service.ProviderService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,10 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public Long countProviderByCode(String code) throws DaoException {
         return providerManager.countProviderByCode(code);
+    }
+
+    @Override
+    public PageInfo<Provider> findProviderPage(ProviderCondition providerCondition) throws DaoException {
+        return providerManager.findProviderPage(providerCondition);
     }
 }

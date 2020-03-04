@@ -68,4 +68,25 @@ public interface ErrorConstant {
      * 删除药品时没有查到数据库中有此药品
      */
     String DELETE_DRUG_ERROR_NOT_CODE = "删除药品失败，请确认此药品存在";
+    /**
+     * 提交添加供应商的信息form表单没有通过校验
+     */
+    String PROVIDER_FORM_ERROR = "保存的供应商信息不符合要求";
+    /**
+     * 添加供应商时查到已经有此供应商编码了
+     */
+    String SAVE_PROVIDER_CODE_EXIST = "供应商编码已存在，请修改后重试";
+
+    /**
+     * 提交修改供应商的信息form表单没有通过校验
+     */
+    String UPDATE_PROVIDER_FORM_ERROR = "修改的供应商信息不符合要求";
+    /**
+     * 修改供应商信息时没有查到此供应商
+     */
+    String UPDATE_PROVIDER_CODE_NOT = "要修改的供应商不存在，请刷新后重试";
+    /**
+     * 删除供应商时没有在数据库中查到
+     */
+    String DELETE_PROVIDER_NOT = "要删除的供应商不存在,请刷新后重试";
 }

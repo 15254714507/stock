@@ -360,15 +360,6 @@
                             <li class="home"><a href="javascript:void(0)" name="Payment_Configure.html" title="支付配置" class="iframeurl"><i class="icon-double-angle-right"></i>支付配置</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 会员管理 </span><b class="arrow icon-angle-down"></b></a>
-                        <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="user_list.html" title="会员列表"  class="iframeurl"><i class="icon-double-angle-right"></i>会员列表</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="member-Grading.html" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="integration.html" title="会员记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>会员记录管理</a></li>
-
-                        </ul>
-                    </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-laptop"></i><span class="menu-text"> 店铺管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
                             <li class="home"><a href="javascript:void(0)" name="Shop_list.html" title="店铺列表" class="iframeurl"><i class="icon-double-angle-right"></i>店铺列表</a></li>
@@ -387,9 +378,15 @@
                             <li class="home"><a href="javascript:void(0)" name="article_Sort.html" title="分类管理" class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 供应商管理 </span><b class="arrow icon-angle-down"></b></a>
+                        <ul class="submenu">
+                            <li class="home"><a href="javascript:void(0)" name="/gotoProviderList.do" title="供应商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>供应商列表</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 药品信息管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugList.do" title="信息管理" class="iframeurl"><i class="icon-double-angle-right"></i>信息管理</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugList.do" title="药品列表" class="iframeurl"><i class="icon-double-angle-right"></i>药品列表</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管理员管理 </span><b class="arrow icon-angle-down"></b></a>

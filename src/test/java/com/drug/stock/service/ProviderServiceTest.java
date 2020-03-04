@@ -2,6 +2,7 @@ package com.drug.stock.service;
 
 import com.drug.stock.entity.condition.ProviderCondition;
 import com.drug.stock.entity.domain.Provider;
+import com.github.pagehelper.PageInfo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -115,9 +116,10 @@ public class ProviderServiceTest {
         provider = providerService.getProvider(provider.getId());
         Assert.assertNull(provider);
     }
+
     @Test
     @Transactional
-    public void listProviderTest(){
+    public void listProviderTest() {
         Provider provider = createProvider();
         Long isSuc = providerService.insertProvider(provider);
         Assert.assertEquals(1, (long) isSuc);
@@ -132,6 +134,12 @@ public class ProviderServiceTest {
         providerCondition.setPhone(provider.getPhone());
 
         List<Provider> providerList = providerService.listProvider(providerCondition);
-        Assert.assertEquals(1,providerList.size());
+        Assert.assertEquals(1, providerList.size());
+    }
+    @Test
+    public void findProviderPageTest() {
+        ProviderCondition providerCondition = new ProviderCondition();
+        PageInfo<Provider> pageInfo = providerService.findProviderPage(providerCondition);
+        Assert.assertTrue(pageInfo.getList().size() > 0);
     }
 }

@@ -3,6 +3,7 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.ProviderCondition;
 import com.drug.stock.entity.domain.Provider;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -72,4 +73,13 @@ public interface ProviderService {
      * @throws DaoException
      */
     public Long countProviderByCode(String code) throws DaoException;
+
+    /**
+     * 获得供应商的分页数据
+     *
+     * @param providerCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<Provider> findProviderPage(ProviderCondition providerCondition) throws DaoException;
 }

@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.dao.ProviderDao;
 import com.drug.stock.entity.condition.ProviderCondition;
 import com.drug.stock.entity.domain.Provider;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.ProviderManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +40,8 @@ public class ProviderManagerImpl implements ProviderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long insertProvider(Provider provider) throws DaoException {
         if (countProviderByCode(provider.getCode()) > 0) {
-            throw new DaoException("新添的供应商已存在 provider：" + JSON.toJSONString(provider));
+            log.warn("新添的供应商已存在 provider：{}", JSON.toJSONString(provider));
+            return 0L;
         }
         provider.setCreateTime(TimestampFactory.getTimestamp());
         provider.setUpdateTime(provider.getCreateTime());
@@ -53,7 +57,8 @@ public class ProviderManagerImpl implements ProviderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updateProvider(Provider provider) throws DaoException {
         if (getProvider(provider.getId()) == null) {
-            throw new DaoException("修改的供应商信息不存在 provider:" + JSON.toJSONString(provider));
+            log.warn("修改的供应商信息不存在 provider:{}", JSON.toJSONString(provider));
+            return 0L;
         }
         provider.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -68,7 +73,8 @@ public class ProviderManagerImpl implements ProviderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long deleteProvider(Long id) throws DaoException {
         if (getProvider(id) == null) {
-            throw new DaoException("将要删除的供应商不存在 id：" + id);
+            log.warn("将要删除的供应商不存在 id：{}", id);
+            return 0L;
         }
         try {
             return providerDao.deleteProvider(id);
@@ -103,5 +109,24 @@ public class ProviderManagerImpl implements ProviderManager {
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<Provider> findProviderPage(ProviderCondition providerCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (providerCondition.getPage() != null && providerCondition.getRows() != null) {
+            PageHelper.startPage(providerCondition.getPage(), providerCondition.getRows());
+        }
+        List<Provider> list = null;
+        try {
+            list = providerDao.listProvider(providerCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<Provider> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
