@@ -10,4 +10,7 @@ $('#drug_add').on('click', function () {
         content: ['/gotoAddDrug.do', 'yes'],
     });
 });
+$("#search_button").on("click",function () {
+    $("#drugTableIframe").load("/gotoDrugTable.do?code="+$("#code").val()+"&name="+$("#name").val());
+});
 

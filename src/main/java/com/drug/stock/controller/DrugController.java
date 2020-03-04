@@ -46,8 +46,10 @@ public class DrugController {
     }
 
     @RequestMapping(value = "/gotoDrugTable.do")
-    public String gotoDrugTable(Model model) {
+    public String gotoDrugTable(Model model, String code, String name) {
         DrugCondition drugCondition = new DrugCondition();
+        drugCondition.setCode(code);
+        drugCondition.setName(name);
         PageInfo<Drug> page = null;
         try {
             page = drugService.findDrugPage(drugCondition);
