@@ -35,6 +35,10 @@ public class DeliveryOrder implements Serializable {
      */
     private String description;
     /**
+     * 是否已发布的状态 ，0未发布 1已发布
+     */
+    private Boolean status;
+    /**
      * 创建者
      */
     private String createUser;

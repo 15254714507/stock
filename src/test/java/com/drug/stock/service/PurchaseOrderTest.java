@@ -25,6 +25,7 @@ public class PurchaseOrderTest {
         purchaseOrder.setDescription(UUID.randomUUID().toString());
         purchaseOrder.setUserAccount(UUID.randomUUID().toString());
         purchaseOrder.setUserName(UUID.randomUUID().toString());
+        purchaseOrder.setStatus(true);
         purchaseOrder.setCreateUser("kongchao");
         purchaseOrder.setUpdateUser("kongchao");
         return purchaseOrder;
@@ -50,6 +51,7 @@ public class PurchaseOrderTest {
         Assert.assertNotNull(purchaseOrder.getCreateTime());
         Assert.assertEquals(false, purchaseOrder.getDelete());
         Assert.assertEquals(1, purchaseOrder.getVersion().intValue());
+        Assert.assertFalse(purchaseOrder.getStatus());
     }
 
     @Test
@@ -76,6 +78,7 @@ public class PurchaseOrderTest {
         purchaseOrder.setUserAccount(UUID.randomUUID().toString());
         purchaseOrder.setUserName(UUID.randomUUID().toString());
         purchaseOrder.setDescription(UUID.randomUUID().toString());
+        purchaseOrder.setStatus(true);
         //休眠一秒，要不修改后的时间点和创建的时间点一致了
         Thread.sleep(1000);
         num = purchaseOrderService.updatePurchaseOrder(purchaseOrder);
@@ -88,6 +91,7 @@ public class PurchaseOrderTest {
         Assert.assertEquals(purchaseOrder.getDescription(), purchaseOrder1.getDescription());
         Assert.assertTrue(purchaseOrder1.getCreateTime().before(purchaseOrder1.getUpdateTime()));
         Assert.assertEquals(2, purchaseOrder1.getVersion().intValue());
+        Assert.assertTrue(purchaseOrder1.getStatus());
 
     }
 

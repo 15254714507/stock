@@ -379,6 +379,12 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="#" class="dropdown-toggle"><i class="icon-credit-card"></i><span class="menu-text"> 药品出库管理 </span><b class="arrow icon-angle-down"></b></a>
+                        <ul class="submenu">
+                            <li class="home"><a href="javascript:void(0)" name="/gotoPurchaseOrderList.do" title="出库单列表" class="iframeurl"><i class="icon-double-angle-right"></i>出库单列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 供应商管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
                             <li class="home"><a href="javascript:void(0)" name="/gotoProviderList.do" title="供应商列表"  class="iframeurl"><i class="icon-double-angle-right"></i>供应商列表</a></li>

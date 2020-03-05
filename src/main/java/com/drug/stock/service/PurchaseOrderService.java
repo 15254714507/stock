@@ -3,6 +3,7 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.domain.PurchaseOrder;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -66,9 +67,18 @@ public interface PurchaseOrderService {
 
     /**
      * 查询code的订单的数量(一般用于查询此订单是否存在)
+     *
      * @param code
      * @return
      * @throws DaoException
      */
     public Long countPurchaseOrderByCode(String code) throws DaoException;
+
+    /**
+     * 获得订单表头的分页信息
+     * @param purchaseOrderCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<PurchaseOrder> findPurchaseOrderPage(PurchaseOrderCondition purchaseOrderCondition) throws DaoException;
 }

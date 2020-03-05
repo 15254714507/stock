@@ -1,5 +1,6 @@
 package com.drug.stock.entity.condition;
 
+import com.drug.stock.entity.page.BasePage;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
  * @author lenovo
  */
 @Data
-public class PurchaseOrderCondition {
+public class PurchaseOrderCondition extends BasePage {
 
     /**
      * 主键
@@ -30,6 +31,10 @@ public class PurchaseOrderCondition {
      * 说明
      */
     private String description;
+    /**
+     * 是否已发布的状态 ，0未发布 1已发布
+     */
+    private Boolean status;
     /**
      * 创建者
      */
