@@ -22,10 +22,10 @@ $("#form-drug-add").Validform({
 //保存药品
 function saveClick() {
     $.ajax({
-        url: "/saveDrug.do",
+        url: "/savePurchaseOrder.do",
         type: "POST",
         cache: false,
-        data: $("#form-drug-add").serialize(),
+        data: $("#form-purchaseOrder-add").serialize(),
         dataType: "json",
         success: function (result) {
             if (result.code === 200) {

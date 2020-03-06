@@ -5,7 +5,7 @@ $('#purchase_order_add').on('click', function () {
         type: 2,
         title: '添加药品',
         closeBtn: 1, //不显示关闭按钮
-        area: ['550px', '550px'],
+        area: ['550px', '200px'],
         shadeClose: false,
         content: ['/gotoAddPurchaseOrder.do', 'yes'],
     });

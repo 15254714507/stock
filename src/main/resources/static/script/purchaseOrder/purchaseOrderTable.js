@@ -50,7 +50,7 @@ function member_edit(obj, id) {
         type: 2,
         title: '修改入库单信息',
         closeBtn: 1, //显示关闭按钮
-        area: ['600px', '600px'],
+        area: ['600px', '200px'],
         shadeClose: false,
         content: ['/gotoUpdatePurchaseOrder.do?id=' + id, 'yes'],
     });
@@ -60,7 +60,7 @@ function member_edit(obj, id) {
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
-            url: "/deleteDrug.do",
+            url: "/deletePurchaseOrder.do",
             type: "POST",
             cache: false,
             data: {

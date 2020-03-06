@@ -12,11 +12,11 @@
     </tr>
     </thead>
     <tbody>
-    <#assign num = purchaseOrderPage.startRow>
+    <#assign num = purchaseOrderPage.total>
     <#list purchaseOrderPage.list as purchaseOrder>
     <tr>
         <td>${(num)!}</td>
-        <#assign num = num+1>
+        <#assign num = num-1>
         <td>${(purchaseOrder.code)!}</td>
         <td>${(purchaseOrder.userAccount)!}</td>
         <td>${(purchaseOrder.userName)!}</td>

@@ -50,9 +50,17 @@ public interface SuccessConstant {
     /**
      * 修改订单信息成功后返回的
      */
-    String UPDATE_PURCHASE_ORDER_SUCCESS = "修改订单信息成功";
+    String UPDATE_PURCHASE_ORDER_SUCCESS = "修改入库单信息成功";
     /**
      * 修改入库单状态为已发布
      */
-    String PURCHASE_ORDER_PUBLISH_SUCCESS="此入库单状态已修改为已发布";
+    String PURCHASE_ORDER_PUBLISH_SUCCESS = "此入库单状态已修改为已发布";
+    /**
+     * 添加入库单成功后返回的信息
+     */
+    String SAVE_PURCHASE_ORDER_SUCCESS = "创建新入库单成功";
+    /**
+     * 删除入库单成功
+     */
+    String DELETE_PURCHASE_ORDER_SUCCESS = "删除入库单成功";
 }
