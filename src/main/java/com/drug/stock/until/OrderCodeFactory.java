@@ -26,7 +26,7 @@ public class OrderCodeFactory {
      */
     public static String getPurchaseOrderCode() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        return PURCHASE_ORDER_CODE + sdf.format(new Date()) + (int) (1 + Math.random() * (10)) + (int) (1 + Math.random() * (10));
+        return PURCHASE_ORDER_CODE + sdf.format(new Date()) + (int) (Math.random() * (10)) + (int) (Math.random() * (10));
     }
 
     /**
@@ -36,6 +36,6 @@ public class OrderCodeFactory {
      */
     public static String getDeliveryOrderCode() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        return DELIVERY_ORDER_CODE + sdf.format(new Date()) + (int) (1 + Math.random() * (10)) + (int) (1 + Math.random() * (10));
+        return DELIVERY_ORDER_CODE + sdf.format(new Date()) + (int) (Math.random() * (10)) + (int) (Math.random() * (10));
     }
 }
