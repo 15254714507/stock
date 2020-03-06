@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
+        <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
         <result column="production_lot_number" property="productionLotNumber" jdbcType="VARCHAR"/>
         <result column="provider_id" property="providerId" jdbcType="BIGINT"/>
         <result column="provider_name" property="providerName" jdbcType="VARCHAR"/>
@@ -24,6 +25,7 @@
             id,
             code,
             drug_code,
+            drug_name,
             production_lot_number,
             provider_id,
             provider_name,
@@ -51,6 +53,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             code,
             drug_code,
+            drug_name,
             production_lot_number,
             provider_id,
             provider_name,
@@ -66,6 +69,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #{code,jdbcType=VARCHAR},
             #{drugCode,jdbcType=VARCHAR},
+            #{drugName,jdbcType=VARCHAR},
             #{productionLotNumber,jdbcType=VARCHAR},
             #{providerId,jdbcType=BIGINT},
             #{providerName,jdbcType=VARCHAR},
@@ -84,6 +88,9 @@
             <trim prefix="" suffix="" suffixOverrides=",">
                 <if test="drugCode !=null and drugCode != '' ">
                     drug_code=#{drugCode,jdbcType=VARCHAR},
+                </if>
+                <if test="drugName !=null and drugName != '' ">
+                    drug_name=#{drugName,jdbcType=VARCHAR},
                 </if>
                 <if test="code !=null and code != '' ">
                     code= #{code,jdbcType=VARCHAR},
@@ -139,6 +146,9 @@
         </if>
         <if test="drugCode !=null and drugCode != '' ">
             and drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        <if test="drugName !=null and drugName != '' ">
+            and drug_name=#{drugName,jdbcType=VARCHAR}
         </if>
         <if test="providerId !=null">
             and provider_id=#{providerId,jdbcType=BIGINT}

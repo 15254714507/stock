@@ -22,6 +22,10 @@ public class PurchaseOrderDrugCondition {
      * 药品编码
      */
     private String drugCode;
+    /**
+     * 药品名称
+     */
+    private String drugName;
 
     /**
      * 生产批号

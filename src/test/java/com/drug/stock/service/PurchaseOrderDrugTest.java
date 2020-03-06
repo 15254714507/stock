@@ -33,6 +33,7 @@ public class PurchaseOrderDrugTest {
         purchaseOrderDrug.setProviderName(UUID.randomUUID().toString());
         purchaseOrderDrug.setCreateUser("zhengwenju");
         purchaseOrderDrug.setUpdateUser("zhengwenju");
+        purchaseOrderDrug.setDrugName("药名");
         return purchaseOrderDrug;
     }
 
@@ -57,6 +58,7 @@ public class PurchaseOrderDrugTest {
         Assert.assertEquals(11.11, purchaseOrderDrug.getPrice().doubleValue(), 2.0);
         Assert.assertNotNull(purchaseOrderDrug.getCreateTime());
         Assert.assertNotNull(purchaseOrderDrug.getUpdateTime());
+        Assert.assertNotNull(purchaseOrderDrug.getDrugName());
     }
 
     @Test
@@ -89,6 +91,8 @@ public class PurchaseOrderDrugTest {
         purchaseOrderDrug.setProductionLotNumber(UUID.randomUUID().toString());
         purchaseOrderDrug.setProviderId(222L);
         purchaseOrderDrug.setProviderName(UUID.randomUUID().toString());
+        purchaseOrderDrug.setDrugName(UUID.randomUUID().toString());
+
         String newCode = purchaseOrderDrug.getCode();
         Thread.sleep(1000);
         isSuc = purchaseOrderDrugService.updatePurchaseOrderDrug(purchaseOrderDrug);
@@ -104,7 +108,7 @@ public class PurchaseOrderDrugTest {
         Assert.assertEquals(purchaseOrderDrug.getProductionLotNumber(), purchaseOrderDrug1.getProductionLotNumber());
         Assert.assertEquals(purchaseOrderDrug.getProviderId(), purchaseOrderDrug1.getProviderId());
         Assert.assertEquals(purchaseOrderDrug.getProviderName(), purchaseOrderDrug1.getProviderName());
-
+        Assert.assertEquals(purchaseOrderDrug.getDrugName(), purchaseOrderDrug1.getDrugName());
         Assert.assertTrue(purchaseOrderDrug1.getUpdateTime().after(purchaseOrderDrug1.getCreateTime()));
 
     }
@@ -133,8 +137,9 @@ public class PurchaseOrderDrugTest {
         Long num = purchaseOrderDrugService.countPurchaseOrderDrugByCode(code);
         Assert.assertTrue(num == 1);
     }
+
     @Test
-    public void listPurchaseOrderDrug(){
+    public void listPurchaseOrderDrug() {
         PurchaseOrderDrug purchaseOrderDrug = createPurchaseOrderDrug();
         String code = purchaseOrderDrug.getCode();
         Long isSuc = purchaseOrderDrugService.insertPurchaseOrderDrug(purchaseOrderDrug);
@@ -146,8 +151,9 @@ public class PurchaseOrderDrugTest {
         purchaseOrderDrugCondition.setProviderName(purchaseOrderDrug.getProviderName());
         purchaseOrderDrugCondition.setPrice(purchaseOrderDrug.getPrice());
         purchaseOrderDrugCondition.setExpireDate(purchaseOrderDrug.getExpireDate());
+        purchaseOrderDrugCondition.setDrugName(purchaseOrderDrug.getDrugName());
         List<PurchaseOrderDrug> purchaseOrderDrugList = purchaseOrderDrugService.listPurchaseOrderDrug(purchaseOrderDrugCondition);
-        Assert.assertTrue(purchaseOrderDrugList.size()==1);
+        Assert.assertTrue(purchaseOrderDrugList.size() == 1);
 
     }
 }
