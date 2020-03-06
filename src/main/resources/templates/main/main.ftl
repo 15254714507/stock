@@ -451,10 +451,12 @@
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span
-                                    class="menu-text"> 管理员管理 </span><b class="arrow icon-angle-down"></b></a>
+                                    class="menu-text"> 用户管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
                             <li class="home"><a href="javascript:void(0)" name="/gotoUserList.do" title="管理员列表"
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>管理员列表</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoAdminInformation.do" title="个人信息"
+                                                class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
                         </ul>
                     </li>
                 </ul>
