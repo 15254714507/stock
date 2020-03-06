@@ -97,7 +97,8 @@
         <set>
             is_delete=1
         </set>
-        WHERE id = #{id,jdbcType=BIGINT};
+        WHERE id = #{id,jdbcType=BIGINT}
+        and status=0;
     </update>
     <select id="getPurchaseOrderByCode" resultMap="BaseResultMap" parameterType="String">
         select
