@@ -144,6 +144,7 @@ public class PurchaseOrderDrugTest {
     }
 
     @Test
+    @Transactional
     public void listPurchaseOrderDrug() {
         PurchaseOrderDrug purchaseOrderDrug = createPurchaseOrderDrug();
         String code = purchaseOrderDrug.getCode();

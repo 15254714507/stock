@@ -3,10 +3,13 @@ package com.drug.stock.manager.impl;
 import com.alibaba.fastjson.JSON;
 import com.drug.stock.dao.PurchaseOrderDrugDao;
 import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
+import com.drug.stock.entity.domain.PurchaseOrder;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.PurchaseOrderDrugManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,5 +109,24 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (purchaseOrderDrugCondition.getPage() != null && purchaseOrderDrugCondition.getRows() != null) {
+            PageHelper.startPage(purchaseOrderDrugCondition.getPage(), purchaseOrderDrugCondition.getRows());
+        }
+        List<PurchaseOrderDrug> list = null;
+        try {
+            list = purchaseOrderDrugDao.listPurchaseOrderDrug(purchaseOrderDrugCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<PurchaseOrderDrug> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

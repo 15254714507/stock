@@ -1,5 +1,6 @@
 package com.drug.stock.entity.condition;
 
+import com.drug.stock.entity.page.BasePage;
 import lombok.Data;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
  * @author lenovo
  */
 @Data
-public class PurchaseOrderDrugCondition {
+public class PurchaseOrderDrugCondition extends BasePage {
 
     /**
      * 主键

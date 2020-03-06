@@ -42,8 +42,8 @@
                    class="btn btn-xs btn-warning"><i class="fa fa-trash  bigger-120"></i></a>
             </#if>
 
-            <a href="javascript:void(0)" name="/gotoPurchaseOrderDrugList.do" class="btn btn-xs btn-pink ads_link"
-               onclick="(${(purchaseOrder.code)!});" title="入库单药品信息"><i class="fa  fa-bars  bigger-120"></i></a>
+            <a href="javascript:void(0)" name="" class="btn btn-xs btn-pink ads_link"
+               onclick="gotoPurchaseOrderDrugList('${(purchaseOrder.code)!}')" title="入库单药品信息"><i class="fa  fa-bars  bigger-120"></i></a>
         </td>
 
     </tr>

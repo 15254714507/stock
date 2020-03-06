@@ -44,12 +44,13 @@ public interface PurchaseOrderDrugDao {
     public Long deletePurchaseOrderDrug(Long id);
 
     /***
-     * 根据code获得入库单药品信息
+     * 根据code和drug为唯一索引获得入库单药品信息
      *
      * @param code
+     * @param drugCode
      * @return
      */
-    public PurchaseOrderDrug getPurchaseOrderDrugByCode(String code);
+    public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode);
 
     /**
      * 获得入库单药品的集合
@@ -60,11 +61,12 @@ public interface PurchaseOrderDrugDao {
     public List<PurchaseOrderDrug> listPurchaseOrderDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition);
 
     /***
-     * 根据code统计数量
+     * 根据code和drugCode为唯一统计数量
      * @param code
+     * @param drugCode
      * @return
      */
-    public Long countPurchaseOrderDrugByCode(String code);
+    public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode);
 
 
 }

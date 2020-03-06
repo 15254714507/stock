@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.PurchaseOrderDrugManager;
 import com.drug.stock.service.PurchaseOrderDrugService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,7 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
 
     @Override
     public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
-        return purchaseOrderDrugManager.getPurchaseOrderDrugByCodeAndDrugCode(code,drugCode);
+        return purchaseOrderDrugManager.getPurchaseOrderDrugByCodeAndDrugCode(code, drugCode);
     }
 
     @Override
@@ -53,5 +54,10 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     @Override
     public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         return purchaseOrderDrugManager.countPurchaseOrderDrugByCodeAndDrugCode(code, drugCode);
+    }
+
+    @Override
+    public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
+        return purchaseOrderDrugManager.findPurchaseOrderDrugPage(purchaseOrderDrugCondition);
     }
 }

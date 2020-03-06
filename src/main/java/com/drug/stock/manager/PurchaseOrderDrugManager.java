@@ -3,6 +3,7 @@ package com.drug.stock.manager;
 import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -73,5 +74,14 @@ public interface PurchaseOrderDrugManager {
      * @throws DaoException
      */
     public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
+
+    /**
+     * 获得订单表药品的分页信息
+     *
+     * @param purchaseOrderDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
 
 }
