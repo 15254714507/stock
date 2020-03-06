@@ -42,7 +42,7 @@
     <div class="login-container">
         <div class="center">
             <h4 class="header white lighter bigger">
-                医院药品库存管理系统
+                药品库存管理系统
 
             </h4>
         </div>
