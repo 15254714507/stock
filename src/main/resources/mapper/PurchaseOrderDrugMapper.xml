@@ -86,14 +86,14 @@
         update purchase_order_drug
         <set>
             <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="code !=null and code != '' ">
+                    code= #{code,jdbcType=VARCHAR},
+                </if>
                 <if test="drugCode !=null and drugCode != '' ">
                     drug_code=#{drugCode,jdbcType=VARCHAR},
                 </if>
                 <if test="drugName !=null and drugName != '' ">
                     drug_name=#{drugName,jdbcType=VARCHAR},
-                </if>
-                <if test="code !=null and code != '' ">
-                    code= #{code,jdbcType=VARCHAR},
                 </if>
                 <if test="productionLotNumber !=null and productionLotNumber != '' ">
                     production_lot_number= #{productionLotNumber,jdbcType=VARCHAR},
@@ -128,12 +128,13 @@
         </set>
         WHERE id = #{id,jdbcType=BIGINT};
     </update>
-    <select id="getPurchaseOrderDrugByCode" resultMap="BaseResultMap" parameterType="String">
+    <select id="getPurchaseOrderDrugByCodeAndDrugCode" resultMap="BaseResultMap" parameterType="String">
         select
         <include refid="Base_Column_List"/>
         from purchase_order_drug
         where is_delete=0
         and code=#{code,jdbcType=VARCHAR}
+        and drug_code=#{drugCode,jdbcType=VARCHAR}
     </select>
     <select id="listPurchaseOrderDrug" resultMap="BaseResultMap"
             parameterType="com.drug.stock.entity.condition.PurchaseOrderDrugCondition">
@@ -163,11 +164,12 @@
             and expire_date= #{expireDate,jdbcType=TIMESTAMP}
         </if>
     </select>
-    <select id="countPurchaseOrderDrugByCode" parameterType="String" resultType="Long">
+    <select id="countPurchaseOrderDrugByCodeAndDrugCode" parameterType="String" resultType="Long">
         select
         count(code)
         from purchase_order_drug
         where is_delete =0
         and code=#{code,jdbcType=VARCHAR}
+        and drug_code=#{drugCode,jdbcType=VARCHAR}
     </select>
 </mapper>

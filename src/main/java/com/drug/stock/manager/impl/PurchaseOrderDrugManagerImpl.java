@@ -36,8 +36,9 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long insertPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
-        if (countPurchaseOrderDrugByCode(purchaseOrderDrug.getCode()) > 0) {
-            throw new DaoException("新添加入库单药品信息已存在 purchaseOrderDrug：" + JSON.toJSONString(purchaseOrderDrug));
+        if (countPurchaseOrderDrugByCodeAndDrugCode(purchaseOrderDrug.getCode(), purchaseOrderDrug.getDrugCode()) > 0) {
+            log.warn("新添加入库单药品信息已存在 purchaseOrderDrug：{}", JSON.toJSONString(purchaseOrderDrug));
+            return 0L;
         }
         purchaseOrderDrug.setCreateTime(TimestampFactory.getTimestamp());
         purchaseOrderDrug.setUpdateTime(purchaseOrderDrug.getCreateTime());
@@ -53,7 +54,8 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updatePurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
         if (getPurchaseOrderDrug(purchaseOrderDrug.getId()) == null) {
-            throw new DaoException("修改的订单药品信息不存在 purchaseOrderDrug:" + JSON.toJSONString(purchaseOrderDrug));
+            log.warn("修改的订单药品信息不存在 purchaseOrderDrug:{}", JSON.toJSONString(purchaseOrderDrug));
+            return 0L;
         }
         purchaseOrderDrug.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -68,7 +70,8 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     @Transactional(rollbackFor = Exception.class)
     public Long deletePurchaseOrderDrug(Long id) throws DaoException {
         if (getPurchaseOrderDrug(id) == null) {
-            throw new DaoException("将要删除的订单药品信息不存在 id：" + id);
+            log.warn("将要删除的订单药品信息不存在 id：{}", id);
+            return 0L;
         }
         try {
             return purchaseOrderDrugDao.deletePurchaseOrderDrug(id);
@@ -79,9 +82,9 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     }
 
     @Override
-    public PurchaseOrderDrug getPurchaseOrderDrugByCode(String code) throws DaoException {
+    public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         try {
-            return purchaseOrderDrugDao.getPurchaseOrderDrugByCode(code);
+            return purchaseOrderDrugDao.getPurchaseOrderDrugByCodeAndDrugCode(code, drugCode);
         } catch (Exception e) {
             throw new DaoException(e);
         }
@@ -97,9 +100,9 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     }
 
     @Override
-    public Long countPurchaseOrderDrugByCode(String code) throws DaoException {
+    public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         try {
-            return purchaseOrderDrugDao.countPurchaseOrderDrugByCode(code);
+            return purchaseOrderDrugDao.countPurchaseOrderDrugByCodeAndDrugCode(code, drugCode);
         } catch (Exception e) {
             throw new DaoException(e);
         }

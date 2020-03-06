@@ -41,8 +41,8 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     }
 
     @Override
-    public PurchaseOrderDrug getPurchaseOrderDrugByCode(String code) throws DaoException {
-        return purchaseOrderDrugManager.getPurchaseOrderDrugByCode(code);
+    public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
+        return purchaseOrderDrugManager.getPurchaseOrderDrugByCodeAndDrugCode(code,drugCode);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     }
 
     @Override
-    public Long countPurchaseOrderDrugByCode(String code) throws DaoException {
-        return purchaseOrderDrugManager.countPurchaseOrderDrugByCode(code);
+    public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
+        return purchaseOrderDrugManager.countPurchaseOrderDrugByCodeAndDrugCode(code, drugCode);
     }
 }
