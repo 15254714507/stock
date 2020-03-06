@@ -122,7 +122,7 @@ public class PurchaseOrderController {
         try {
             Long isSuc = purchaseOrderService.updatePurchaseOrder(purchaseOrder);
             if (isSuc == 1) {
-                result = new Result(SuccessConstant.SUCCESS_CODE,SuccessConstant.PURCHASE_ORDER_PUBLISH_SUCCESS);
+                result = new Result(SuccessConstant.SUCCESS_CODE,SuccessConstant.UPDATE_PURCHASE_ORDER_SUCCESS);
             } else {
                 result = new Result(ErrorConstant.ERROR_CODE,ErrorConstant.PURCHASE_ORDER_NOT);
             }
