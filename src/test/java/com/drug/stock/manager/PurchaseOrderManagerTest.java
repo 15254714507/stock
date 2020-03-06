@@ -1,7 +1,8 @@
-package com.drug.stock.service;
+package com.drug.stock.manager;
 
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.domain.PurchaseOrder;
+import com.drug.stock.manager.PurchaseOrderManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,9 +16,9 @@ import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PurchaseOrderTest {
+public class PurchaseOrderManagerTest {
     @Resource
-    PurchaseOrderService purchaseOrderService;
+    PurchaseOrderManager purchaseOrderManager;
 
     private PurchaseOrder createPurchaseOrder() {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
@@ -37,9 +38,9 @@ public class PurchaseOrderTest {
     public void insertPurchaseOrder() {
         PurchaseOrder purchaseOrder = createPurchaseOrder();
         String code = purchaseOrder.getCode();
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
         Assert.assertNotNull(purchaseOrder);
         Assert.assertNotNull(purchaseOrder.getCode());
         Assert.assertNotNull(purchaseOrder.getDescription());
@@ -59,10 +60,10 @@ public class PurchaseOrderTest {
     public void getPurchaseOrderTest() {
         PurchaseOrder purchaseOrder = createPurchaseOrder();
         String code = purchaseOrder.getCode();
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
-        purchaseOrder = purchaseOrderService.getPurchaseOrder(purchaseOrder.getId());
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
+        purchaseOrder = purchaseOrderManager.getPurchaseOrder(purchaseOrder.getId());
         Assert.assertNotNull(purchaseOrder);
     }
 
@@ -71,9 +72,9 @@ public class PurchaseOrderTest {
     public void updatePurchaseOrderTest() throws InterruptedException {
         PurchaseOrder purchaseOrder = createPurchaseOrder();
         String code = purchaseOrder.getCode();
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
         purchaseOrder.setCode(UUID.randomUUID().toString());
         purchaseOrder.setUserAccount(UUID.randomUUID().toString());
         purchaseOrder.setUserName(UUID.randomUUID().toString());
@@ -81,10 +82,10 @@ public class PurchaseOrderTest {
         purchaseOrder.setStatus(true);
         //休眠一秒，要不修改后的时间点和创建的时间点一致了
         Thread.sleep(1000);
-        num = purchaseOrderService.updatePurchaseOrder(purchaseOrder);
+        num = purchaseOrderManager.updatePurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
 
-        PurchaseOrder purchaseOrder1 = purchaseOrderService.getPurchaseOrderByCode(purchaseOrder.getCode());
+        PurchaseOrder purchaseOrder1 = purchaseOrderManager.getPurchaseOrderByCode(purchaseOrder.getCode());
         Assert.assertEquals(purchaseOrder.getCode(), purchaseOrder1.getCode());
         Assert.assertEquals(purchaseOrder.getUserAccount(), purchaseOrder1.getUserAccount());
         Assert.assertEquals(purchaseOrder.getUserName(), purchaseOrder1.getUserName());
@@ -100,12 +101,12 @@ public class PurchaseOrderTest {
     public void deletePurchaseOrderTest() {
         PurchaseOrder purchaseOrder = createPurchaseOrder();
         String code = purchaseOrder.getCode();
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
-        num = purchaseOrderService.deletePurchaseOrder(purchaseOrder.getId());
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
+        num = purchaseOrderManager.deletePurchaseOrder(purchaseOrder.getId());
         Assert.assertTrue(num > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
         Assert.assertNull(purchaseOrder);
     }
 
@@ -114,10 +115,10 @@ public class PurchaseOrderTest {
     public void countPurchaseOrderByCodeTest() {
         PurchaseOrder purchaseOrder = createPurchaseOrder();
         String code = purchaseOrder.getCode();
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
-        purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
-        num = purchaseOrderService.deletePurchaseOrder(purchaseOrder.getId());
+        purchaseOrder = purchaseOrderManager.getPurchaseOrderByCode(code);
+        num = purchaseOrderManager.deletePurchaseOrder(purchaseOrder.getId());
         Assert.assertTrue(num > 0);
     }
 
@@ -130,11 +131,11 @@ public class PurchaseOrderTest {
         purchaseOrderCondition.setUserAccount(purchaseOrder.getUserAccount());
         purchaseOrderCondition.setUserName(purchaseOrder.getUserName());
 
-        Long num = purchaseOrderService.insertPurchaseOrder(purchaseOrder);
+        Long num = purchaseOrderManager.insertPurchaseOrder(purchaseOrder);
         Assert.assertTrue(num.intValue() > 0);
 
 
-        List<PurchaseOrder> purchaseOrderList = purchaseOrderService.listPurchaseOrder(purchaseOrderCondition);
+        List<PurchaseOrder> purchaseOrderList = purchaseOrderManager.listPurchaseOrder(purchaseOrderCondition);
         Assert.assertTrue(purchaseOrderList.size() == 1);
     }
 
