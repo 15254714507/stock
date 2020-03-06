@@ -1,5 +1,5 @@
 //表单验证提交
-$("#form-drug-update").Validform({
+$("#form-purchaseOrder-update").Validform({
 
     tiptype: 2,
 
@@ -21,10 +21,10 @@ $("#form-drug-update").Validform({
 //修改药品信息
 function updateClick() {
     $.ajax({
-        url: "/updateDrug.do",
+        url: "/updatePurchaseOrder.do",
         type: "POST",
         cache: false,
-        data: $("#form-drug-update").serialize(),
+        data: $("#form-purchaseOrder-update").serialize(),
         dataType: "json",
         success: function (result) {
             if (result.code === 200) {

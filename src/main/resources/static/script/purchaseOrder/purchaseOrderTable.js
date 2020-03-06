@@ -48,11 +48,11 @@ function member_publish(obj, id) {
 function member_edit(obj, id) {
     layer.open({
         type: 2,
-        title: '修改药品信息',
+        title: '修改入库单信息',
         closeBtn: 1, //显示关闭按钮
         area: ['600px', '600px'],
         shadeClose: false,
-        content: ['/gotoUpdateDrug.do?id=' + id, 'yes'],
+        content: ['/gotoUpdatePurchaseOrder.do?id=' + id, 'yes'],
     });
 }
 

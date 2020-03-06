@@ -47,4 +47,8 @@ public interface SuccessConstant {
      * 删除供应商成功返回的信息
      */
     String DELETE_PROVIDER_SUCCESS = "删除供应商成功";
+    /**
+     * 修改入库单状态为已发布
+     */
+    String PURCHASE_ORDER_PUBLISH_SUCCESS="此入库单状态已修改为已发布";
 }

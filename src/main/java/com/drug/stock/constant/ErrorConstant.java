@@ -89,4 +89,12 @@ public interface ErrorConstant {
      * 删除供应商时没有在数据库中查到
      */
     String DELETE_PROVIDER_NOT = "要删除的供应商不存在,请刷新后重试";
+    /**
+     * 要发布的入库单不存在
+     */
+    String PURCHASE_ORDER_NOT = "要发布的的入库单不存在,请刷新后重试";
+    /**
+     * 当提交的修改入库单不存在或者id不存在时返回的错误信息
+     */
+    String PURCHASE_ORDER_FORM_ERROR ="提交的不符合规则，请重新提交";
 }
