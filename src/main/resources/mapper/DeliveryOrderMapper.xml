@@ -68,11 +68,21 @@
         update delivery_order
         <set>
             <trim prefix="" suffix="" suffixOverrides=",">
-                code=#{code,jdbcType=VARCHAR},
-                user_account=#{userAccount,jdbcType=VARCHAR},
-                user_name=#{userName,jdbcType=VARCHAR},
-                description=#{description,jdbcType=VARCHAR},
-                status=#{status,jdbcType=TINYINT},
+                <if test="code!=null and code!=''">
+                    code=#{code,jdbcType=VARCHAR},
+                </if>
+                <if test="userAccount!=null and userAccount!=''">
+                    user_account=#{userAccount,jdbcType=VARCHAR},
+                </if>
+                <if test="userName!=null and userName!=''">
+                    user_name=#{userName,jdbcType=VARCHAR},
+                </if>
+                <if test="description!=null and description!=''">
+                    description=#{description,jdbcType=VARCHAR},
+                </if>
+                <if test="status!=null">
+                    status=#{status,jdbcType=TINYINT},
+                </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
                 version=#{version,jdbcType=INTEGER}+1,
@@ -111,7 +121,7 @@
             and user_name=#{userName,jdbcType=VARCHAR}
         </if>
         <if test="status!=null">
-            and  status=#{status,jdbcType=TINYINT}
+            and status=#{status,jdbcType=TINYINT}
         </if>
     </select>
     <select id="countDeliveryOrderByCode" parameterType="String" resultType="Long">
