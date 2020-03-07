@@ -41,8 +41,8 @@ public class DeliveryOrderDrugServiceImpl implements DeliveryOrderDrugService {
     }
 
     @Override
-    public DeliveryOrderDrug getDeliveryOrderDrugByCode(String code) throws DaoException {
-        return deliveryOrderDrugManager.getDeliveryOrderDrugByCode(code);
+    public DeliveryOrderDrug getDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
+        return deliveryOrderDrugManager.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DeliveryOrderDrugServiceImpl implements DeliveryOrderDrugService {
     }
 
     @Override
-    public Long countDeliveryOrderDrugByCode(String code) throws DaoException {
-        return deliveryOrderDrugManager.countDeliveryOrderDrugByCode(code);
+    public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
+        return deliveryOrderDrugManager.countDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
     }
 }

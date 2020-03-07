@@ -41,9 +41,10 @@ public class DeliveryOrderDrugServiceTest {
     public void insertDeliveryOrderDrugTest() {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
+        String drugCode = deliveryOrderDrug.getDrugCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
-        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCode(code);
+        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         Assert.assertNotNull(deliveryOrderDrug);
         Assert.assertNotNull(deliveryOrderDrug.getDrugCode());
         Assert.assertNotNull(deliveryOrderDrug.getExpireDate());
@@ -63,9 +64,10 @@ public class DeliveryOrderDrugServiceTest {
     public void getDeliveryOrderDrugTest() {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
+        String drugCode = deliveryOrderDrug.getDrugCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
-        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCode(code);
+        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrug(deliveryOrderDrug.getId());
         Assert.assertNotNull(deliveryOrderDrug);
     }
@@ -75,9 +77,10 @@ public class DeliveryOrderDrugServiceTest {
     public void updateDeliveryOrderDrugTest() throws InterruptedException {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
+        String drugCode = deliveryOrderDrug.getDrugCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
-        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCode(code);
+        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
 
         Assert.assertNotNull(deliveryOrderDrug);
         deliveryOrderDrug.setCode(UUID.randomUUID().toString());
@@ -88,11 +91,12 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrug.setPrice(22.11);
         deliveryOrderDrug.setProductionLotNumber(UUID.randomUUID().toString());
         String newCode = deliveryOrderDrug.getCode();
+        String newDrugCode = deliveryOrderDrug.getDrugCode();
         Thread.sleep(1000);
         isSuc = deliveryOrderDrugService.updateDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
 
-        DeliveryOrderDrug deliveryOrderDrug1 = deliveryOrderDrugService.getDeliveryOrderDrugByCode(newCode);
+        DeliveryOrderDrug deliveryOrderDrug1 = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(newCode, newDrugCode);
         Assert.assertNotNull(deliveryOrderDrug);
         Assert.assertEquals(deliveryOrderDrug.getCode(), deliveryOrderDrug1.getCode());
         Assert.assertEquals(deliveryOrderDrug.getDrugCode(), deliveryOrderDrug1.getDrugCode());
@@ -110,9 +114,10 @@ public class DeliveryOrderDrugServiceTest {
     public void deleteDeliveryOrderDrugTest() {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
+        String drugCode = deliveryOrderDrug.getDrugCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
-        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCode(code);
+        deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         isSuc = deliveryOrderDrugService.deleteDeliveryOrderDrug(deliveryOrderDrug.getId());
         Assert.assertTrue(isSuc > 0);
         deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrug(deliveryOrderDrug.getId());
@@ -124,14 +129,16 @@ public class DeliveryOrderDrugServiceTest {
     public void countDeliveryOrderDrugByCode() {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
+        String drugCode = deliveryOrderDrug.getDrugCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
         Assert.assertTrue(isSuc > 0);
-        Long num = deliveryOrderDrugService.countDeliveryOrderDrugByCode(code);
+        Long num = deliveryOrderDrugService.countDeliveryOrderDrugByCodeAndDrugCode(code,drugCode);
         Assert.assertTrue(num == 1);
     }
+
     @Test
     @Transactional
-    public void listDeliveryOrderDrugTest(){
+    public void listDeliveryOrderDrugTest() {
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();
         Long isSuc = deliveryOrderDrugService.insertDeliveryOrderDrug(deliveryOrderDrug);
@@ -142,7 +149,7 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrugCondition.setPrice(deliveryOrderDrug.getPrice());
         deliveryOrderDrugCondition.setExpireDate(deliveryOrderDrug.getExpireDate());
         List<DeliveryOrderDrug> purchaseOrderDrugList = deliveryOrderDrugService.listDeliveryOrderDrug(deliveryOrderDrugCondition);
-        Assert.assertTrue(purchaseOrderDrugList.size()==1);
+        Assert.assertTrue(purchaseOrderDrugList.size() == 1);
 
     }
 }

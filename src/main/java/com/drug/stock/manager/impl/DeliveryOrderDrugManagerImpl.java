@@ -36,7 +36,7 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
-        if (countDeliveryOrderDrugByCode(deliveryOrderDrug.getCode()) > 0) {
+        if (countDeliveryOrderDrugByCodeAndDrugCode(deliveryOrderDrug.getCode(),deliveryOrderDrug.getDrugCode()) > 0) {
             throw new DaoException("新添加出库药品信息已存在 deliveryOrderDrug：" + JSON.toJSONString(deliveryOrderDrug));
         }
         deliveryOrderDrug.setCreateTime(TimestampFactory.getTimestamp());
@@ -79,9 +79,9 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     }
 
     @Override
-    public DeliveryOrderDrug getDeliveryOrderDrugByCode(String code) throws DaoException {
+    public DeliveryOrderDrug getDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         try {
-            return deliveryOrderDrugDao.getDeliveryOrderDrugByCode(code);
+            return deliveryOrderDrugDao.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         } catch (Exception e) {
             throw new DaoException(e);
         }
@@ -97,9 +97,9 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     }
 
     @Override
-    public Long countDeliveryOrderDrugByCode(String code) throws DaoException {
+    public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         try {
-            return deliveryOrderDrugDao.countDeliveryOrderDrugByCode(code);
+            return deliveryOrderDrugDao.countDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         } catch (Exception e) {
             throw new DaoException(e);
         }

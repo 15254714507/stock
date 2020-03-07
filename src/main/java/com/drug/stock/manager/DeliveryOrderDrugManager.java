@@ -47,13 +47,14 @@ public interface DeliveryOrderDrugManager {
     public Long deleteDeliveryOrderDrug(Long id) throws DaoException;
 
     /***
-     * 根据code获得出库单药品信息
+     * 根据code和drug为唯一索引获得出库单药品信息
      *
      * @param code
+     * @param drugCode
      * @return
      * @throws DaoException
      */
-    public DeliveryOrderDrug getDeliveryOrderDrugByCode(String code) throws DaoException;
+    public DeliveryOrderDrug getDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 
     /**
      * 获得出库单药品的集合
@@ -65,10 +66,11 @@ public interface DeliveryOrderDrugManager {
     public List<DeliveryOrderDrug> listDeliveryOrderDrug(DeliveryOrderDrugCondition deliveryOrderDrugCondition) throws DaoException;
 
     /***
-     * 根据code统计数量
+     * 根据code和drug为唯一索引统计数量
      * @param code
+     * @param drugCode
      * @return
      * @throws DaoException
      */
-    public Long countDeliveryOrderDrugByCode(String code) throws DaoException;
+    public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 }

@@ -114,12 +114,13 @@
         </set>
         WHERE id = #{id,jdbcType=BIGINT};
     </update>
-    <select id="getDeliveryOrderDrugByCode" resultMap="BaseResultMap" parameterType="String">
+    <select id="getDeliveryOrderDrugByCodeAndDrugCode" resultMap="BaseResultMap" parameterType="String">
         select
         <include refid="Base_Column_List"/>
         from delivery_order_drug
         where is_delete=0
         and code=#{code,jdbcType=VARCHAR}
+        and drug_code=#{drugCode,jdbcType=VARCHAR}
     </select>
     <select id="listDeliveryOrderDrug" resultMap="BaseResultMap"
             parameterType="com.drug.stock.entity.condition.DeliveryOrderDrugCondition">
@@ -143,11 +144,12 @@
             and expire_date= #{expireDate,jdbcType=TIMESTAMP}
         </if>
     </select>
-    <select id="countDeliveryOrderDrugByCode" parameterType="String" resultType="Long">
+    <select id="countDeliveryOrderDrugByCodeAndDrugCode" parameterType="String" resultType="Long">
         select
         count(code)
         from delivery_order_drug
         where is_delete =0
         and code=#{code,jdbcType=VARCHAR}
+        and drug_code=#{drugCode,jdbcType=VARCHAR}
     </select>
 </mapper>

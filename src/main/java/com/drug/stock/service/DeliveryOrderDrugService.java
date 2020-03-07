@@ -53,7 +53,7 @@ public interface DeliveryOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public DeliveryOrderDrug getDeliveryOrderDrugByCode(String code) throws DaoException;
+    public DeliveryOrderDrug getDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 
     /**
      * 获得出库单药品的集合
@@ -67,8 +67,9 @@ public interface DeliveryOrderDrugService {
     /***
      * 根据code统计数量
      * @param code
+     * @param drugCode
      * @return
      * @throws DaoException
      */
-    public Long countDeliveryOrderDrugByCode(String code) throws DaoException;
+    public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 }

@@ -46,12 +46,13 @@ public interface DeliveryOrderDrugDao {
     public Long deleteDeliveryOrderDrug(Long id);
 
     /***
-     * 根据code获得出库单药品信息
+     * 根据code和drugCode为唯一索引获得出库单药品信息
      *
      * @param code
+     * @param drugCode
      * @return
      */
-    public DeliveryOrderDrug getDeliveryOrderDrugByCode(String code);
+    public DeliveryOrderDrug getDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode);
 
     /**
      * 获得出库单药品的集合
@@ -62,9 +63,10 @@ public interface DeliveryOrderDrugDao {
     public List<DeliveryOrderDrug> listDeliveryOrderDrug(DeliveryOrderDrugCondition deliveryOrderDrugCondition);
 
     /***
-     * 根据code统计数量
+     * 根据code和drugCode为唯一索引统计数量
      * @param code
+     * @param drugCode
      * @return
      */
-    public Long countDeliveryOrderDrugByCode(String code);
+    public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode);
 }
