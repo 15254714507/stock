@@ -64,13 +64,16 @@ public class DeliveryOrderDrugController {
         deliveryOrderDrugCondition.setDrugCode(drugCode);
         deliveryOrderDrugCondition.setDrugName(drugName);
         PageInfo<DeliveryOrderDrug> pageInfo = null;
+        DeliveryOrder deliveryOrder = null;
         try {
-           pageInfo = deliveryOrderDrugService.findDeliveryOrderDrugPage(deliveryOrderDrugCondition);
+            pageInfo = deliveryOrderDrugService.findDeliveryOrderDrugPage(deliveryOrderDrugCondition);
+            deliveryOrder = deliveryOrderService.getDeliveryOrderByCode(code);
         } catch (Exception e) {
             log.error("跳转到出库单的药品信息页面获取药品的分页信息出现异常 deliveryOrderDrugCondition：{}", JSON.toJSONString(deliveryOrderDrugCondition), e);
             return "error/404";
         }
-        model.addAttribute("page",pageInfo);
+        model.addAttribute("page", pageInfo);
+        model.addAttribute("deliveryOrder",deliveryOrder);
         return "deliveryOrderDrug/deliveryOrderDrugTable";
     }
 }

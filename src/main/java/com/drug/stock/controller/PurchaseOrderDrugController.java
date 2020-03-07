@@ -60,13 +60,16 @@ public class PurchaseOrderDrugController {
         purchaseOrderDrugCondition.setDrugCode(drugCode);
         purchaseOrderDrugCondition.setDrugName(drugName);
         PageInfo<PurchaseOrderDrug> pageInfo = null;
+        PurchaseOrder purchaseOrder = null;
         try {
             pageInfo = purchaseOrderDrugService.findPurchaseOrderDrugPage(purchaseOrderDrugCondition);
+            purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
         } catch (Exception e) {
             log.error("跳转到订单的药品信息页面获取药品的分页信息出现异常 purchaseOrderDrugCondition：{}", purchaseOrderDrugCondition, e);
             return "error/404";
         }
-        model.addAttribute("page",pageInfo);
+        model.addAttribute("page", pageInfo);
+        model.addAttribute("purchaseOrder", purchaseOrder);
         return "purchaseOrderDrug/purchaseOrderDrugTable";
     }
 }

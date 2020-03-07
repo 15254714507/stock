@@ -5,9 +5,11 @@
         <th width="70px">药品编码</th>
         <th width="70px">药品名称</th>
         <th width="50px">单价</th>
-        <th width="50px">进货量</th>
+        <th width="50px">出货量</th>
         <th width="50px">金额</th>
-        <th width="100px">操作</th>
+        <#if deliveryOrder.status==false>
+            <th width="100px">操作</th>
+        </#if>
     </tr>
     </thead>
     <tbody>
@@ -21,13 +23,14 @@
             <td>${(deliveryOrderDrug.price)?string("0.##")}</td>
             <td>${(deliveryOrderDrug.number)!}</td>
             <td>${(deliveryOrderDrug.number) *(deliveryOrderDrug.price) !}</td>
-            <td class="td-manage">
-                <a title="编辑" onclick="member_edit(this,'${deliveryOrderDrug.getId()}')"
-                   href="javascript:;" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>
-                <a title="删除" href="javascript:;" onclick="member_del(this,'${deliveryOrderDrug.getId()}')"
-                   class="btn btn-xs btn-warning"><i class="fa fa-trash  bigger-120"></i></a>
-            </td>
-
+            <#if deliveryOrder.status==false>
+                <td class="td-manage">
+                    <a title="编辑" onclick="member_edit(this,'${deliveryOrderDrug.getId()}')"
+                       href="javascript:;" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i></a>
+                    <a title="删除" href="javascript:;" onclick="member_del(this,'${deliveryOrderDrug.getId()}')"
+                       class="btn btn-xs btn-warning"><i class="fa fa-trash  bigger-120"></i></a>
+                </td>
+            </#if>
         </tr>
     </#list>
     </tbody>
