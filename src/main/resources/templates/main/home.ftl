@@ -37,10 +37,10 @@
             <section class="panel">
                 <a href="#" title="账号数量">
                     <div class="symbol terques">
-                        <i class="icon-user"></i>
+                        <i class="icon-group"></i>
                     </div>
                     <div class="value">
-                        <h1>34522</h1>
+                        <h1>22</h1>
                         <p>系统用户</p>
                     </div>
                 </a>
@@ -49,10 +49,10 @@
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol red">
-                    <i class="icon-tags"></i>
+                    <i class="icon-bookmark"></i>
                 </div>
                 <div class="value">
-                    <h1>140</h1>
+                    <h1>3</h1>
                     <p>过期药品</p>
                 </div>
             </section>
@@ -60,10 +60,10 @@
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol yellow">
-                    <i class="icon-shopping-cart"></i>
+                    <i class="icon-credit-card"></i>
                 </div>
                 <div class="value">
-                    <h1>345</h1>
+                    <h1>10</h1>
                     <p>入库订单</p>
                 </div>
             </section>
@@ -71,11 +71,11 @@
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol blue">
-                    <i class="icon-bar-chart"></i>
+                    <i class="icon-cogs"></i>
                 </div>
                 <div class="value">
-                    <h1>￥34,500</h1>
-                    <p>分析报表</p>
+                    <h1>11</h1>
+                    <p>药品信息</p>
                 </div>
             </section>
         </div>
@@ -86,10 +86,10 @@
             <section class="panel">
                 <a href="#" title="账号数量">
                     <div class="symbol terques">
-                        <i class="icon-list-alt"></i>
+                        <i class="icon-user"></i>
                     </div>
                     <div class="value">
-                        <h1>34522</h1>
+                        <h1>10</h1>
                         <p>供应商</p>
                     </div>
                 </a>
@@ -101,7 +101,7 @@
                     <i class="icon-th-list"></i>
                 </div>
                 <div class="value">
-                    <h1>345</h1>
+                    <h1>10</h1>
                     <p>出库订单</p>
                 </div>
             </section>
@@ -109,10 +109,10 @@
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol blue">
-                    <i class="icon-pushpin"></i>
+                    <i class="icon-comments-alt"></i>
                 </div>
                 <div class="value">
-                    <h1>1200</h1>
+                    <h1>10</h1>
                     <p>库存异常</p>
                 </div>
             </section>

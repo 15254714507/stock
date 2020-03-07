@@ -338,6 +338,14 @@
                     <li class="home"><a href="javascript:void(0)" name="/home.do" class="iframeurl" title=""><i
                                     class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
                     <li>
+                        <a href="#" class="dropdown-toggle"><i class="icon-credit-card"></i><span class="menu-text"> 药品入库管理 </span><b
+                                    class="arrow icon-angle-down"></b></a>
+                        <ul class="submenu">
+                            <li class="home"><a href="javascript:void(0)" name="/gotoPurchaseOrderList.do" title="入库单列表"
+                                                class="iframeurl"><i class="icon-double-angle-right"></i>入库单列表</a></li>
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#" class="dropdown-toggle"><i class="icon-list"></i><span
                                     class="menu-text"> 药品出库管理 </span><b
                                     class="arrow icon-angle-down"></b></a>
@@ -346,12 +354,22 @@
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>出库单列表</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle"><i class="icon-credit-card"></i><span class="menu-text"> 药品入库管理 </span><b
-                                    class="arrow icon-angle-down"></b></a>
+                    <li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 存量管制管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoPurchaseOrderList.do" title="出库单列表"
-                                                class="iframeurl"><i class="icon-double-angle-right"></i>入库单列表</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="库存异常查询" class="iframeurl"><i class="icon-double-angle-right"></i>库存异常查询</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="库存管制" class="iframeurl"><i class="icon-double-angle-right"></i>库存管制</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 过期药品管理 </span><b class="arrow icon-angle-down"></b></a>
+                        <ul class="submenu">
+                            <li class="home"><a href="javascript:void(0)" name="article_list.html" title="过期药品删除" class="iframeurl"><i class="icon-double-angle-right"></i>过期药品删除</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span
+                                    class="menu-text"> 药品信息管理 </span><b class="arrow icon-angle-down"></b></a>
+                        <ul class="submenu">
+                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugList.do" title="药品列表"
+                                                class="iframeurl"><i class="icon-double-angle-right"></i>药品列表</a></li>
                         </ul>
                     </li>
                     <li>
@@ -362,13 +380,7 @@
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>供应商列表</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span
-                                    class="menu-text"> 药品信息管理 </span><b class="arrow icon-angle-down"></b></a>
-                        <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugList.do" title="药品列表"
-                                                class="iframeurl"><i class="icon-double-angle-right"></i>药品列表</a></li>
-                        </ul>
-                    </li>
+
                     <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span
                                     class="menu-text"> 用户管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
