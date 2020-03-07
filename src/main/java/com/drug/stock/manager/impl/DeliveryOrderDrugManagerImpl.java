@@ -39,8 +39,9 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
-        if (countDeliveryOrderDrugByCodeAndDrugCode(deliveryOrderDrug.getCode(),deliveryOrderDrug.getDrugCode()) > 0) {
-            throw new DaoException("新添加出库药品信息已存在 deliveryOrderDrug：" + JSON.toJSONString(deliveryOrderDrug));
+        if (countDeliveryOrderDrugByCodeAndDrugCode(deliveryOrderDrug.getCode(), deliveryOrderDrug.getDrugCode()) > 0) {
+            log.warn("新添加出库药品信息已存在 deliveryOrderDrug：{}", JSON.toJSONString(deliveryOrderDrug));
+            return 0L;
         }
         deliveryOrderDrug.setCreateTime(TimestampFactory.getTimestamp());
         deliveryOrderDrug.setUpdateTime(deliveryOrderDrug.getCreateTime());
@@ -56,7 +57,8 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updateDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
         if (getDeliveryOrderDrug(deliveryOrderDrug.getId()) == null) {
-            throw new DaoException("修改的出库药品信息不存在 deliveryOrderDrug:" + JSON.toJSONString(deliveryOrderDrug));
+            log.warn("修改的出库药品信息不存在 deliveryOrderDrug:{}", JSON.toJSONString(deliveryOrderDrug));
+            return 0L;
         }
         deliveryOrderDrug.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -71,7 +73,8 @@ public class DeliveryOrderDrugManagerImpl implements DeliveryOrderDrugManager {
     @Transactional(rollbackFor = Exception.class)
     public Long deleteDeliveryOrderDrug(Long id) throws DaoException {
         if (getDeliveryOrderDrug(id) == null) {
-            throw new DaoException("将要删除的出库药品信息不存在 id：" + id);
+            log.warn("将要删除的出库药品信息不存在 id：{}", id);
+            return 0L;
         }
         try {
             return deliveryOrderDrugDao.deleteDeliveryOrderDrug(id);
