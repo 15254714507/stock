@@ -38,7 +38,8 @@ public class DeliveryOrderManagerImpl implements DeliveryOrderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long insertDeliveryOrder(DeliveryOrder deliveryOrder) throws DaoException {
         if (countDeliveryOrderByCode(deliveryOrder.getCode()) > 0) {
-            throw new DaoException("新添加出库单已存在 deliveryOrder：" + JSON.toJSONString(deliveryOrder));
+            log.warn("新添加出库单已存在 deliveryOrder：{}", JSON.toJSONString(deliveryOrder));
+            return 0L;
         }
         deliveryOrder.setCreateTime(TimestampFactory.getTimestamp());
         deliveryOrder.setUpdateTime(deliveryOrder.getCreateTime());
@@ -54,7 +55,8 @@ public class DeliveryOrderManagerImpl implements DeliveryOrderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long updateDeliveryOrder(DeliveryOrder deliveryOrder) throws DaoException {
         if (getDeliveryOrder(deliveryOrder.getId()) == null) {
-            throw new DaoException("修改的出库单信息不存在 deliveryOrder:" + JSON.toJSONString(deliveryOrder));
+            log.warn("修改的出库单信息不存在 deliveryOrder:{}", JSON.toJSONString(deliveryOrder));
+            return 0L;
         }
         deliveryOrder.setUpdateTime(TimestampFactory.getTimestamp());
         try {
@@ -69,7 +71,8 @@ public class DeliveryOrderManagerImpl implements DeliveryOrderManager {
     @Transactional(rollbackFor = Exception.class)
     public Long deleteDeliveryOrder(Long id) throws DaoException {
         if (getDeliveryOrder(id) == null) {
-            throw new DaoException("删除的出库单不存在 id：" + id);
+            log.warn("删除的出库单不存在 id：{}", id);
+            return 0L;
         }
         try {
             return deliveryOrderDao.deleteDeliveryOrder(id);

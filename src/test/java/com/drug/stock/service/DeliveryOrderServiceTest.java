@@ -52,6 +52,7 @@ public class DeliveryOrderServiceTest {
         Assert.assertNotNull(deliveryOrder.getCreateTime());
         Assert.assertEquals(false, deliveryOrder.getDelete());
         Assert.assertEquals(1, deliveryOrder.getVersion().intValue());
+        Assert.assertFalse(deliveryOrder.getStatus());
     }
 
     @Test
@@ -78,6 +79,7 @@ public class DeliveryOrderServiceTest {
         deliveryOrder.setUserAccount(UUID.randomUUID().toString());
         deliveryOrder.setUserName(UUID.randomUUID().toString());
         deliveryOrder.setDescription(UUID.randomUUID().toString());
+        deliveryOrder.setStatus(true);
         //休眠一秒，要不修改后的时间点和创建的时间点一致了
         Thread.sleep(1000);
         num = deliveryOrderService.updateDeliveryOrder(deliveryOrder);
@@ -90,6 +92,7 @@ public class DeliveryOrderServiceTest {
         Assert.assertEquals(deliveryOrder.getDescription(), deliverOrder1.getDescription());
         Assert.assertTrue(deliverOrder1.getCreateTime().before(deliverOrder1.getUpdateTime()));
         Assert.assertEquals(2, deliverOrder1.getVersion().intValue());
+        Assert.assertTrue(deliverOrder1.getStatus());
 
     }
 
