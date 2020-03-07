@@ -85,7 +85,7 @@
                 </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
-                version=#{version,jdbcType=INTEGER}+1,
+                version=version+1,
             </trim>
         </set>
         WHERE is_delete = 0
