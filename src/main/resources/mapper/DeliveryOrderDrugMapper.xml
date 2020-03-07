@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
+        <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
         <result column="production_lot_number" property="productionLotNumber" jdbcType="VARCHAR"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="number" property="number" jdbcType="INTEGER"/>
@@ -22,6 +23,7 @@
             id,
             code,
             drug_code,
+            drug_name,
             production_lot_number,
             price,
             number,
@@ -47,6 +49,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             code,
             drug_code,
+            drug_name,
             production_lot_number,
             price,
             number,
@@ -60,6 +63,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             #{code,jdbcType=VARCHAR},
             #{drugCode,jdbcType=VARCHAR},
+            #{drugName,jdbcType=VARCHAR},
             #{productionLotNumber,jdbcType=VARCHAR},
             #{price,jdbcType=DECIMAL},
             #{number,jdbcType=INTEGER},
@@ -79,6 +83,9 @@
                 </if>
                 <if test="drugCode !=null and drugCode != '' ">
                     drug_code=#{drugCode,jdbcType=VARCHAR},
+                </if>
+                <if test="drugName !=null and drugName!='' ">
+                    drug_name=#{drugName,jdbcType=VARCHAR},
                 </if>
                 <if test="productionLotNumber !=null and productionLotNumber != '' ">
                     production_lot_number= #{productionLotNumber,jdbcType=VARCHAR},
@@ -125,6 +132,9 @@
         </if>
         <if test="drugCode !=null and drugCode != '' ">
             and drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        <if test="drugName !=null and drugName != '' ">
+            and drug_name=#{drugName,jdbcType=VARCHAR}
         </if>
         <if test="price !=null">
             and price=#{price,jdbcType=DECIMAL}

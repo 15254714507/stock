@@ -25,6 +25,7 @@ public class DeliveryOrderDrugServiceTest {
     private DeliveryOrderDrug createDeliveryOrderDrug() {
         DeliveryOrderDrug deliveryOrderDrug = new DeliveryOrderDrug();
         deliveryOrderDrug.setCode(UUID.randomUUID().toString());
+        deliveryOrderDrug.setDrugName(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugCode(UUID.randomUUID().toString());
         deliveryOrderDrug.setExpireDate(TimestampFactory.getTimestamp());
         deliveryOrderDrug.setNumber(111);
@@ -54,6 +55,7 @@ public class DeliveryOrderDrugServiceTest {
         Assert.assertEquals(11.11, deliveryOrderDrug.getPrice().doubleValue(), 2.0);
         Assert.assertNotNull(deliveryOrderDrug.getCreateTime());
         Assert.assertNotNull(deliveryOrderDrug.getUpdateTime());
+        Assert.assertNotNull(deliveryOrderDrug.getDrugName());
     }
 
     @Test
@@ -80,6 +82,7 @@ public class DeliveryOrderDrugServiceTest {
         Assert.assertNotNull(deliveryOrderDrug);
         deliveryOrderDrug.setCode(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugCode(UUID.randomUUID().toString());
+        deliveryOrderDrug.setDrugName(UUID.randomUUID().toString());
         deliveryOrderDrug.setExpireDate(TimestampFactory.getTimestamp());
         deliveryOrderDrug.setNumber(222);
         deliveryOrderDrug.setPrice(22.11);
@@ -99,7 +102,7 @@ public class DeliveryOrderDrugServiceTest {
         Assert.assertEquals(deliveryOrderDrug.getProductionLotNumber(), deliveryOrderDrug1.getProductionLotNumber());
 
         Assert.assertTrue(deliveryOrderDrug1.getUpdateTime().after(deliveryOrderDrug1.getCreateTime()));
-
+        Assert.assertEquals(deliveryOrderDrug.getDrugName(), deliveryOrderDrug1.getDrugName());
     }
 
     @Test
@@ -127,6 +130,7 @@ public class DeliveryOrderDrugServiceTest {
         Assert.assertTrue(num == 1);
     }
     @Test
+    @Transactional
     public void listDeliveryOrderDrugTest(){
         DeliveryOrderDrug deliveryOrderDrug = createDeliveryOrderDrug();
         String code = deliveryOrderDrug.getCode();

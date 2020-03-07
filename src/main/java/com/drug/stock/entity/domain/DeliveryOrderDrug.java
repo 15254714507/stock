@@ -26,6 +26,10 @@ public class DeliveryOrderDrug implements Serializable {
      * */
     private String drugCode;
     /**
+     * 药品名称
+     * */
+    private String drugName;
+    /**
      * 生产批号
      * */
     private String productionLotNumber;
