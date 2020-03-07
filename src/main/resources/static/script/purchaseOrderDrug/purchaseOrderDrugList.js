@@ -12,5 +12,5 @@ $('#purchase_order_drug_add').on('click', function () {
 });
 $("#search_button").on("click", function () {
     $("#purchaseOrderDrugTableIframe").load("/gotoPurchaseOrderDrugTable.do?code=" + $("#start").val()
-        + "drugCode=" + $("#drug_code").val() + "&drugName=" + $("#drug_name").val());
+        + "&drugCode=" + $("#drug_code").val() + "&drugName=" + $("#drug_name").val());
 });

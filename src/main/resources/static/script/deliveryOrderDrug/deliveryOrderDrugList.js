@@ -12,5 +12,5 @@ $('#delivery_order_drug_add').on('click', function () {
 });
 $("#search_button").on("click", function () {
     $("#deliveryOrderDrugTableIframe").load("/gotoDeliveryOrderDrugTable.do?code=" + $("#start").val()
-        + "drugCode=" + $("#drug_code").val() + "&drugName=" + $("#drug_name").val());
+        + "&drugCode=" + $("#drug_code").val() + "&drugName=" + $("#drug_name").val());
 });
