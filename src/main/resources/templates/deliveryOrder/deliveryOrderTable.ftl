@@ -48,7 +48,7 @@
                 </#if>
 
                 <a href="javascript:void(0)" name="" class="btn btn-xs btn-pink ads_link"
-                   onclick="gotoPurchaseOrderDrugList('${(deliveryOrder.code)!}')" title="出库单药品信息"><i
+                   onclick="gotoDeliveryOrderDrugList('${(deliveryOrder.code)!}')" title="出库单药品信息"><i
                             class="fa  fa-bars  bigger-120"></i></a>
             </td>
 
