@@ -3,6 +3,7 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.DeliveryOrderDrugCondition;
 import com.drug.stock.entity.domain.DeliveryOrderDrug;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -72,4 +73,12 @@ public interface DeliveryOrderDrugService {
      * @throws DaoException
      */
     public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
+
+    /**
+     * 获得订单药品信息的分页数据
+      * @param deliveryOrderDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<DeliveryOrderDrug> findDeliveryOrderDrugPage(DeliveryOrderDrugCondition deliveryOrderDrugCondition) throws DaoException;
 }

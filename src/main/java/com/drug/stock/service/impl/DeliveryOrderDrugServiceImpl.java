@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.DeliveryOrderDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderDrugManager;
 import com.drug.stock.service.DeliveryOrderDrugService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,10 @@ public class DeliveryOrderDrugServiceImpl implements DeliveryOrderDrugService {
     @Override
     public Long countDeliveryOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException {
         return deliveryOrderDrugManager.countDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
+    }
+
+    @Override
+    public PageInfo<DeliveryOrderDrug> findDeliveryOrderDrugPage(DeliveryOrderDrugCondition deliveryOrderDrugCondition) throws DaoException {
+        return deliveryOrderDrugManager.findDeliveryOrderDrugPage(deliveryOrderDrugCondition);
     }
 }
