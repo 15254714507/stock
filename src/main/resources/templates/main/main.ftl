@@ -350,7 +350,7 @@
                                     class="menu-text"> 药品出库管理 </span><b
                                     class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoPurchaseOrderList.do" title="出库单列表"
+                            <li class="home"><a href="javascript:void(0)" name="/gotoDeliveryOrderList.do" title="出库单列表"
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>出库单列表</a></li>
                         </ul>
                     </li>

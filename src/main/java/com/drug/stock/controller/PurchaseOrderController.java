@@ -10,11 +10,9 @@ import com.drug.stock.service.PurchaseOrderService;
 import com.drug.stock.sumbit.PurchaseOrderForm;
 import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,17 +64,18 @@ public class PurchaseOrderController {
      */
     @PostMapping(value = "/publishPurchaseOrder.do")
     @ResponseBody
-    public Result publishPurchaseOrder(Long id) {
+    public Result publishPurchaseOrder(Long id, HttpSession session) {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setId(id);
         purchaseOrder.setStatus(true);
+        purchaseOrder.setUpdateUser((String) session.getAttribute(session.getId()));
         Result result = null;
         try {
             Long isSuc = purchaseOrderService.updatePurchaseOrder(purchaseOrder);
             if (isSuc == 1) {
                 result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.PURCHASE_ORDER_PUBLISH_SUCCESS);
             } else {
-                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.PURCHASE_ORDER_NOT);
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_NOT);
             }
         } catch (Exception e) {
             log.error("入库单修改状态时发生异常 id：{}", id, e);
@@ -116,7 +115,7 @@ public class PurchaseOrderController {
     @ResponseBody
     public Result updatePurchaseOrder(@Valid PurchaseOrderForm purchaseOrderForm, HttpSession session) {
         if (purchaseOrderForm == null || purchaseOrderForm.getId() == null) {
-            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.PURCHASE_ORDER_FORM_ERROR);
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_FORM_ERROR);
         }
         PurchaseOrder purchaseOrder = fillPurchaseOrder(purchaseOrderForm, (String) session.getAttribute(session.getId()));
         purchaseOrder.setCreateUser(null);
@@ -126,7 +125,7 @@ public class PurchaseOrderController {
             if (isSuc == 1) {
                 result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.UPDATE_PURCHASE_ORDER_SUCCESS);
             } else {
-                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.PURCHASE_ORDER_NOT);
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_NOT);
             }
         } catch (Exception e) {
             log.error("修改入库订单状态时发生异常，purchaseOrderForm：{}", purchaseOrder, e);
@@ -166,7 +165,7 @@ public class PurchaseOrderController {
     @ResponseBody
     public Result savePurchaseOrder(@Valid PurchaseOrderForm purchaseOrderForm, HttpSession session) {
         if (purchaseOrderForm == null || purchaseOrderForm.getDescription() == null || purchaseOrderForm.getId() != null) {
-            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.PURCHASE_ORDER_FORM_ERROR);
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_FORM_ERROR);
         }
         PurchaseOrder purchaseOrder = fillPurchaseOrder(purchaseOrderForm, (String) session.getAttribute(session.getId()));
         purchaseOrder.setUserAccount(purchaseOrder.getCreateUser());
@@ -196,7 +195,7 @@ public class PurchaseOrderController {
                 result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_PURCHASE_ORDER_SUCCESS);
             } else {
                 //非法的不考虑，如果删除返回为0，说明没有没有此入库单
-                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELETE_PURCHASE_ORDER_NOT);
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELETE_ORDER_NOT);
             }
         } catch (Exception e) {
             log.error("删除入库单时发生系统异常 id{}", id, e);

@@ -90,15 +90,15 @@ public interface ErrorConstant {
      */
     String DELETE_PROVIDER_NOT = "要删除的供应商不存在,请刷新后重试";
     /**
-     * 要发布的入库单不存在
+     * 要发布的订单不存在
      */
-    String PURCHASE_ORDER_NOT = "要发布的的入库单不存在,请刷新后重试";
+    String ORDER_NOT = "要发布的的订单不存在,请刷新后重试";
     /**
-     * 当提交的修改入库单不存在或者id不存在时返回的错误信息
+     * 当提交的修改出入库单不存在或者id不存在时返回的错误信息
      */
-    String PURCHASE_ORDER_FORM_ERROR = "提交的不符合规则，请重新提交";
+    String ORDER_FORM_ERROR = "提交的不符合规则，请重新提交";
     /**
-     * 删除入库单但是没有重找到此入库单
+     * 删除订单但是没有重找到此订单
      */
-    String DELETE_PURCHASE_ORDER_NOT = "没有此入库单，请刷新后重试";
+    String DELETE_ORDER_NOT = "没有此订单，请刷新后重试";
 }

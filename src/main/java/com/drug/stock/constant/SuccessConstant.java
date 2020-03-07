@@ -63,4 +63,20 @@ public interface SuccessConstant {
      * 删除入库单成功
      */
     String DELETE_PURCHASE_ORDER_SUCCESS = "删除入库单成功";
+    /**
+     * 修改出库单信息成功后返回的
+     */
+    String UPDATE_DELIVERY_ORDER_SUCCESS = "修改出库单信息成功";
+    /**
+     * 修改出库单状态为已发布
+     */
+    String DELIVERY_ORDER_PUBLISH_SUCCESS = "此出库单状态已修改为已发布";
+    /**
+     * 添加出库单成功后返回的信息
+     */
+    String SAVE_DELIVERY_ORDER_SUCCESS = "创建新出库单成功";
+    /**
+     * 删除出库单成功
+     */
+    String DELETE_DELIVERY_ORDER_SUCCESS = "删除出库单成功";
 }

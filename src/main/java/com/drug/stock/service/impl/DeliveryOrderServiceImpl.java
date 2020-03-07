@@ -1,10 +1,14 @@
 package com.drug.stock.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderManager;
 import com.drug.stock.service.DeliveryOrderService;
+import com.drug.stock.service.UserService;
+import com.drug.stock.until.OrderCodeFactory;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,8 @@ import java.util.List;
 public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     @Resource
     DeliveryOrderManager deliveryOrderManager;
+    @Resource
+    UserService userService;
 
     @Override
     public DeliveryOrder getDeliveryOrder(Long id) throws DaoException {
@@ -28,6 +34,14 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
 
     @Override
     public Long insertDeliveryOrder(DeliveryOrder deliveryOrder) throws DaoException {
+        //组装订单其他的信息
+        deliveryOrder.setCode(OrderCodeFactory.getDeliveryOrderCode());
+        User user = userService.getUserByAccount(deliveryOrder.getUserAccount());
+        if (user == null) {
+            log.error("添加入库单时没有找到创建者的信息 deliveryOrder：{}", JSON.toJSONString(deliveryOrder));
+            return 0L;
+        }
+        deliveryOrder.setUserName(user.getName());
         return deliveryOrderManager.insertDeliveryOrder(deliveryOrder);
     }
 

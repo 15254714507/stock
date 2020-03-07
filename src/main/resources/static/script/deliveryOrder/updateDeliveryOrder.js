@@ -1,5 +1,5 @@
 //表单验证提交
-$("#form-purchaseOrder-add").Validform({
+$("#form-deliveryOrder-update").Validform({
 
     tiptype: 2,
 
@@ -18,24 +18,22 @@ $("#form-purchaseOrder-add").Validform({
 
 
 });
-
-//保存药品
-function saveClick() {
+//修改药品信息
+function updateClick() {
     $.ajax({
-        url: "/savePurchaseOrder.do",
+        url: "/updateDeliveryOrder.do",
         type: "POST",
         cache: false,
-        data: $("#form-purchaseOrder-add").serialize(),
+        data: $("#form-deliveryOrder-update").serialize(),
         dataType: "json",
         success: function (result) {
             if (result.code === 200) {
                 layer.alert(result.msg, {
                     title: '成功框',
                     icon: 1
-                }, function () {
-                    //刷新表格
-                    layer.closeAll();
-                    parent.location.reload()
+                }, function(){
+                    //刷新当前页面
+                    parent.window.location.reload();
                 });
             } else {
                 layer.alert(result.msg, {

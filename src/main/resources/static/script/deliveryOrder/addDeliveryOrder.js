@@ -1,5 +1,5 @@
 //表单验证提交
-$("#form-purchaseOrder-add").Validform({
+$("#form-DeliveryOrder-add").Validform({
 
     tiptype: 2,
 
@@ -22,10 +22,10 @@ $("#form-purchaseOrder-add").Validform({
 //保存药品
 function saveClick() {
     $.ajax({
-        url: "/savePurchaseOrder.do",
+        url: "/saveDeliveryOrder.do",
         type: "POST",
         cache: false,
-        data: $("#form-purchaseOrder-add").serialize(),
+        data: $("#form-DeliveryOrder-add").serialize(),
         dataType: "json",
         success: function (result) {
             if (result.code === 200) {
