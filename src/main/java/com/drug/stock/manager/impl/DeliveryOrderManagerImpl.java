@@ -5,9 +5,12 @@ import com.drug.stock.dao.DeliveryOrderDao;
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.domain.DeliveryOrderDrug;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,5 +110,24 @@ public class DeliveryOrderManagerImpl implements DeliveryOrderManager {
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<DeliveryOrder> findDeliveryOrderPage(DeliveryOrderCondition deliveryOrderCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (deliveryOrderCondition.getPage() != null && deliveryOrderCondition.getRows() != null) {
+            PageHelper.startPage(deliveryOrderCondition.getPage(), deliveryOrderCondition.getRows());
+        }
+        List<DeliveryOrder> list = null;
+        try {
+            list = deliveryOrderDao.listDeliveryOrder(deliveryOrderCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<DeliveryOrder> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

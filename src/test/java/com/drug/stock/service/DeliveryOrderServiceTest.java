@@ -4,6 +4,7 @@ import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.domain.PurchaseOrder;
+import com.github.pagehelper.PageInfo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -137,6 +138,17 @@ public class DeliveryOrderServiceTest {
 
         List<DeliveryOrder> purchaseOrderList = deliveryOrderService.listDeliveryOrder(deliveryOrderCondition);
         Assert.assertTrue(purchaseOrderList.size() == 1);
+    }
+    @Test
+    @Transactional
+    public void findDeliveryOrderPageTest(){
+        DeliveryOrder deliveryOrder = createDeliveryOrder();
+        String code = deliveryOrder.getCode();
+        Long num = deliveryOrderService.insertDeliveryOrder(deliveryOrder);
+        Assert.assertTrue(num.intValue() > 0);
+        DeliveryOrderCondition deliveryOrderCondition = new DeliveryOrderCondition();
+        PageInfo<DeliveryOrder> pageInfo = deliveryOrderService.findDeliveryOrderPage(deliveryOrderCondition);
+        Assert.assertTrue(pageInfo.getList().size()>0);
     }
 
 }
