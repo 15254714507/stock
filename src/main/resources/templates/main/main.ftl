@@ -362,7 +362,7 @@
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 过期药品管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="article_list.html" title="过期药品删除" class="iframeurl"><i class="icon-double-angle-right"></i>过期药品删除</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoOverdueDrugList.do" title="过期药品列表" class="iframeurl"><i class="icon-double-angle-right"></i>过期药品列表</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span

@@ -3,6 +3,7 @@ package com.drug.stock.manager;
 import com.drug.stock.entity.condition.OverdueDrugCondition;
 import com.drug.stock.entity.domain.OverdueDrug;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -54,4 +55,13 @@ public interface OverdueDrugManager {
      * @throws DaoException
      */
     public List<OverdueDrug> listOverdueDrug(OverdueDrugCondition overdueDrugCondition) throws DaoException;
+
+    /**
+     * 获得过期药品的分页数据
+     *
+     * @param overdueDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<OverdueDrug> findOverdueDrug(OverdueDrugCondition overdueDrugCondition) throws DaoException;
 }

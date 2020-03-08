@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.OverdueDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.OverdueDrugManager;
 import com.drug.stock.service.OverdueDrugService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class OverdueDrugServiceImpl implements OverdueDrugService {
     @Override
     public List<OverdueDrug> listOverdueDrug(OverdueDrugCondition overdueDrugCondition) throws DaoException {
         return overdueDrugManager.listOverdueDrug(overdueDrugCondition);
+    }
+
+    @Override
+    public PageInfo<OverdueDrug> findOverdueDrug(OverdueDrugCondition overdueDrugCondition) throws DaoException {
+        return overdueDrugManager.findOverdueDrug(overdueDrugCondition);
     }
 }

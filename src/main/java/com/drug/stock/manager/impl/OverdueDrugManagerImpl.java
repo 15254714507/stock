@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.dao.OverdueDrugDao;
 import com.drug.stock.entity.condition.OverdueDrugCondition;
 import com.drug.stock.entity.domain.OverdueDrug;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.OverdueDrugManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,5 +92,24 @@ public class OverdueDrugManagerImpl implements OverdueDrugManager {
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<OverdueDrug> findOverdueDrug(OverdueDrugCondition overdueDrugCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (overdueDrugCondition.getPage() != null && overdueDrugCondition.getRows() != null) {
+            PageHelper.startPage(overdueDrugCondition.getPage(), overdueDrugCondition.getRows());
+        }
+        List<OverdueDrug> list = null;
+        try {
+            list = overdueDrugDao.listOverdueDrug(overdueDrugCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<OverdueDrug> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
