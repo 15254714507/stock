@@ -34,7 +34,8 @@ public class OverdueDrugController {
         try {
             pageInfo = overdueDrugService.findOverdueDrug(overdueDrugCondition);
         } catch (Exception e) {
-
+            log.error("跳转到过期药品页面时获取OverdueDrug的分页数据发生异常 drugCode：{}", drugCode);
+            return "error/404";
         }
         model.addAttribute("overdueDrugPage", pageInfo);
         return "overdueDrug/overdueDrugTable";
