@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.OverdueDrugDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.OverdueDrug">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
+        <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
+        <result column="drug_specs" property="drugSpecs" jdbcType="VARCHAR"/>
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="process_mode" property="processMode" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            drug_code,
+            drug_name,
+            drug_specs,
+            expire_date,
+            number,
+            process_mode,
+            status,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getOverdueDrug" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from overdue_drug
+        where is_delete=0
+        and id =#{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertOverdueDrug" parameterType="com.drug.stock.entity.domain.OverdueDrug">
+        insert
+        into overdue_drug
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            drug_code,
+            drug_name,
+            drug_specs,
+            expire_date,
+            number,
+            process_mode,
+            status,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{drugCode,jdbcType=VARCHAR},
+            #{drugName,jdbcType=VARCHAR},
+            #{drugSpecs,jdbcType=VARCHAR},
+            #{expireDate,jdbcType=TIMESTAMP},
+            #{number,jdbcType=INTEGER},
+            #{processMode,jdbcType=VARCHAR},
+            #{status,jdbcType=TINYINT},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateOverdueDrug" parameterType="com.drug.stock.entity.domain.OverdueDrug">
+        update overdue_drug
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="drugCode !=null and drugCode != '' ">
+                    drug_code=#{drugCode,jdbcType=VARCHAR},
+                </if>
+                <if test="drugName !=null and drugName != '' ">
+                    drug_name= #{drugName,jdbcType=VARCHAR},
+                </if>
+                <if test="drugSpecs !=null and drugSpecs != '' ">
+                    drug_specs= #{drugSpecs,jdbcType=VARCHAR},
+                </if>
+                <if test="expireDate !=null">
+                    expire_date= #{expireDate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="number !=null">
+                    number= #{number,jdbcType=INTEGER},
+                </if>
+                <if test="processMode !=null and processMode != '' ">
+                    process_mode= #{processMode,jdbcType=VARCHAR},
+                </if>
+                <if test="status !=null">
+                    status= #{status,jdbcType=TINYINT},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=version+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteOverdueDrug" parameterType="Long">
+        update overdue_drug
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="listOverdueDrug" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.OverdueDrugCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from overdue_drug
+        where is_delete=0
+        <if test="drugCode !=null and drugCode != '' ">
+            and drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        <if test="drugName !=null and drugName != '' ">
+          and drug_name= #{drugName,jdbcType=VARCHAR}
+        </if>
+        <if test="status !=null">
+          and status= #{status,jdbcType=TINYINT}
+        </if>
+    </select>
+</mapper>
