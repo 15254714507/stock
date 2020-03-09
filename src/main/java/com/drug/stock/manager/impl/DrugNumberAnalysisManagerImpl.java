@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.dao.DrugNumberAnalysisDao;
 import com.drug.stock.entity.condition.DrugNumberAnalysisCondition;
 import com.drug.stock.entity.domain.DrugNumberAnalysis;
+import com.drug.stock.entity.domain.OverdueDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DrugNumberAnalysisManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -83,5 +86,24 @@ public class DrugNumberAnalysisManagerImpl implements DrugNumberAnalysisManager 
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<DrugNumberAnalysis> findDrugNumberAnalysisPage(DrugNumberAnalysisCondition drugNumberAnalysisCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (drugNumberAnalysisCondition.getPage() != null && drugNumberAnalysisCondition.getRows() != null) {
+            PageHelper.startPage(drugNumberAnalysisCondition.getPage(), drugNumberAnalysisCondition.getRows());
+        }
+        List<DrugNumberAnalysis> list = null;
+        try {
+            list = drugNumberAnalysisDao.listDrugNumberAnalysis(drugNumberAnalysisCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<DrugNumberAnalysis> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

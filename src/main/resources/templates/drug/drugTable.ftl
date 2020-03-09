@@ -27,7 +27,7 @@
             <td>${(drug.dosageForm)!}</td>
             <td>${(drug.approvalNumber)!}</td>
             <td>${(drug.number)!}</td>
-            <td>${(drug.price)?string("0.##")}</td>
+            <td>${(drug.price)?string("0.##")!}</td>
             <td>${(drug.storage)!}</td>
             <td>${(drug.packaging)!}</td>
             <td>${(drug.wareHouse)!}</td>

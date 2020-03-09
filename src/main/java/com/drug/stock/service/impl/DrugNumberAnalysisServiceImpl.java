@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.DrugNumberAnalysis;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DrugNumberAnalysisManager;
 import com.drug.stock.service.DrugNumberAnalysisService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class DrugNumberAnalysisServiceImpl implements DrugNumberAnalysisService 
     @Override
     public List<DrugNumberAnalysis> listDrugNumberAnalysis(DrugNumberAnalysisCondition drugNumberAnalysisCondition) throws DaoException {
         return drugNumberAnalysisManager.listDrugNumberAnalysis(drugNumberAnalysisCondition);
+    }
+
+    @Override
+    public PageInfo<DrugNumberAnalysis> findDrugNumberAnalysisPage(DrugNumberAnalysisCondition drugNumberAnalysisCondition) throws DaoException {
+        return drugNumberAnalysisManager.findDrugNumberAnalysisPage(drugNumberAnalysisCondition);
     }
 }

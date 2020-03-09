@@ -3,6 +3,7 @@ package com.drug.stock.manager;
 import com.drug.stock.entity.condition.DrugNumberAnalysisCondition;
 import com.drug.stock.entity.domain.DrugNumberAnalysis;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -54,4 +55,13 @@ public interface DrugNumberAnalysisManager {
      * @throws DaoException
      */
     public List<DrugNumberAnalysis> listDrugNumberAnalysis(DrugNumberAnalysisCondition drugNumberAnalysisCondition) throws DaoException;
+
+    /**
+     * 获得药品库存分析的分页数据
+     *
+     * @param drugNumberAnalysisCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<DrugNumberAnalysis> findDrugNumberAnalysisPage(DrugNumberAnalysisCondition drugNumberAnalysisCondition) throws DaoException;
 }

@@ -357,7 +357,7 @@
                     <li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 存量管制管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
                             <li class="home"><a href="javascript:void(0)" name="/gotoRiskAssessmentList.do" title="库存异常列表" class="iframeurl"><i class="icon-double-angle-right"></i>库存异常列表</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="库存管制" class="iframeurl"><i class="icon-double-angle-right"></i>库存管制</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugNumberAnalysisList.do" title="库存管制" class="iframeurl"><i class="icon-double-angle-right"></i>库存管制</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 过期药品管理 </span><b class="arrow icon-angle-down"></b></a>
