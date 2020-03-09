@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.dao.RiskAssessmentDao;
 import com.drug.stock.entity.condition.RiskAssessmentCondition;
 import com.drug.stock.entity.domain.RiskAssessment;
+import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.RiskAssessmentManager;
 import com.drug.stock.until.TimestampFactory;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,5 +90,24 @@ public class RiskAssessmentManagerImpl implements RiskAssessmentManager {
         } catch (Exception e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public PageInfo<RiskAssessment> findRiskAssessmentPage(RiskAssessmentCondition riskAssessmentCondition) throws DaoException {
+        //参数第一个是第几页，第二个是条数，通过凭借SQL的方式,必须加判断
+        if (riskAssessmentCondition.getPage() != null && riskAssessmentCondition.getRows() != null) {
+            PageHelper.startPage(riskAssessmentCondition.getPage(), riskAssessmentCondition.getRows());
+        }
+        List<RiskAssessment> list = null;
+        try {
+            list = riskAssessmentDao.listRiskAssessment(riskAssessmentCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        } finally {
+            //虽然不推荐使用，但是上面还是会出现特殊情况的
+            PageHelper.clearPage();
+        }
+        PageInfo<RiskAssessment> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

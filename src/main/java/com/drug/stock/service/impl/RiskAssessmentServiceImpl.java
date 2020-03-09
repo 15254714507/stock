@@ -5,6 +5,7 @@ import com.drug.stock.entity.domain.RiskAssessment;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.RiskAssessmentManager;
 import com.drug.stock.service.RiskAssessmentService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class RiskAssessmentServiceImpl implements RiskAssessmentService {
     @Override
     public List<RiskAssessment> listRiskAssessment(RiskAssessmentCondition riskAssessmentCondition) throws DaoException {
         return riskAssessmentManager.listRiskAssessment(riskAssessmentCondition);
+    }
+
+    @Override
+    public PageInfo<RiskAssessment> findRiskAssessmentPage(RiskAssessmentCondition riskAssessmentCondition) throws DaoException {
+        return riskAssessmentManager.findRiskAssessmentPage(riskAssessmentCondition);
     }
 }

@@ -3,6 +3,7 @@ package com.drug.stock.manager;
 import com.drug.stock.entity.condition.RiskAssessmentCondition;
 import com.drug.stock.entity.domain.RiskAssessment;
 import com.drug.stock.exception.DaoException;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -56,4 +57,13 @@ public interface RiskAssessmentManager {
      * @throws DaoException
      */
     public List<RiskAssessment> listRiskAssessment(RiskAssessmentCondition riskAssessmentCondition) throws DaoException;
+
+    /**
+     * 获得药品风险评估的分页数据
+     *
+     * @param riskAssessmentCondition
+     * @return
+     * @throws DaoException
+     */
+    public PageInfo<RiskAssessment> findRiskAssessmentPage(RiskAssessmentCondition riskAssessmentCondition) throws DaoException;
 }
