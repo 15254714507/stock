@@ -7,10 +7,8 @@
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
         <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
-        <result column="production_lot_number" property="productionLotNumber" jdbcType="VARCHAR"/>
         <result column="price" property="price" jdbcType="DECIMAL"/>
         <result column="number" property="number" jdbcType="INTEGER"/>
-        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
         <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
         <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -24,10 +22,8 @@
             code,
             drug_code,
             drug_name,
-            production_lot_number,
             price,
             number,
-            expire_date,
             create_user,
             update_user,
             create_time,
@@ -50,10 +46,8 @@
             code,
             drug_code,
             drug_name,
-            production_lot_number,
             price,
             number,
-            expire_date,
             create_user,
             update_user,
             create_time,
@@ -64,10 +58,8 @@
             #{code,jdbcType=VARCHAR},
             #{drugCode,jdbcType=VARCHAR},
             #{drugName,jdbcType=VARCHAR},
-            #{productionLotNumber,jdbcType=VARCHAR},
             #{price,jdbcType=DECIMAL},
             #{number,jdbcType=INTEGER},
-            #{expireDate,jdbcType=TIMESTAMP},
             #{createUser,jdbcType=VARCHAR},
             #{updateUser,jdbcType=VARCHAR},
             #{createTime,jdbcType=TIMESTAMP},
@@ -87,17 +79,11 @@
                 <if test="drugName !=null and drugName!='' ">
                     drug_name=#{drugName,jdbcType=VARCHAR},
                 </if>
-                <if test="productionLotNumber !=null and productionLotNumber != '' ">
-                    production_lot_number= #{productionLotNumber,jdbcType=VARCHAR},
-                </if>
                 <if test="price !=null">
                     price=#{price,jdbcType=DECIMAL},
                 </if>
                 <if test="number!=null">
                     number=#{number,jdbcType=INTEGER},
-                </if>
-                <if test="expireDate!=null">
-                    expire_date= #{expireDate,jdbcType=TIMESTAMP},
                 </if>
                 update_user=#{updateUser,jdbcType=VARCHAR},
                 update_time=#{updateTime,jdbcType=TIMESTAMP},
@@ -139,9 +125,6 @@
         </if>
         <if test="price !=null">
             and price=#{price,jdbcType=DECIMAL}
-        </if>
-        <if test="expireDate!=null">
-            and expire_date= #{expireDate,jdbcType=TIMESTAMP}
         </if>
     </select>
     <select id="countDeliveryOrderDrugByCodeAndDrugCode" parameterType="String" resultType="Long">

@@ -27,10 +27,9 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrug.setCode(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugName(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugCode(UUID.randomUUID().toString());
-        deliveryOrderDrug.setExpireDate(TimestampFactory.getTimestamp());
+
         deliveryOrderDrug.setNumber(111);
         deliveryOrderDrug.setPrice(11.11);
-        deliveryOrderDrug.setProductionLotNumber(UUID.randomUUID().toString());
         deliveryOrderDrug.setCreateUser("zhengwenju");
         deliveryOrderDrug.setUpdateUser("zhengwenju");
         return deliveryOrderDrug;
@@ -47,8 +46,6 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrug = deliveryOrderDrugService.getDeliveryOrderDrugByCodeAndDrugCode(code, drugCode);
         Assert.assertNotNull(deliveryOrderDrug);
         Assert.assertNotNull(deliveryOrderDrug.getDrugCode());
-        Assert.assertNotNull(deliveryOrderDrug.getExpireDate());
-        Assert.assertNotNull(deliveryOrderDrug.getProductionLotNumber());
         Assert.assertNotNull(deliveryOrderDrug.getCreateUser());
         Assert.assertNotNull(deliveryOrderDrug.getUpdateUser());
 
@@ -86,10 +83,9 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrug.setCode(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugCode(UUID.randomUUID().toString());
         deliveryOrderDrug.setDrugName(UUID.randomUUID().toString());
-        deliveryOrderDrug.setExpireDate(TimestampFactory.getTimestamp());
+
         deliveryOrderDrug.setNumber(222);
         deliveryOrderDrug.setPrice(22.11);
-        deliveryOrderDrug.setProductionLotNumber(UUID.randomUUID().toString());
         String newCode = deliveryOrderDrug.getCode();
         String newDrugCode = deliveryOrderDrug.getDrugCode();
         Thread.sleep(1000);
@@ -100,10 +96,8 @@ public class DeliveryOrderDrugServiceTest {
         Assert.assertNotNull(deliveryOrderDrug);
         Assert.assertEquals(deliveryOrderDrug.getCode(), deliveryOrderDrug1.getCode());
         Assert.assertEquals(deliveryOrderDrug.getDrugCode(), deliveryOrderDrug1.getDrugCode());
-        Assert.assertEquals(1, deliveryOrderDrug.getExpireDate().compareTo(deliveryOrderDrug1.getExpireDate()));
         Assert.assertEquals(deliveryOrderDrug.getNumber(), deliveryOrderDrug1.getNumber());
         Assert.assertEquals(deliveryOrderDrug.getPrice(), deliveryOrderDrug1.getPrice(), 1.0);
-        Assert.assertEquals(deliveryOrderDrug.getProductionLotNumber(), deliveryOrderDrug1.getProductionLotNumber());
 
         Assert.assertTrue(deliveryOrderDrug1.getUpdateTime().after(deliveryOrderDrug1.getCreateTime()));
         Assert.assertEquals(deliveryOrderDrug.getDrugName(), deliveryOrderDrug1.getDrugName());
@@ -147,7 +141,6 @@ public class DeliveryOrderDrugServiceTest {
         deliveryOrderDrugCondition.setCode(code);
         deliveryOrderDrugCondition.setDrugCode(deliveryOrderDrug.getDrugCode());
         deliveryOrderDrugCondition.setPrice(deliveryOrderDrug.getPrice());
-        deliveryOrderDrugCondition.setExpireDate(deliveryOrderDrug.getExpireDate());
         List<DeliveryOrderDrug> purchaseOrderDrugList = deliveryOrderDrugService.listDeliveryOrderDrug(deliveryOrderDrugCondition);
         Assert.assertTrue(purchaseOrderDrugList.size() == 1);
 

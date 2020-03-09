@@ -30,10 +30,6 @@ public class DeliveryOrderDrug implements Serializable {
      * */
     private String drugName;
     /**
-     * 生产批号
-     * */
-    private String productionLotNumber;
-    /**
      * 单价
      * */
     private Double price;
@@ -41,10 +37,6 @@ public class DeliveryOrderDrug implements Serializable {
      * 出货数量
      * */
     private Integer number;
-    /**
-     * 有效期
-     * */
-    private Date expireDate;
     /**
      * 创建者
      */

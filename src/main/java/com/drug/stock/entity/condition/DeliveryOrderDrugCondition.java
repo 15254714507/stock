@@ -28,10 +28,6 @@ public class DeliveryOrderDrugCondition extends BasePage {
      * */
     private String drugName;
     /**
-     * 生产批号
-     * */
-    private String productionLotNumber;
-    /**
      * 单价
      * */
     private Double price;
@@ -39,10 +35,6 @@ public class DeliveryOrderDrugCondition extends BasePage {
      * 出货数量
      * */
     private Integer number;
-    /**
-     * 有效期
-     * */
-    private Date expireDate;
     /**
      * 创建者
      */
