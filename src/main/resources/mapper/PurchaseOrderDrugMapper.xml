@@ -188,4 +188,11 @@
         and purchase_order_drug.expire_date &gt; #{expireDate,jdbcType=TIMESTAMP}
         and purchase_order.status=1
     </select>
+    <update id="deleteBatchPurchaseOrderDrugByCode" parameterType="String">
+        update purchase_order_drug
+        <set>
+            is_delete=1
+        </set>
+        WHERE code = #{code,jdbcType=VARCHAR};
+    </update>
 </mapper>

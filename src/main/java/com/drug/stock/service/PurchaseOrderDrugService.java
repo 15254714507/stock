@@ -94,4 +94,12 @@ public interface PurchaseOrderDrugService {
      * @throws DaoException
      */
     public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
+
+    /**
+     * 根据code批量删除入库单上的药品信息
+     * @param code
+     * @return
+     * @throws DaoException
+     */
+    public Long deleteBatchPurchaseOrderDrugByCode(String code) throws DaoException;
 }

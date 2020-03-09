@@ -139,4 +139,19 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public Long deleteBatchPurchaseOrderDrugByCode(String code) throws DaoException {
+        PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
+        purchaseOrderDrugCondition.setCode(code);
+        List<PurchaseOrderDrug> list = listPurchaseOrderDrug(purchaseOrderDrugCondition);
+        if (list == null && list.size() < 1) {
+            return 0L;
+        }
+        try {
+            return purchaseOrderDrugDao.deleteBatchPurchaseOrderDrugByCode(code);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
+    }
 }

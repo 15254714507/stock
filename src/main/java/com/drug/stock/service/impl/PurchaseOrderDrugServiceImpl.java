@@ -65,4 +65,9 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
         return purchaseOrderDrugManager.listNotOverdueDrug(purchaseOrderDrugCondition);
     }
+
+    @Override
+    public Long deleteBatchPurchaseOrderDrugByCode(String code) throws DaoException {
+        return purchaseOrderDrugManager.deleteBatchPurchaseOrderDrugByCode(code);
+    }
 }

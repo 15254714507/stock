@@ -78,5 +78,11 @@ public interface PurchaseOrderDrugDao {
      */
     public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition);
 
-
+    /**
+     * 根据code批量删除入库单上的药品信息
+     *
+     * @param code
+     * @return
+     */
+    public Long deleteBatchPurchaseOrderDrugByCode(String code);
 }
