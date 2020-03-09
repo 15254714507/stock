@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drug.stock.dao.DrugNumberAnalysisDao">
+    <resultMap id="BaseResultMap" type="com.drug.stock.entity.domain.DrugNumberAnalysis">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="drug_code" property="drugCode" jdbcType="VARCHAR"/>
+        <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="requisition_quantity" property="requisitionQuantity" jdbcType="INTEGER"/>
+        <result column="half_total" property="halfTotal" jdbcType="INTEGER"/>
+        <result column="avg_dosage" property="avgDosage" jdbcType="INTEGER"/>
+        <result column="estimation_dosage" property="estimationDosage" jdbcType="INTEGER"/>
+        <result column="estimation_month" property="estimationMonth" jdbcType="DECIMAL"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="delete" jdbcType="TINYINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <trim prefix="" suffix="" suffixOverrides=",">
+            id,
+            drug_code,
+            drug_name,
+            number,
+            requisition_quantity,
+            half_total,
+            avg_dosage,
+            estimation_dosage,
+            estimation_month,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+            is_delete,
+            version,
+        </trim>
+    </sql>
+    <select id="getDrugNumberAnalysis" resultMap="BaseResultMap" parameterType="Long">
+        select
+        <include refid="Base_Column_List"/>
+        from drug_number_analysis
+        where is_delete=0
+        and id =#{id,jdbcType=BIGINT}
+    </select>
+    <insert id="insertDrugNumberAnalysis" parameterType="com.drug.stock.entity.domain.DrugNumberAnalysis">
+        insert
+        into drug_number_analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            drug_code,
+            drug_name,
+            number,
+            requisition_quantity,
+            half_total,
+            avg_dosage,
+            estimation_dosage,
+            estimation_month,
+            create_user,
+            update_user,
+            create_time,
+            update_time,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{drugCode,jdbcType=VARCHAR},
+            #{drugName,jdbcType=VARCHAR},
+            #{number,jdbcType=INTEGER},
+            #{requisitionQuantity,jdbcType=INTEGER},
+            #{halfTotal,jdbcType=INTEGER},
+            #{avgDosage,jdbcType=INTEGER},
+            #{estimationDosage,jdbcType=INTEGER},
+            #{estimationMonth,jdbcType=DECIMAL},
+            #{createUser,jdbcType=VARCHAR},
+            #{updateUser,jdbcType=VARCHAR},
+            #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP},
+        </trim>
+    </insert>
+    <update id="updateDrugNumberAnalysis" parameterType="com.drug.stock.entity.domain.DrugNumberAnalysis">
+        update drug_number_analysis
+        <set>
+            <trim prefix="" suffix="" suffixOverrides=",">
+                <if test="drugCode !=null and drugCode != '' ">
+                    drug_code=#{drugCode,jdbcType=VARCHAR},
+                </if>
+                <if test="drugName !=null and drugName != '' ">
+                    drug_name= #{drugName,jdbcType=VARCHAR},
+                </if>
+                <if test="number !=null">
+                    number= #{number,jdbcType=INTEGER},
+                </if>
+                <if test="requisitionQuantity !=null">
+                    requisition_quantity= #{requisitionQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="halfTotal !=null">
+                    half_total= #{halfTotal,jdbcType=INTEGER},
+                </if>
+                <if test="avgDosage !=null">
+                    avg_dosage= #{avgDosage,jdbcType=INTEGER},
+                </if>
+                <if test="estimationDosage !=null">
+                    estimation_dosage= #{estimationDosage,jdbcType=INTEGER},
+                </if>
+                <if test="estimationMonth !=null">
+                    estimation_month= #{estimationMonth,jdbcType=DECIMAL},
+                </if>
+                update_user=#{updateUser,jdbcType=VARCHAR},
+                update_time=#{updateTime,jdbcType=TIMESTAMP},
+                version=version+1,
+            </trim>
+        </set>
+        WHERE is_delete = 0
+        and id = #{id,jdbcType=BIGINT};
+    </update>
+    <update id="deleteDrugNumberAnalysis" parameterType="Long">
+        update drug_number_analysis
+        <set>
+            is_delete=1
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT};
+    </update>
+    <select id="listDrugNumberAnalysis" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.DrugNumberAnalysisCondition">
+        select
+        <include refid="Base_Column_List"/>
+        from drug_number_analysis
+        where is_delete=0
+        <if test="drugCode !=null and drugCode != '' ">
+            and drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        <if test="drugName !=null and drugName != '' ">
+            and drug_name= #{drugName,jdbcType=VARCHAR}
+        </if>
+        <if test="number !=null">
+            and number= #{number,jdbcType=INTEGER}
+        </if>
+        <if test="requisitionQuantity !=null">
+            and requisition_quantity= #{requisitionQuantity,jdbcType=INTEGER}
+        </if>
+        <if test="halfTotal !=null">
+            and half_total= #{halfTotal,jdbcType=INTEGER}
+        </if>
+        <if test="avgDosage !=null">
+            and avg_dosage= #{avgDosage,jdbcType=INTEGER}
+        </if>
+        <if test="estimationDosage !=null">
+            and estimation_dosage= #{estimationDosage,jdbcType=INTEGER}
+        </if>
+        <if test="estimationMonth !=null">
+            and estimation_month= #{estimationMonth,jdbcType=DECIMAL}
+        </if>
+    </select>
+</mapper>
