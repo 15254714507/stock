@@ -84,4 +84,13 @@ public interface PurchaseOrderDrugManager {
      */
     public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
 
+    /**
+     * 查询没过期的药品的数量
+     *
+     * @param purchaseOrderDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
+
 }

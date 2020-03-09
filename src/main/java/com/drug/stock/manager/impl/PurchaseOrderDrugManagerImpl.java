@@ -129,4 +129,14 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
         PageInfo<PurchaseOrderDrug> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
+        purchaseOrderDrugCondition.setExpireDate(TimestampFactory.getTimestamp());
+        try {
+            return purchaseOrderDrugDao.listNotOverdueDrug(purchaseOrderDrugCondition);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
+    }
 }

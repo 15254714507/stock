@@ -172,4 +172,20 @@
         and code=#{code,jdbcType=VARCHAR}
         and drug_code=#{drugCode,jdbcType=VARCHAR}
     </select>
+    <select id="listNotOverdueDrug" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.condition.PurchaseOrderDrugCondition">
+        select
+        purchase_order_drug.code,purchase_order_drug.drug_code,purchase_order_drug.number
+        from purchase_order LEFT JOIN purchase_order_drug
+        on purchase_order.code = purchase_order_drug.code
+        where purchase_order_drug.is_delete = 0
+        <if test="code !=null and code != '' ">
+            and purchase_order_drug.code= #{code,jdbcType=VARCHAR}
+        </if>
+        <if test="drugCode !=null and drugCode != '' ">
+            and purchase_order_drug.drug_code=#{drugCode,jdbcType=VARCHAR}
+        </if>
+        and purchase_order_drug.expire_date &gt; #{expireDate,jdbcType=TIMESTAMP}
+        and purchase_order.status=1
+    </select>
 </mapper>

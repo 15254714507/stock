@@ -60,4 +60,9 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
         return purchaseOrderDrugManager.findPurchaseOrderDrugPage(purchaseOrderDrugCondition);
     }
+
+    @Override
+    public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException {
+        return purchaseOrderDrugManager.listNotOverdueDrug(purchaseOrderDrugCondition);
+    }
 }

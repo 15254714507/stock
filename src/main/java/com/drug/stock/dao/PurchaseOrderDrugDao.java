@@ -2,6 +2,7 @@ package com.drug.stock.dao;
 
 import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
+import com.drug.stock.exception.DaoException;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -67,6 +68,15 @@ public interface PurchaseOrderDrugDao {
      * @return
      */
     public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode);
+
+    /**
+     * 查询没过期的药品的数量
+     *
+     * @param purchaseOrderDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition);
 
 
 }

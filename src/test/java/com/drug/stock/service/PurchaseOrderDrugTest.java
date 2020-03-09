@@ -1,6 +1,8 @@
 package com.drug.stock.service;
 
+import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
+import com.drug.stock.entity.domain.PurchaseOrder;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.until.TimestampFactory;
 import org.junit.Assert;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +22,8 @@ import java.util.UUID;
 public class PurchaseOrderDrugTest {
     @Resource
     PurchaseOrderDrugService purchaseOrderDrugService;
+    @Resource
+    PurchaseOrderService purchaseOrderService;
 
     private PurchaseOrderDrug createPurchaseOrderDrug() {
         PurchaseOrderDrug purchaseOrderDrug = new PurchaseOrderDrug();
@@ -161,5 +166,23 @@ public class PurchaseOrderDrugTest {
         List<PurchaseOrderDrug> purchaseOrderDrugList = purchaseOrderDrugService.listPurchaseOrderDrug(purchaseOrderDrugCondition);
         Assert.assertTrue(purchaseOrderDrugList.size() == 1);
 
+    }
+
+    @Test
+    @Transactional
+    public void listNotOverdueDrug() {
+        //通过入库药品信息表中没过期的药品，他们的入库单应该是已发布的状态
+        PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
+        List<PurchaseOrderDrug> list1 = purchaseOrderDrugService.listNotOverdueDrug(purchaseOrderDrugCondition);
+        HashMap<String, Object> map = new HashMap<>();
+        for (PurchaseOrderDrug purchaseOrderDrug : list1) {
+            map.put(purchaseOrderDrug.getCode(), new Object());
+        }
+
+        for(String code:map.keySet()){
+           PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrderByCode(code);
+           Assert.assertNotNull(purchaseOrder);
+           Assert.assertTrue(purchaseOrder.getStatus());
+        }
     }
 }

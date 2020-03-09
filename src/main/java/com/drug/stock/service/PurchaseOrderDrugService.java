@@ -57,7 +57,7 @@ public interface PurchaseOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code,String drugCode) throws DaoException;
+    public PurchaseOrderDrug getPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 
     /**
      * 获得入库单药品的集合
@@ -71,16 +71,27 @@ public interface PurchaseOrderDrugService {
     /***
      * 根据code统计数量
      * @param code
+     * @param drugCode
      * @return
      * @throws DaoException
      */
-    public Long countPurchaseOrderDrugByCodeAndDrugCode(String code,String drugCode) throws DaoException;
+    public Long countPurchaseOrderDrugByCodeAndDrugCode(String code, String drugCode) throws DaoException;
 
     /**
      * 获得订单表药品的分页信息
+     *
      * @param purchaseOrderDrugCondition
      * @return
      * @throws DaoException
      */
     public PageInfo<PurchaseOrderDrug> findPurchaseOrderDrugPage(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
+
+    /**
+     * 查询没过期的药品的数量
+     *
+     * @param purchaseOrderDrugCondition
+     * @return
+     * @throws DaoException
+     */
+    public List<PurchaseOrderDrug> listNotOverdueDrug(PurchaseOrderDrugCondition purchaseOrderDrugCondition) throws DaoException;
 }
