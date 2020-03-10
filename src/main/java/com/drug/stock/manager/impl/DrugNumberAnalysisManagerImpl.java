@@ -12,6 +12,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,6 +37,7 @@ public class DrugNumberAnalysisManagerImpl implements DrugNumberAnalysisManager 
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long insertDrugNumberAnalysis(DrugNumberAnalysis drugNumberAnalysis) throws DaoException {
         DrugNumberAnalysisCondition drugNumberAnalysisCondition = new DrugNumberAnalysisCondition();
         drugNumberAnalysisCondition.setDrugCode(drugNumberAnalysis.getDrugCode());
@@ -48,11 +51,13 @@ public class DrugNumberAnalysisManagerImpl implements DrugNumberAnalysisManager 
         try {
             return drugNumberAnalysisDao.insertDrugNumberAnalysis(drugNumberAnalysis);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long updateDrugNumberAnalysis(DrugNumberAnalysis drugNumberAnalysis) throws DaoException {
         if (getDrugNumberAnalysis(drugNumberAnalysis.getId()) == null) {
             log.warn("药品库存分析表里没有要修改的记录，drugNumberAnalysis：{}", JSON.toJSONString(drugNumberAnalysis));
@@ -62,11 +67,13 @@ public class DrugNumberAnalysisManagerImpl implements DrugNumberAnalysisManager 
         try {
             return drugNumberAnalysisDao.updateDrugNumberAnalysis(drugNumberAnalysis);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long deleteDrugNumberAnalysis(Long id) throws DaoException {
         if (getDrugNumberAnalysis(id) == null) {
             log.warn("药品库存分析表里没有要删除的记录，id：{}", id);
@@ -75,6 +82,7 @@ public class DrugNumberAnalysisManagerImpl implements DrugNumberAnalysisManager 
         try {
             return drugNumberAnalysisDao.deleteDrugNumberAnalysis(id);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }

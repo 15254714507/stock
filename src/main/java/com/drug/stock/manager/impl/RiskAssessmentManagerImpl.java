@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -50,7 +51,8 @@ public class RiskAssessmentManagerImpl implements RiskAssessmentManager {
         try {
             return riskAssessmentDao.insertRiskAssessment(riskAssessment);
         } catch (Exception e) {
-            throw new DaoException();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new DaoException(e);
         }
     }
 
@@ -65,6 +67,7 @@ public class RiskAssessmentManagerImpl implements RiskAssessmentManager {
         try {
             return riskAssessmentDao.updateRiskAssessment(riskAssessment);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }
@@ -79,6 +82,7 @@ public class RiskAssessmentManagerImpl implements RiskAssessmentManager {
         try {
             return riskAssessmentDao.deleteRiskAssessment(id);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }

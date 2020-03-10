@@ -141,6 +141,7 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Long deleteBatchPurchaseOrderDrugByCode(String code) throws DaoException {
         PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
         purchaseOrderDrugCondition.setCode(code);
@@ -151,6 +152,7 @@ public class PurchaseOrderDrugManagerImpl implements PurchaseOrderDrugManager {
         try {
             return purchaseOrderDrugDao.deleteBatchPurchaseOrderDrugByCode(code);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }

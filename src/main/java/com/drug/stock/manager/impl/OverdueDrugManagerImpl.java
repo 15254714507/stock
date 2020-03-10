@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -50,6 +51,7 @@ public class OverdueDrugManagerImpl implements OverdueDrugManager {
         try {
             return overdueDrugDao.insertOverdueDrug(overdueDrug);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }
@@ -65,6 +67,7 @@ public class OverdueDrugManagerImpl implements OverdueDrugManager {
         try {
             return overdueDrugDao.updateOverdueDrug(overdueDrug);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
     }
@@ -80,6 +83,7 @@ public class OverdueDrugManagerImpl implements OverdueDrugManager {
         try {
             return overdueDrugDao.deleteOverdueDrug(id);
         } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             throw new DaoException(e);
         }
 
