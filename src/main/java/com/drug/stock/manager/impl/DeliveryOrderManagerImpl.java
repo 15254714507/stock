@@ -6,6 +6,7 @@ import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.domain.DeliveryOrderDrug;
 import com.drug.stock.entity.domain.User;
+import com.drug.stock.entity.dto.BetweenTime;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderManager;
 import com.drug.stock.until.TimestampFactory;
@@ -129,5 +130,14 @@ public class DeliveryOrderManagerImpl implements DeliveryOrderManager {
         }
         PageInfo<DeliveryOrder> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public List<DeliveryOrder> listStartTimeToEndTime(BetweenTime betweenTime) throws DaoException {
+        try {
+            return deliveryOrderDao.listStartTimeToEndTime(betweenTime);
+        } catch (Exception e) {
+            throw new DaoException(e);
+        }
     }
 }

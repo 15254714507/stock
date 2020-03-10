@@ -2,6 +2,8 @@ package com.drug.stock.manager;
 
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
+import com.drug.stock.entity.dto.BetweenTime;
+import com.drug.stock.until.TimestampFactory;
 import com.github.pagehelper.PageInfo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -137,16 +141,36 @@ public class DeliveryOrderManagerTest {
         List<DeliveryOrder> purchaseOrderList = deliveryOrderManager.listDeliveryOrder(deliveryOrderCondition);
         Assert.assertTrue(purchaseOrderList.size() == 1);
     }
+
     @Test
     @Transactional
-    public void findDeliveryOrderPageTest(){
+    public void findDeliveryOrderPageTest() {
         DeliveryOrder deliveryOrder = createDeliveryOrder();
         String code = deliveryOrder.getCode();
         Long num = deliveryOrderManager.insertDeliveryOrder(deliveryOrder);
         Assert.assertTrue(num.intValue() > 0);
         DeliveryOrderCondition deliveryOrderCondition = new DeliveryOrderCondition();
         PageInfo<DeliveryOrder> pageInfo = deliveryOrderManager.findDeliveryOrderPage(deliveryOrderCondition);
-        Assert.assertTrue(pageInfo.getList().size()>0);
+        Assert.assertTrue(pageInfo.getList().size() > 0);
+    }
+
+    @Test
+    @Transactional
+    public void listStartTimeToEndTimeTest() {
+        DeliveryOrder deliveryOrder = createDeliveryOrder();
+        String code = deliveryOrder.getCode();
+        Long num = deliveryOrderManager.insertDeliveryOrder(deliveryOrder);
+        Assert.assertTrue(num.intValue() > 0);
+
+        BetweenTime betweenTime = new BetweenTime();
+        betweenTime.setEndTime(TimestampFactory.getTimestamp());
+
+        Calendar calender = Calendar.getInstance();
+        calender.add(Calendar.DATE, -1);
+        betweenTime.setStartTime(new Timestamp(calender.getTime().getTime()));
+
+        List<DeliveryOrder>list=deliveryOrderManager.listStartTimeToEndTime(betweenTime);
+        Assert.assertEquals(1,list.size());
     }
 
 }

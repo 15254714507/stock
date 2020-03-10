@@ -12,6 +12,4 @@ public class TimestampFactory {
         return new Timestamp(date.getTime());
     }
 
-    ;
-
 }

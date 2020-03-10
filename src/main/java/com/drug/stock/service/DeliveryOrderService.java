@@ -2,6 +2,7 @@ package com.drug.stock.service;
 
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
+import com.drug.stock.entity.dto.BetweenTime;
 import com.drug.stock.exception.DaoException;
 import com.github.pagehelper.PageInfo;
 
@@ -82,4 +83,13 @@ public interface DeliveryOrderService {
      * @throws DaoException
      */
     public PageInfo<DeliveryOrder> findDeliveryOrderPage(DeliveryOrderCondition deliveryOrderCondition) throws DaoException;
+
+    /**
+     * 根据时间的范围返回出库单集合
+     *
+     * @param betweenTime 时间的范围
+     * @return
+     * @throws DaoException
+     */
+    public List<DeliveryOrder> listStartTimeToEndTime(BetweenTime betweenTime) throws DaoException;
 }

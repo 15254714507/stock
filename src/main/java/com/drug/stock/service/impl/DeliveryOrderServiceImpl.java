@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.domain.User;
+import com.drug.stock.entity.dto.BetweenTime;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderManager;
 import com.drug.stock.service.DeliveryOrderService;
@@ -73,5 +74,10 @@ public class DeliveryOrderServiceImpl implements DeliveryOrderService {
     @Override
     public PageInfo<DeliveryOrder> findDeliveryOrderPage(DeliveryOrderCondition deliveryOrderCondition) throws DaoException {
         return deliveryOrderManager.findDeliveryOrderPage(deliveryOrderCondition);
+    }
+
+    @Override
+    public List<DeliveryOrder> listStartTimeToEndTime(BetweenTime betweenTime) throws DaoException {
+        return deliveryOrderManager.listStartTimeToEndTime(betweenTime);
     }
 }

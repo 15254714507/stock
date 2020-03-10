@@ -132,4 +132,13 @@
         where is_delete =0
         and code=#{code,jdbcType=VARCHAR}
     </select>
+    <select id="listStartTimeToEndTime" resultMap="BaseResultMap"
+            parameterType="com.drug.stock.entity.dto.BetweenTime">
+        select
+        <include refid="Base_Column_List"/>
+        from delivery_order
+        where is_delete =0
+        and (create_time
+        between #{startTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP})
+    </select>
 </mapper>

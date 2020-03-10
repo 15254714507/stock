@@ -4,6 +4,7 @@ import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.domain.PurchaseOrder;
+import com.drug.stock.entity.dto.BetweenTime;
 import com.drug.stock.exception.DaoException;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -70,4 +71,12 @@ public interface DeliveryOrderDao {
      * @throws DaoException
      */
     public Long countDeliveryOrderByCode(String code);
+
+    /**
+     * 根据时间的范围返回出库单集合
+     *
+     * @param betweenTime 时间的范围
+     * @return
+     */
+    public List<DeliveryOrder> listStartTimeToEndTime(BetweenTime betweenTime);
 }
