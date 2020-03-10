@@ -1,4 +1,4 @@
-package com.drug.stock.until;
+package com.drug.stock.scheduleTask;
 
 import com.alibaba.fastjson.JSON;
 import com.drug.stock.entity.condition.DrugCondition;
@@ -11,10 +11,12 @@ import com.drug.stock.service.DrugService;
 import com.drug.stock.service.OverdueDrugService;
 import com.drug.stock.service.PurchaseOrderDrugService;
 import com.drug.stock.service.PurchaseOrderService;
+import com.drug.stock.until.TimestampFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
@@ -29,7 +31,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @EnableScheduling
-public class ScheduleTask {
+public class OverdueDrugScheduleTask {
     private static final String PROCESS_MODE_1 = "返厂";
     private static final String PROCESS_MODE_2 = "销毁";
     private static final String CREATE_USER = "system";
@@ -66,7 +68,8 @@ public class ScheduleTask {
      * @param drug
      * @param notOverdueDrugNumber
      */
-    private void overdueDrugOperation(Drug drug, int notOverdueDrugNumber) {
+    @Transactional(rollbackFor = Exception.class)
+    void overdueDrugOperation(Drug drug, int notOverdueDrugNumber) {
         int initDrugNumber = drug.getNumber();
         try {
             //往过期药品表添加
