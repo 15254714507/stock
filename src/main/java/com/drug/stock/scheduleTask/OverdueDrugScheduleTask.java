@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 定时任务
+ * 过期药品的定时任务
  *
  * @author lenovo
  */
@@ -48,7 +48,7 @@ public class OverdueDrugScheduleTask {
      * [秒] [分] [小时] [日] [月] [周] [年]
      */
     @Scheduled(cron = "0 0 0 * * ?")
-    private void OverdueDrugTasks() {
+    public void overdueDrugTasks() {
         //从药品表里获得所有的药品
         DrugCondition drugCondition = new DrugCondition();
         List<Drug> list = drugService.listDrug(drugCondition);
@@ -58,7 +58,6 @@ public class OverdueDrugScheduleTask {
             if (drug.getNumber() > notOverdueDrugNumber) {
                 overdueDrugOperation(drug, notOverdueDrugNumber);
             }
-
         }
     }
 
@@ -84,7 +83,7 @@ public class OverdueDrugScheduleTask {
             }
         } catch (Exception e) {
             drug.setNumber(initDrugNumber);
-            log.error("往药品过期表添加记录和修改药品库存发生异常 drug:{} ,notOverdueDrugNumber:{}", JSON.toJSONString(drug), notOverdueDrugNumber);
+            log.error("往药品过期表添加记录和修改药品库存发生异常 drug:{} ,notOverdueDrugNumber:{}", JSON.toJSONString(drug), notOverdueDrugNumber, e);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
     }
@@ -118,7 +117,7 @@ public class OverdueDrugScheduleTask {
         overdueDrugCondition.setDrugCode(drug.getCode());
         List<OverdueDrug> list = overdueDrugService.listOverdueDrug(overdueDrugCondition);
         Long isSuc = 0L;
-        if (list == null && list.size() < 1) {
+        if (list == null || list.size() < 1) {
             //说明过期药品表里没有此药品
             OverdueDrug overdueDrug = createOverdueDrug(drug);
             overdueDrug.setNumber(overdueDrugNumber);
@@ -155,6 +154,11 @@ public class OverdueDrugScheduleTask {
         return overdueDrug;
     }
 
+    /**
+     * 填充需要修改的 OverdueDrug
+     * @param overdueDrug
+     * @param overdueDrugNumber
+     */
     private void fillOverdueDrug(OverdueDrug overdueDrug, int overdueDrugNumber) {
         overdueDrug.setExpireDate(TimestampFactory.getTimestamp());
         if (overdueDrug.getStatus()) {
