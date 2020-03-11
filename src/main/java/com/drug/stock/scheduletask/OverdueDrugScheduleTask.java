@@ -1,4 +1,4 @@
-package com.drug.stock.scheduleTask;
+package com.drug.stock.scheduletask;
 
 import com.alibaba.fastjson.JSON;
 import com.drug.stock.entity.condition.DrugCondition;
@@ -10,7 +10,6 @@ import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.service.DrugService;
 import com.drug.stock.service.OverdueDrugService;
 import com.drug.stock.service.PurchaseOrderDrugService;
-import com.drug.stock.service.PurchaseOrderService;
 import com.drug.stock.until.TimestampFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
