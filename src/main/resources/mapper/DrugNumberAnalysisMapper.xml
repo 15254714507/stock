@@ -8,6 +8,12 @@
         <result column="drug_name" property="drugName" jdbcType="VARCHAR"/>
         <result column="number" property="number" jdbcType="INTEGER"/>
         <result column="requisition_quantity" property="requisitionQuantity" jdbcType="INTEGER"/>
+        <result column="one_ago_month_total" property="oneAgoMonthTotal" jdbcType="INTEGER"/>
+        <result column="two_ago_month_total" property="twoAgoMonthTotal" jdbcType="INTEGER"/>
+        <result column="three_ago_month_total" property="threeAgoMonthTotal" jdbcType="INTEGER"/>
+        <result column="four_ago_month_total" property="fourAgoMonthTotal" jdbcType="INTEGER"/>
+        <result column="five_ago_month_total" property="fiveAgoMonthTotal" jdbcType="INTEGER"/>
+        <result column="six_ago_month_total" property="sixAgoMonthTotal" jdbcType="INTEGER"/>
         <result column="half_total" property="halfTotal" jdbcType="INTEGER"/>
         <result column="avg_dosage" property="avgDosage" jdbcType="INTEGER"/>
         <result column="estimation_dosage" property="estimationDosage" jdbcType="INTEGER"/>
@@ -26,6 +32,12 @@
             drug_name,
             number,
             requisition_quantity,
+            one_ago_month_total,
+            two_ago_month_total,
+            three_ago_month_total,
+            four_ago_month_total,
+            five_ago_month_total,
+            six_ago_month_total,
             half_total,
             avg_dosage,
             estimation_dosage,
@@ -53,6 +65,12 @@
             drug_name,
             number,
             requisition_quantity,
+            one_ago_month_total,
+            two_ago_month_total,
+            three_ago_month_total,
+            four_ago_month_total,
+            five_ago_month_total,
+            six_ago_month_total,
             half_total,
             avg_dosage,
             estimation_dosage,
@@ -68,6 +86,12 @@
             #{drugName,jdbcType=VARCHAR},
             #{number,jdbcType=INTEGER},
             #{requisitionQuantity,jdbcType=INTEGER},
+            #{oneAgoMonthTotal,jdbcType=INTEGER},
+            #{twoAgoMonthTotal,jdbcType=INTEGER},
+            #{threeAgoMonthTotal,jdbcType=INTEGER},
+            #{fourAgoMonthTotal,jdbcType=INTEGER},
+            #{fiveAgoMonthTotal,jdbcType=INTEGER},
+            #{sixAgoMonthTotal,jdbcType=INTEGER},
             #{halfTotal,jdbcType=INTEGER},
             #{avgDosage,jdbcType=INTEGER},
             #{estimationDosage,jdbcType=INTEGER},
@@ -93,6 +117,24 @@
                 </if>
                 <if test="requisitionQuantity !=null">
                     requisition_quantity= #{requisitionQuantity,jdbcType=INTEGER},
+                </if>
+                <if test="oneAgoMonthTotal !=null">
+                    one_ago_month_total= #{oneAgoMonthTotal,jdbcType=INTEGER},
+                </if>
+                <if test="twoAgoMonthTotal !=null">
+                    two_ago_month_total= #{twoAgoMonthTotal,jdbcType=INTEGER},
+                </if>
+                <if test="threeAgoMonthTotal !=null">
+                    three_ago_month_total= #{threeAgoMonthTotal,jdbcType=INTEGER},
+                </if>
+                <if test="fourAgoMonthTotal !=null">
+                    four_ago_month_total= #{fourAgoMonthTotal,jdbcType=INTEGER},
+                </if>
+                <if test="fiveAgoMonthTotal !=null">
+                    five_ago_month_total= #{fiveAgoMonthTotal,jdbcType=INTEGER},
+                </if>
+                <if test="sixAgoMonthTotal !=null">
+                    six_ago_month_total= #{sixAgoMonthTotal,jdbcType=INTEGER},
                 </if>
                 <if test="halfTotal !=null">
                     half_total= #{halfTotal,jdbcType=INTEGER},

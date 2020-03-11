@@ -30,6 +30,30 @@ public class DrugNumberAnalysis {
      */
     private Integer requisitionQuantity;
     /**
+     * 一个月前的用量
+     */
+    private Integer oneAgoMonthTotal;
+    /**
+     * 两个月前的用量
+     */
+    private Integer twoAgoMonthTotal;
+    /**
+     * 三个月前的用量
+     */
+    private Integer threeAgoMonthTotal;
+    /**
+     * 四个月前的用量
+     */
+    private Integer fourAgoMonthTotal;
+    /**
+     * 五个月前的用量
+     */
+    private Integer fiveAgoMonthTotal;
+    /**
+     * 六个月前的用量
+     */
+    private Integer sixAgoMonthTotal;
+    /**
      * 半年总量
      */
     private Integer halfTotal;

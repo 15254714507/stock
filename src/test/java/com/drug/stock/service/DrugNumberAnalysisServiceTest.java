@@ -42,6 +42,12 @@ public class DrugNumberAnalysisServiceTest {
         drugNumberAnalysis.setDrugCode(UUID.randomUUID().toString());
         drugNumberAnalysis.setDrugName(UUID.randomUUID().toString());
         drugNumberAnalysis.setAvgDosage(111);
+        drugNumberAnalysis.setOneAgoMonthTotal(2);
+        drugNumberAnalysis.setTwoAgoMonthTotal(2);
+        drugNumberAnalysis.setThreeAgoMonthTotal(2);
+        drugNumberAnalysis.setFourAgoMonthTotal(2);
+        drugNumberAnalysis.setFiveAgoMonthTotal(2);
+        drugNumberAnalysis.setSixAgoMonthTotal(2);
         drugNumberAnalysis.setHalfTotal(111);
         drugNumberAnalysis.setEstimationDosage(111);
         drugNumberAnalysis.setEstimationMonth(2.2);
@@ -100,6 +106,12 @@ public class DrugNumberAnalysisServiceTest {
         drugNumberAnalysis.setEstimationMonth(1.1);
         drugNumberAnalysis.setNumber(222);
         drugNumberAnalysis.setRequisitionQuantity(222);
+        drugNumberAnalysis.setOneAgoMonthTotal(1);
+        drugNumberAnalysis.setTwoAgoMonthTotal(1);
+        drugNumberAnalysis.setThreeAgoMonthTotal(1);
+        drugNumberAnalysis.setFourAgoMonthTotal(1);
+        drugNumberAnalysis.setFiveAgoMonthTotal(1);
+        drugNumberAnalysis.setSixAgoMonthTotal(1);
 
         Long isSuc = drugNumberAnalysisService.updateDrugNumberAnalysis(drugNumberAnalysis);
         Assert.assertEquals(1, isSuc.intValue());
@@ -111,6 +123,14 @@ public class DrugNumberAnalysisServiceTest {
         Assert.assertEquals(drugNumberAnalysis.getHalfTotal(),drugNumberAnalysis1.getHalfTotal());
         Assert.assertEquals(drugNumberAnalysis.getEstimationDosage(),drugNumberAnalysis1.getEstimationDosage());
         Assert.assertEquals(drugNumberAnalysis.getEstimationMonth(),drugNumberAnalysis1.getEstimationMonth());
+
+        Assert.assertEquals(drugNumberAnalysis.getOneAgoMonthTotal(),drugNumberAnalysis1.getOneAgoMonthTotal());
+        Assert.assertEquals(drugNumberAnalysis.getTwoAgoMonthTotal(),drugNumberAnalysis1.getTwoAgoMonthTotal());
+        Assert.assertEquals(drugNumberAnalysis.getThreeAgoMonthTotal(),drugNumberAnalysis1.getThreeAgoMonthTotal());
+        Assert.assertEquals(drugNumberAnalysis.getFourAgoMonthTotal(),drugNumberAnalysis1.getFourAgoMonthTotal());
+        Assert.assertEquals(drugNumberAnalysis.getFiveAgoMonthTotal(),drugNumberAnalysis1.getFiveAgoMonthTotal());
+        Assert.assertEquals(drugNumberAnalysis.getSixAgoMonthTotal(),drugNumberAnalysis1.getSixAgoMonthTotal());
+
 
     }
 
