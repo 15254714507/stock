@@ -55,7 +55,7 @@ public class DrugNumberAnalysisScheduleTask {
      * 库存异常的定时任务，每月1号凌晨1点执行一次
      * [秒] [分] [小时] [日] [月] [周] [年]
      */
-    @Scheduled(cron = "0 0 1 1 * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void drugNumberAnalysisTasks() {
         //从药品表里获得所有的药品
         DrugCondition drugCondition = new DrugCondition();
