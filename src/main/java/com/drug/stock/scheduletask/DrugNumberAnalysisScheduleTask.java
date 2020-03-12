@@ -26,7 +26,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * 库存异常的定时任务
+ * 库存管制的定时任务
  *
  * @author lenovo
  */
