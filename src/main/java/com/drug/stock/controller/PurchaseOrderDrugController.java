@@ -196,7 +196,7 @@ public class PurchaseOrderDrugController {
         try {
             purchaseOrderDrug = purchaseOrderDrugService.getPurchaseOrderDrug(id);
         } catch (Exception e) {
-            log.error("");
+            log.error("跳转到入库单药品修改页面时出现系统异常 id{}",id,e);
             return "error/404";
         }
         if (purchaseOrderDrug == null) {
