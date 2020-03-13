@@ -84,7 +84,11 @@ public interface SuccessConstant {
      */
     String SAVE_PURCHASE_ORDER_DRUG_SUCCESS = "入库单添加药品成功";
     /**
-     *  修改入库单药品成功返回的信息
+     * 修改入库单药品成功返回的信息
      */
     String UPDATE_PURCHASE_ORDER_DRUG_SUCCESS = "修改药品成功";
+    /**
+     * 删除入库单药品成功返回的信息
+     */
+    String DELETE_PURCHASE_ORDER_DRUG_SUCCESS = "删除药品成功";
 }

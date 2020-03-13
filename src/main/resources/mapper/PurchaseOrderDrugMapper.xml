@@ -122,7 +122,7 @@
         and id = #{id,jdbcType=BIGINT};
     </update>
     <delete id="deletePurchaseOrderDrug" parameterType="Long">
-        delete purchase_order_drug
+        delete from purchase_order_drug
         WHERE id = #{id,jdbcType=BIGINT};
     </delete>
     <select id="getPurchaseOrderDrugByCodeAndDrugCode" resultMap="BaseResultMap" parameterType="String">

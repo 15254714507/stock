@@ -228,4 +228,22 @@ public class PurchaseOrderDrugController {
         }
         return result;
     }
+
+    @PostMapping(value = "/deletePurchaseOrderDrug.do")
+    @ResponseBody
+    public Result deletePurchaseOrderDrug(Long id) {
+        Result result = null;
+        try {
+            Long isSuc = purchaseOrderDrugService.deletePurchaseOrderDrug(id);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_PURCHASE_ORDER_DRUG_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.NOT_PURCHASE_ORDER_DRUG);
+            }
+        } catch (Exception e) {
+            log.error("删除入库单中药品时发生系统异常，id：{}", id, e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
 }
