@@ -1,10 +1,15 @@
 package com.drug.stock.service.impl;
 
+import com.drug.stock.constant.ErrorConstant;
+import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.entity.condition.DeliveryOrderDrugCondition;
 import com.drug.stock.entity.domain.DeliveryOrderDrug;
+import com.drug.stock.entity.domain.Drug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.DeliveryOrderDrugManager;
 import com.drug.stock.service.DeliveryOrderDrugService;
+import com.drug.stock.service.DrugService;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,8 @@ import java.util.List;
 public class DeliveryOrderDrugServiceImpl implements DeliveryOrderDrugService {
     @Resource
     DeliveryOrderDrugManager deliveryOrderDrugManager;
+    @Resource
+    DrugService drugService;
 
     @Override
     public DeliveryOrderDrug getDeliveryOrderDrug(Long id) throws DaoException {
@@ -27,13 +34,47 @@ public class DeliveryOrderDrugServiceImpl implements DeliveryOrderDrugService {
     }
 
     @Override
-    public Long insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
-        return deliveryOrderDrugManager.insertDeliveryOrderDrug(deliveryOrderDrug);
+    public Result insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
+        Result result = fillDeliveryOrderDrug(deliveryOrderDrug);
+        if (result != null) {
+            return result;
+        }
+        Long isSuc = deliveryOrderDrugManager.insertDeliveryOrderDrug(deliveryOrderDrug);
+        if (isSuc != 1) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELIVERY_ORDER_DRUG_EXIST);
+        }
+        return new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.SAVE_DELIVERY_ORDER_DRUG_SUCCESS);
     }
 
     @Override
-    public Long updateDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
-        return deliveryOrderDrugManager.updateDeliveryOrderDrug(deliveryOrderDrug);
+    public Result updateDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException {
+        Result result = fillDeliveryOrderDrug(deliveryOrderDrug);
+        if (result != null) {
+            return result;
+        }
+        Long isSuc = deliveryOrderDrugManager.updateDeliveryOrderDrug(deliveryOrderDrug);
+        if (isSuc != 1) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.DELIVERY_ORDER_DRUG_EXIST);
+        }
+        return new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.UPDATE_DELIVERY_ORDER_DRUG_SUCCESS);
+    }
+
+    /**
+     * 填充DeliveryOrderDrug
+     *
+     * @param deliveryOrderDrug
+     * @return
+     */
+    private Result fillDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) {
+        Drug drug = drugService.getDrugByCode(deliveryOrderDrug.getDrugCode());
+        if (drug == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.NOT_DRUG);
+        }
+        deliveryOrderDrug.setDrugName(drug.getName());
+        if (deliveryOrderDrug.getPrice() == null) {
+            deliveryOrderDrug.setPrice(drug.getPrice());
+        }
+        return null;
     }
 
     @Override

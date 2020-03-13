@@ -129,4 +129,16 @@ public interface ErrorConstant {
      * 发布时修改药品库存，但是没有在药品表里查到此药品
      */
     String PUBLISH_NOT_CODE = "没有此药品，编码 %s";
+    /**
+     * 出库药品提交的表单不符合负责返回的错误信息
+     */
+    String DELIVERY_ORDER_DRUG_ERROR = "出库药品填写的格式不正确";
+    /**
+     * 添加入库单药品时查到此入库单已存在此药品
+     */
+    String DELIVERY_ORDER_DRUG_EXIST = "此药品在此出库单中已存在";
+    /**
+     * 入库单没有查询到此药品返回的信息
+     */
+    String NOT_DELIVERY_ORDER_DRUG = "此出库单中没有此药品信息";
 }

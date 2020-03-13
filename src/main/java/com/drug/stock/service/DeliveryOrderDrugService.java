@@ -3,6 +3,7 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.DeliveryOrderDrugCondition;
 import com.drug.stock.entity.domain.DeliveryOrderDrug;
 import com.drug.stock.exception.DaoException;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface DeliveryOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public Long insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException;
+    public Result insertDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException;
 
     /**
      * 修改出库单药品信息
@@ -36,7 +37,7 @@ public interface DeliveryOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public Long updateDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException;
+    public Result updateDeliveryOrderDrug(DeliveryOrderDrug deliveryOrderDrug) throws DaoException;
 
     /**
      * 删除出库单药品信息

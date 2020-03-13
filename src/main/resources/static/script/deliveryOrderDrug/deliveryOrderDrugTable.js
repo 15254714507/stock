@@ -17,9 +17,9 @@ function member_edit(obj, id) {
         type: 2,
         title: '修改药品信息',
         closeBtn: 1, //显示关闭按钮
-        area: ['600px', '600px'],
+        area: ['600px', '300px'],
         shadeClose: false,
-        content: ['/gotoUpdateDrug.do?id=' + id, 'yes'],
+        content: ['/gotoUpdateDeliveryOrderDrug.do?id=' + id, 'yes'],
     });
 }
 
@@ -27,7 +27,7 @@ function member_edit(obj, id) {
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
-            url: "/deleteDrug.do",
+            url: "/deleteDeliveryOrderDrug.do",
             type: "POST",
             cache: false,
             data: {
