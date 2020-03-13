@@ -45,7 +45,7 @@
             <div class="formControls">
                 <input type="text" class="input-text" value="" id="price"
                        name="price"
-                       datatype="*1-10" nullmsg="数量不能为空">
+                       datatype="*1-10" nullmsg="单价不能为空">
             </div>
             <div class="col-4"><span class="Validform_checktip"></span></div>
         </div>
