@@ -71,14 +71,9 @@ public class PurchaseOrderController {
         purchaseOrder.setUpdateUser((String) session.getAttribute(session.getId()));
         Result result = null;
         try {
-            Long isSuc = purchaseOrderService.updatePurchaseOrder(purchaseOrder);
-            if (isSuc == 1) {
-                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.PURCHASE_ORDER_PUBLISH_SUCCESS);
-            } else {
-                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_NOT);
-            }
+            result = purchaseOrderService.publishPurchaseOrder(purchaseOrder);
         } catch (Exception e) {
-            log.error("入库单修改状态时发生异常 id：{}", id, e);
+            log.error("入库单发布时发生异常 purchaseOrder：{}", JSON.toJSONString(purchaseOrder), e);
             result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
         }
         return result;

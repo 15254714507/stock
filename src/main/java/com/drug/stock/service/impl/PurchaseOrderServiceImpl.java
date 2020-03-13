@@ -1,16 +1,23 @@
 package com.drug.stock.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.drug.stock.constant.ErrorConstant;
+import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
+import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
+import com.drug.stock.entity.domain.Drug;
 import com.drug.stock.entity.domain.PurchaseOrder;
+import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.entity.domain.User;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.exception.ServiceException;
 import com.drug.stock.manager.PurchaseOrderManager;
+import com.drug.stock.service.DrugService;
 import com.drug.stock.service.PurchaseOrderDrugService;
 import com.drug.stock.service.PurchaseOrderService;
 import com.drug.stock.service.UserService;
 import com.drug.stock.until.OrderCodeFactory;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +39,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     UserService userService;
     @Resource
     PurchaseOrderDrugService purchaseOrderDrugService;
+    @Resource
+    DrugService drugService;
 
     @Override
     public PurchaseOrder getPurchaseOrder(Long id) throws DaoException {
@@ -89,5 +98,61 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Override
     public PageInfo<PurchaseOrder> findPurchaseOrderPage(PurchaseOrderCondition purchaseOrderCondition) throws DaoException {
         return purchaseOrderManager.findPurchaseOrderPage(purchaseOrderCondition);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result publishPurchaseOrder(PurchaseOrder purchaseOrder) throws ServiceException {
+        Result result = null;
+        List<PurchaseOrderDrug> purchaseOrderDrugList = getPurchaseOrderDrugList(purchaseOrder.getId());
+        try {
+            result = updateDrugNumber(purchaseOrderDrugList);
+            if (result != null) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return result;
+            }
+            Long isSuc = purchaseOrderManager.updatePurchaseOrder(purchaseOrder);
+            if (isSuc == 1) {
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.PURCHASE_ORDER_PUBLISH_SUCCESS);
+            } else {
+                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_NOT);
+            }
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            throw new ServiceException(e);
+        }
+        return result;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    private List<PurchaseOrderDrug> getPurchaseOrderDrugList(Long id) {
+        PurchaseOrder purchaseOrder = purchaseOrderManager.getPurchaseOrder(id);
+        PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
+        purchaseOrderDrugCondition.setCode(purchaseOrder.getCode());
+        return purchaseOrderDrugService.listPurchaseOrderDrug(purchaseOrderDrugCondition);
+    }
+
+    /**
+     * 修改药品的库存和价格
+     *
+     * @param purchaseOrderDrugList
+     * @return
+     */
+    private Result updateDrugNumber(List<PurchaseOrderDrug> purchaseOrderDrugList) {
+        Result result = null;
+        for (PurchaseOrderDrug purchaseOrderDrug : purchaseOrderDrugList) {
+            Drug drug = drugService.getDrugByCode(purchaseOrderDrug.getDrugCode());
+            drug.setNumber(drug.getNumber() + purchaseOrderDrug.getNumber());
+            drug.setPrice(purchaseOrderDrug.getPrice());
+            Long isSuc = drugService.updateDrug(drug);
+            if (isSuc != 1) {
+                result = new Result(ErrorConstant.ERROR_CODE, String.format(ErrorConstant.PUBLISH_NOT_CODE, drug.getCode()));
+                break;
+            }
+        }
+        return result;
     }
 }

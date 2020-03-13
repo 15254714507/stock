@@ -3,6 +3,8 @@ package com.drug.stock.service;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
 import com.drug.stock.entity.domain.PurchaseOrder;
 import com.drug.stock.exception.DaoException;
+import com.drug.stock.exception.ServiceException;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -76,9 +78,19 @@ public interface PurchaseOrderService {
 
     /**
      * 获得订单表头的分页信息
+     *
      * @param purchaseOrderCondition
      * @return
      * @throws DaoException
      */
     public PageInfo<PurchaseOrder> findPurchaseOrderPage(PurchaseOrderCondition purchaseOrderCondition) throws DaoException;
+
+    /**
+     * 入库单发布
+     *
+     * @param purchaseOrder
+     * @return
+     * @throws ServiceException
+     */
+    public Result publishPurchaseOrder(PurchaseOrder purchaseOrder) throws ServiceException;
 }

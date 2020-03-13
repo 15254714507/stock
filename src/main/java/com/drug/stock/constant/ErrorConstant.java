@@ -125,4 +125,8 @@ public interface ErrorConstant {
      * 入库单没有查询到此药品返回的信息
      */
     String NOT_PURCHASE_ORDER_DRUG = "此入库单中没有此药品信息";
+    /**
+     * 发布时修改药品库存，但是没有在药品表里查到此药品
+     */
+    String PUBLISH_NOT_CODE = "没有此药品，编码 %s";
 }
