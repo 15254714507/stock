@@ -121,13 +121,10 @@
         WHERE is_delete = 0
         and id = #{id,jdbcType=BIGINT};
     </update>
-    <update id="deletePurchaseOrderDrug" parameterType="Long">
-        update purchase_order_drug
-        <set>
-            is_delete=1
-        </set>
+    <delete id="deletePurchaseOrderDrug" parameterType="Long">
+        delete purchase_order_drug
         WHERE id = #{id,jdbcType=BIGINT};
-    </update>
+    </delete>
     <select id="getPurchaseOrderDrugByCodeAndDrugCode" resultMap="BaseResultMap" parameterType="String">
         select
         <include refid="Base_Column_List"/>
