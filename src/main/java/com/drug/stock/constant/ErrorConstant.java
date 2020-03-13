@@ -121,4 +121,8 @@ public interface ErrorConstant {
      * 当字符串日期转换成日期格式时出现问题就会返回这个错误
      */
     String EXPIRE_DATE_TO_DATE = "日期格式不正确";
+    /**
+     * 入库单没有查询到此药品返回的信息
+     */
+    String NOT_PURCHASE_ORDER_DRUG = "此入库单中没有此药品信息";
 }

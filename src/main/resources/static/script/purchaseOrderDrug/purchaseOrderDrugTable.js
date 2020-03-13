@@ -19,7 +19,7 @@ function member_edit(obj, id) {
         closeBtn: 1, //显示关闭按钮
         area: ['600px', '600px'],
         shadeClose: false,
-        content: ['/gotoUpdateDrug.do?id=' + id, 'yes'],
+        content: ['/gotoUpdatePurchaseOrderDrug.do?id=' + id, 'yes'],
     });
 }
 
@@ -27,7 +27,7 @@ function member_edit(obj, id) {
 function member_del(obj, id) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
-            url: "/deleteDrug.do",
+            url: "/deletePurchaseOrderDrug.do",
             type: "POST",
             cache: false,
             data: {

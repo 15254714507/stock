@@ -39,7 +39,7 @@ public interface PurchaseOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public Long updatePurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException;
+    public Result updatePurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException;
 
     /**
      * 删除入库单药品信息

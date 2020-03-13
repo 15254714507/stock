@@ -182,4 +182,50 @@ public class PurchaseOrderDrugController {
         }
         return null;
     }
+
+    /**
+     * 前往入库单药品修改页面
+     *
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/gotoUpdatePurchaseOrderDrug.do")
+    public String gotoUpdatePurchaseOrderDrug(Model model, Long id) {
+        PurchaseOrderDrug purchaseOrderDrug = null;
+        try {
+            purchaseOrderDrug = purchaseOrderDrugService.getPurchaseOrderDrug(id);
+        } catch (Exception e) {
+            log.error("");
+            return "error/404";
+        }
+        if (purchaseOrderDrug == null) {
+            return "error/404";
+        }
+        model.addAttribute("purchaseOrderDrug", purchaseOrderDrug);
+
+        ProviderCondition providerCondition = new ProviderCondition();
+        List<Provider> providerList = providerService.listProvider(providerCondition);
+        model.addAttribute("providerList", providerList);
+        return "purchaseOrderDrug/updatePurchaseOrderDrug";
+    }
+
+    @PostMapping(value = "/updatePurchaseOrderDrug.do")
+    @ResponseBody
+    public Result updatePurchaseOrderDrug(@Valid PurchaseOrderDrugForm purchaseOrderDrugForm, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors() || purchaseOrderDrugForm.getId() == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.PURCHASE_ORDER_FORM_ERROR);
+        }
+        PurchaseOrderDrug purchaseOrderDrug = createPurchaseOrderDrug(purchaseOrderDrugForm, (String) session.getAttribute(session.getId()));
+        purchaseOrderDrug.setId(purchaseOrderDrugForm.getId());
+        fillExpireDate(purchaseOrderDrug, purchaseOrderDrugForm.getExpireDate());
+        Result result = null;
+        try {
+            result = purchaseOrderDrugService.updatePurchaseOrderDrug(purchaseOrderDrug);
+        } catch (Exception e) {
+            log.error("修改入库单中药品信息时发生系统异常，purchaseOrderDrug：{}", JSON.toJSONString(purchaseOrderDrug), e);
+            result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
+        }
+        return result;
+    }
 }

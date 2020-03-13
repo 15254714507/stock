@@ -71,8 +71,16 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     }
 
     @Override
-    public Long updatePurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
-        return purchaseOrderDrugManager.updatePurchaseOrderDrug(purchaseOrderDrug);
+    public Result updatePurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
+        Result result = fillPurchaseOrderDrug(purchaseOrderDrug);
+        if (result != null) {
+            return result;
+        }
+        Long isSuc =  purchaseOrderDrugManager.updatePurchaseOrderDrug(purchaseOrderDrug);
+        if(isSuc!=1){
+            return new Result(ErrorConstant.ERROR_CODE,ErrorConstant.NOT_PURCHASE_ORDER_DRUG);
+        }
+        return new Result(SuccessConstant.SUCCESS_CODE,SuccessConstant.UPDATE_PURCHASE_ORDER_DRUG_SUCCESS);
     }
 
     @Override
