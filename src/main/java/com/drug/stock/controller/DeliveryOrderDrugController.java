@@ -198,7 +198,7 @@ public class DeliveryOrderDrugController {
         try {
             Long isSuc = deliveryOrderDrugService.deleteDeliveryOrderDrug(id);
             if (isSuc == 1) {
-                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_DELIVERY_ORDER_SUCCESS);
+                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELETE_DELIVERY_ORDER_DRUG_SUCCESS);
             } else {
                 result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.NOT_DELIVERY_ORDER_DRUG);
             }

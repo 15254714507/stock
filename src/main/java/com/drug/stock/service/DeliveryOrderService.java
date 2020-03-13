@@ -4,6 +4,8 @@ import com.drug.stock.entity.condition.DeliveryOrderCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
 import com.drug.stock.entity.dto.BetweenTime;
 import com.drug.stock.exception.DaoException;
+import com.drug.stock.exception.ServiceException;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -92,4 +94,13 @@ public interface DeliveryOrderService {
      * @throws DaoException
      */
     public List<DeliveryOrder> listStartTimeToEndTime(BetweenTime betweenTime) throws DaoException;
+
+    /**
+     * 出库单发布服务
+     *
+     * @param deliveryOrder
+     * @return
+     * @throws ServiceException
+     */
+    public Result publishDeliveryOrder(DeliveryOrder deliveryOrder) throws ServiceException;
 }

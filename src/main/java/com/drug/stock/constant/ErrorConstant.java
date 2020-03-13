@@ -141,4 +141,8 @@ public interface ErrorConstant {
      * 入库单没有查询到此药品返回的信息
      */
     String NOT_DELIVERY_ORDER_DRUG = "此出库单中没有此药品信息";
+    /**
+     * 库存不足
+     */
+    String LACK_DRUG_CODE = "%s 库存不足";
 }

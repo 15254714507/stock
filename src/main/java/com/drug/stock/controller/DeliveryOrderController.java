@@ -68,15 +68,10 @@ public class DeliveryOrderController {
         DeliveryOrder deliveryOrder = new DeliveryOrder();
         deliveryOrder.setId(id);
         deliveryOrder.setStatus(true);
-        deliveryOrder.setUpdateUser((String)session.getAttribute(session.getId()));
+        deliveryOrder.setUpdateUser((String) session.getAttribute(session.getId()));
         Result result = null;
         try {
-            Long isSuc = deliveryOrderService.updateDeliveryOrder(deliveryOrder);
-            if (isSuc == 1) {
-                result = new Result(SuccessConstant.SUCCESS_CODE, SuccessConstant.DELIVERY_ORDER_PUBLISH_SUCCESS);
-            } else {
-                result = new Result(ErrorConstant.ERROR_CODE, ErrorConstant.ORDER_NOT);
-            }
+            result = deliveryOrderService.publishDeliveryOrder(deliveryOrder);
         } catch (Exception e) {
             log.error("出库单修改状态时发生异常 id：{}", id, e);
             result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
