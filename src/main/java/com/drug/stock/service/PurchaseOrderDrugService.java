@@ -5,6 +5,7 @@ import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
 import com.drug.stock.entity.domain.PurchaseOrder;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.exception.DaoException;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface PurchaseOrderDrugService {
      * @return
      * @throws DaoException
      */
-    public Long insertPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException;
+    public Result insertPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException;
 
     /**
      * 修改入库单药品信息

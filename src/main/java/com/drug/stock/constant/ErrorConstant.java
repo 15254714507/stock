@@ -101,4 +101,24 @@ public interface ErrorConstant {
      * 删除订单但是没有重找到此订单
      */
     String DELETE_ORDER_NOT = "没有此订单，请刷新后重试";
+    /**
+     * 入库药品添加提交的表单
+     */
+    String PURCHASE_ORDER_FORM_ERROR = "入库药品填写的格式不正确";
+    /**
+     * 查询药品时返回为空时
+     */
+    String NOT_DRUG = "没有此药品";
+    /**
+     * 查询供应商返回为空时
+     */
+    String NOT_PROVIDER = "没有此供应商";
+    /**
+     * 添加入库单药品时查到此入库单已存在此药品
+     */
+    String PURCHASE_ORDER_DRUG_EXIST = "此药品在此入库单中已存在";
+    /**
+     * 当字符串日期转换成日期格式时出现问题就会返回这个错误
+     */
+    String EXPIRE_DATE_TO_DATE = "日期格式不正确";
 }

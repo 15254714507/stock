@@ -5,9 +5,9 @@ $('#purchase_order_drug_add').on('click', function () {
         type: 2,
         title: '添加入库药品',
         closeBtn: 1, //不显示关闭按钮
-        area: ['550px', '550px'],
+        area: ['550px', '400px'],
         shadeClose: false,
-        content: ['/gotoAddPurchaseOrderDrug.do', 'yes'],
+        content: ['/gotoAddPurchaseOrderDrug.do?code=' + $("#start").val(), 'yes'],
     });
 });
 $("#search_button").on("click", function () {

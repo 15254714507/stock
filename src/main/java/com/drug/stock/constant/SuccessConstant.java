@@ -79,4 +79,8 @@ public interface SuccessConstant {
      * 删除出库单成功
      */
     String DELETE_DELIVERY_ORDER_SUCCESS = "删除出库单成功";
+    /**
+     * 入库单添加药品成功返回的信息
+     */
+    String SAVE_PURCHASE_ORDER_DRUG_SUCCESS = "入库单添加药品成功";
 }

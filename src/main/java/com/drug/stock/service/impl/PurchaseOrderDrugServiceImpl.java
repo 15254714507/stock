@@ -1,10 +1,17 @@
 package com.drug.stock.service.impl;
 
+import com.drug.stock.constant.ErrorConstant;
+import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
+import com.drug.stock.entity.domain.Drug;
+import com.drug.stock.entity.domain.Provider;
 import com.drug.stock.entity.domain.PurchaseOrderDrug;
 import com.drug.stock.exception.DaoException;
 import com.drug.stock.manager.PurchaseOrderDrugManager;
+import com.drug.stock.service.DrugService;
+import com.drug.stock.service.ProviderService;
 import com.drug.stock.service.PurchaseOrderDrugService;
+import com.drug.stock.until.Result;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +27,10 @@ import java.util.List;
 public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     @Resource
     PurchaseOrderDrugManager purchaseOrderDrugManager;
+    @Resource
+    DrugService drugService;
+    @Resource
+    ProviderService providerService;
 
     @Override
     public PurchaseOrderDrug getPurchaseOrderDrug(Long id) throws DaoException {
@@ -27,8 +38,36 @@ public class PurchaseOrderDrugServiceImpl implements PurchaseOrderDrugService {
     }
 
     @Override
-    public Long insertPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
-        return purchaseOrderDrugManager.insertPurchaseOrderDrug(purchaseOrderDrug);
+    public Result insertPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) throws DaoException {
+        Result result = fillPurchaseOrderDrug(purchaseOrderDrug);
+        if (result != null) {
+            return result;
+        }
+        Long isSuc = purchaseOrderDrugManager.insertPurchaseOrderDrug(purchaseOrderDrug);
+        if(isSuc!=1){
+            return new Result(ErrorConstant.ERROR_CODE,ErrorConstant.PURCHASE_ORDER_DRUG_EXIST);
+        }
+        return new Result(SuccessConstant.SUCCESS_CODE,SuccessConstant.SAVE_PURCHASE_ORDER_DRUG_SUCCESS);
+    }
+
+    /***
+     * 填充purchaseOrderDrug，填充供应商的名称，药品名称
+     * @param purchaseOrderDrug
+     * @return
+     */
+    private Result fillPurchaseOrderDrug(PurchaseOrderDrug purchaseOrderDrug) {
+        Drug drug = drugService.getDrugByCode(purchaseOrderDrug.getDrugCode());
+        if (drug == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.NOT_DRUG);
+
+        }
+        purchaseOrderDrug.setDrugName(drug.getName());
+        Provider provider = providerService.getProvider(purchaseOrderDrug.getProviderId());
+        if (provider == null) {
+            return new Result(ErrorConstant.ERROR_CODE, ErrorConstant.NOT_PROVIDER);
+        }
+        purchaseOrderDrug.setProviderName(provider.getCompany());
+        return null;
     }
 
     @Override
