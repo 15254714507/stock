@@ -26,7 +26,7 @@ public class PurchaseOrderDrug implements Serializable {
      */
     private String drugCode;
     /**
-     * 药品编码
+     * 药品名称
      */
     private String drugName;
 
