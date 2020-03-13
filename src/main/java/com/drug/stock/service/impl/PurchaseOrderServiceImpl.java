@@ -149,8 +149,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             drug.setPrice(purchaseOrderDrug.getPrice());
             Long isSuc = drugService.updateDrug(drug);
             if (isSuc != 1) {
-                result = new Result(ErrorConstant.ERROR_CODE, String.format(ErrorConstant.PUBLISH_NOT_CODE, drug.getCode()));
-                break;
+                return new Result(ErrorConstant.ERROR_CODE, String.format(ErrorConstant.PUBLISH_NOT_CODE, drug.getCode()));
+
             }
         }
         return result;
