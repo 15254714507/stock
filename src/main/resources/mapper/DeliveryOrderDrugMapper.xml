@@ -93,13 +93,10 @@
         WHERE is_delete = 0
         and id = #{id,jdbcType=BIGINT};
     </update>
-    <update id="deleteDeliveryOrderDrug" parameterType="Long">
-        update delivery_order_drug
-        <set>
-            is_delete=1
-        </set>
+    <delete id="deleteDeliveryOrderDrug" parameterType="Long">
+        delete from delivery_order_drug
         WHERE id = #{id,jdbcType=BIGINT};
-    </update>
+    </delete>
     <select id="getDeliveryOrderDrugByCodeAndDrugCode" resultMap="BaseResultMap" parameterType="String">
         select
         <include refid="Base_Column_List"/>
