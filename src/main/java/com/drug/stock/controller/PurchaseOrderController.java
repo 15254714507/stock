@@ -15,6 +15,9 @@ import com.drug.stock.until.Result;
 import com.drug.stock.until.WordUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -209,19 +214,25 @@ public class PurchaseOrderController {
     }
 
     @RequestMapping(value = "/downPurchaseOrder.do")
-    public void downPurchaseOrder(Long id) {
+    @ResponseBody
+    public ResponseEntity<byte[]> downPurchaseOrder(Long id) {
         Map<String, Object> dataMap = new HashMap<String, Object>(2);
+        byte[] fileByte = null;
         try {
             PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrder(id);
             dataMap.put("purchaseOrder", purchaseOrder);
             PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
             purchaseOrderDrugCondition.setCode(purchaseOrder.getCode());
             List<PurchaseOrderDrug> purchaseOrderDrugList = purchaseOrderDrugService.listPurchaseOrderDrug(purchaseOrderDrugCondition);
-            dataMap.put("purchaseOrderDrugList",purchaseOrderDrugList);
-            WordUtil.createWord(dataMap,"purchaseOrder.ftl","C:\\Users\\lenovo\\Desktop","入库单.doc");
+            dataMap.put("purchaseOrderDrugList", purchaseOrderDrugList);
+            fileByte = WordUtil.createWordByte(dataMap, "purchaseOrder.ftl", "入库单.doc");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode(purchaseOrder.getCode()+"入库单.doc", "utf-8"));
+            return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
         } catch (Exception e) {
             log.error("导出入库单失败 id:{}", id, e);
         }
+        return null;
     }
 
 }

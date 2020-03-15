@@ -13,14 +13,6 @@ $(function () {
     });
 })
 
-/**
- * 导出入库单
- */
-
-function member_down(id) {
-    window.location.href = "/downPurchaseOrder.do?id=" + id;
-}
-
 /*发布*/
 function member_publish(obj, id) {
     $.ajax({
