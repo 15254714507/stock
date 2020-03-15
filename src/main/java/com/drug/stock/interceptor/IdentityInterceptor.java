@@ -25,6 +25,7 @@ public class IdentityInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //所有的静态资源都允许访问
         if (handler instanceof ResourceHttpRequestHandler) {
             return true;
         }
@@ -64,7 +65,6 @@ public class IdentityInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
     }
 
 }

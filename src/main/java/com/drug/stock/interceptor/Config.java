@@ -13,12 +13,15 @@ import javax.annotation.Resource;
 public class Config implements WebMvcConfigurer {
     @Resource
     private  IdentityInterceptor identityInterceptor;
+    @Resource
+    private SuperAdminInterceptor superAdminInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //对于静态资源和登录也不进行拦截
+        //对于登录页面和登录操作不进行拦截
         String [] excludes=new String[]{"/","/Login.do"};
         registry.addInterceptor(identityInterceptor).addPathPatterns("/**").excludePathPatterns(excludes);
-
+        //下面是超级管理员操作的拦截
+        registry.addInterceptor(superAdminInterceptor).addPathPatterns("/gotoUserList.do").excludePathPatterns(excludes);
     }
 }
