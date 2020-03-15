@@ -42,6 +42,16 @@ public class MainController {
     public String init(Model model) {
         return "main/home";
     }
+    /**
+     * 面包屑的首页
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/main.do")
+    public String main(Model model) {
+        return "main/main";
+    }
 
     /**
      * 前往个人信息页面
