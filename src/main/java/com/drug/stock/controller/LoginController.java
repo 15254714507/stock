@@ -68,7 +68,7 @@ public class LoginController {
         }
         session.setAttribute(session.getId(), user.getAccount());
         session.getServletContext().setAttribute(session.getId(), user.getAccount());
-        model.addAttribute("userName", user.getName());
+        model.addAttribute("user", user);
         return "main/main";
     }
 

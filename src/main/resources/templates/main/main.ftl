@@ -214,7 +214,7 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <span class="time"><em id="time"></em></span><span
-                                class="user-info"><small>欢迎光临,</small>${(userName) !}</span>
+                                class="user-info"><small>欢迎光临,</small>${(user.getName()) !}</span>
                         <i class="icon-caret-down"></i>
                     </a>
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
@@ -238,44 +238,6 @@
 											</span>
                                     <span class="pull-right badge badge-info">+12</span>
                                 </div>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <i class="btn btn-xs btn-primary icon-user"></i>
-                                切换为编辑登录..
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-success icon-shopping-cart"></i>
-												新订单
-											</span>
-                                    <span class="pull-right badge badge-success">+8</span>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                <div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-info icon-twitter"></i>
-												用户消息
-											</span>
-                                    <span class="pull-right badge badge-info">+11</span>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#">
-                                查看所有通知
-                                <i class="icon-arrow-right"></i>
                             </a>
                         </li>
                     </ul>
@@ -354,15 +316,22 @@
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>出库单列表</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 存量管制管理 </span><b class="arrow icon-angle-down"></b></a>
+                    <li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 存量管制管理 </span><b
+                                    class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoRiskAssessmentList.do" title="库存异常列表" class="iframeurl"><i class="icon-double-angle-right"></i>库存异常列表</a></li>
-                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugNumberAnalysisList.do" title="库存管制" class="iframeurl"><i class="icon-double-angle-right"></i>库存管制</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoRiskAssessmentList.do"
+                                                title="库存异常列表" class="iframeurl"><i class="icon-double-angle-right"></i>库存异常列表</a>
+                            </li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoDrugNumberAnalysisList.do"
+                                                title="库存管制" class="iframeurl"><i class="icon-double-angle-right"></i>库存管制</a>
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 过期药品管理 </span><b class="arrow icon-angle-down"></b></a>
+                    <li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span
+                                    class="menu-text"> 过期药品管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
-                            <li class="home"><a href="javascript:void(0)" name="/gotoOverdueDrugList.do" title="过期药品列表" class="iframeurl"><i class="icon-double-angle-right"></i>过期药品列表</a></li>
+                            <li class="home"><a href="javascript:void(0)" name="/gotoOverdueDrugList.do" title="过期药品列表"
+                                                class="iframeurl"><i class="icon-double-angle-right"></i>过期药品列表</a></li>
                         </ul>
                     </li>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span
@@ -380,7 +349,7 @@
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>供应商列表</a></li>
                         </ul>
                     </li>
-
+                    <#if user.superAdmin>
                     <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span
                                     class="menu-text"> 用户管理 </span><b class="arrow icon-angle-down"></b></a>
                         <ul class="submenu">
@@ -390,6 +359,7 @@
                                                 class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
                         </ul>
                     </li>
+                    </#if>
                 </ul>
             </div>
             <script type="text/javascript">

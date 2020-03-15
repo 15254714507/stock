@@ -49,7 +49,10 @@ public class MainController {
      * @return
      */
     @RequestMapping(value = "/main.do")
-    public String main(Model model) {
+    public String main(Model model,HttpSession session) {
+        String account = (String)session.getAttribute(session.getId());
+        User user = userService.getUserByAccount(account);
+        model.addAttribute("user",user);
         return "main/main";
     }
 
