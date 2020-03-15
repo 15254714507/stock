@@ -29,6 +29,10 @@ public class SuperAdminInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //所有的静态资源都允许访问
+        if (handler instanceof ResourceHttpRequestHandler) {
+            return true;
+        }
         HttpSession httpSession = request.getSession();
         String account = (String) httpSession.getServletContext().getAttribute(httpSession.getId());
         User user = userService.getUserByAccount(account);
