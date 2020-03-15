@@ -2,15 +2,25 @@ laydate({
     elem: '#start',
     event: 'focus'
 });
-$(function() {
-    var oTable1 = $('#sample-table').dataTable( {
+$(function () {
+    var oTable1 = $('#sample-table').dataTable({
         "aaSorting": [[0, "asc"]],//默认第几个排序
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[2,3,4]}// 制定列不参与排序
-        ]});
+            {"orderable": false, "aTargets": [2, 3, 4]}// 制定列不参与排序
+        ]
+    });
 })
+
+/**
+ * 导出入库单
+ */
+
+function member_down(id) {
+    window.location.href = "/downPurchaseOrder.do?id=" + id;
+}
+
 /*发布*/
 function member_publish(obj, id) {
     $.ajax({
@@ -26,7 +36,7 @@ function member_publish(obj, id) {
                 layer.alert(result.msg, {
                         title: '成功框',
                         icon: 1
-                    },function(){
+                    }, function () {
                         //刷新当前页面
                         window.location.reload();
                     }
@@ -44,6 +54,7 @@ function member_publish(obj, id) {
         }
     });
 }
+
 /*编辑*/
 function member_edit(obj, id) {
     layer.open({
@@ -72,7 +83,7 @@ function member_del(obj, id) {
                     layer.alert(result.msg, {
                             title: '成功框',
                             icon: 1
-                        },function(){
+                        }, function () {
                             //刷新当前页面
                             window.location.reload();
                         }
@@ -92,6 +103,7 @@ function member_del(obj, id) {
 
     });
 }
-function gotoPurchaseOrderDrugList(code){
-    window.location.href = "/gotoPurchaseOrderDrugList.do?code="+code;
+
+function gotoPurchaseOrderDrugList(code) {
+    window.location.href = "/gotoPurchaseOrderDrugList.do?code=" + code;
 };

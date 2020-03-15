@@ -5,10 +5,14 @@ import com.drug.stock.constant.ErrorConstant;
 import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.constant.SystemConstant;
 import com.drug.stock.entity.condition.PurchaseOrderCondition;
+import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
 import com.drug.stock.entity.domain.PurchaseOrder;
+import com.drug.stock.entity.domain.PurchaseOrderDrug;
+import com.drug.stock.service.PurchaseOrderDrugService;
 import com.drug.stock.service.PurchaseOrderService;
 import com.drug.stock.sumbit.PurchaseOrderForm;
 import com.drug.stock.until.Result;
+import com.drug.stock.until.WordUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author lenovo
@@ -29,6 +36,8 @@ import javax.validation.Valid;
 public class PurchaseOrderController {
     @Resource
     PurchaseOrderService purchaseOrderService;
+    @Resource
+    PurchaseOrderDrugService purchaseOrderDrugService;
 
     /**
      * @return
@@ -197,6 +206,22 @@ public class PurchaseOrderController {
             result = new Result(SystemConstant.SYSTEM_CODE, SystemConstant.SYSTEM_ERROR);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/downPurchaseOrder.do")
+    public void downPurchaseOrder(Long id) {
+        Map<String, Object> dataMap = new HashMap<String, Object>(2);
+        try {
+            PurchaseOrder purchaseOrder = purchaseOrderService.getPurchaseOrder(id);
+            dataMap.put("purchaseOrder", purchaseOrder);
+            PurchaseOrderDrugCondition purchaseOrderDrugCondition = new PurchaseOrderDrugCondition();
+            purchaseOrderDrugCondition.setCode(purchaseOrder.getCode());
+            List<PurchaseOrderDrug> purchaseOrderDrugList = purchaseOrderDrugService.listPurchaseOrderDrug(purchaseOrderDrugCondition);
+            dataMap.put("purchaseOrderDrugList",purchaseOrderDrugList);
+            WordUtil.createWord(dataMap,"purchaseOrder.ftl","C:\\Users\\lenovo\\Desktop","入库单.doc");
+        } catch (Exception e) {
+            log.error("导出入库单失败 id:{}", id, e);
+        }
     }
 
 }

@@ -36,7 +36,7 @@
                                 class="fa fa-check  bigger-120"></i></a>
                 </#if>
                 <#if purchaseOrder.status>
-                    <a onClick="" href="#" title="导出"
+                    <a onClick="member_down('${purchaseOrder.getId()}')" href="#" title="导出"
                        class="btn btn-xs btn-primary"><i
                                 class="fa fa-download  bigger-120"></i></a>
                 </#if>
