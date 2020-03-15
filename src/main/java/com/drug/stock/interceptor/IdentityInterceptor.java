@@ -3,6 +3,7 @@ package com.drug.stock.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +25,14 @@ public class IdentityInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        if (handler instanceof ResourceHttpRequestHandler) {
+            return true;
+        }
         HttpSession httpSession = request.getSession();
         String account = (String) httpSession.getServletContext().getAttribute(httpSession.getId());
         if (account == null) {
             //跳转到登录页面
-            response.sendRedirect("");
+            response.sendRedirect("/");
             return false;
         }
         httpSession.setAttribute(httpSession.getId(), account);
