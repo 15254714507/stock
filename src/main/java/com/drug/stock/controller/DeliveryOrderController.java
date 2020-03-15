@@ -5,12 +5,22 @@ import com.drug.stock.constant.ErrorConstant;
 import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.constant.SystemConstant;
 import com.drug.stock.entity.condition.DeliveryOrderCondition;
+import com.drug.stock.entity.condition.DeliveryOrderDrugCondition;
+import com.drug.stock.entity.condition.PurchaseOrderDrugCondition;
 import com.drug.stock.entity.domain.DeliveryOrder;
+import com.drug.stock.entity.domain.DeliveryOrderDrug;
+import com.drug.stock.entity.domain.PurchaseOrder;
+import com.drug.stock.entity.domain.PurchaseOrderDrug;
+import com.drug.stock.service.DeliveryOrderDrugService;
 import com.drug.stock.service.DeliveryOrderService;
 import com.drug.stock.sumbit.DeliveryOrderForm;
 import com.drug.stock.until.Result;
+import com.drug.stock.until.WordUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +30,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author lenovo
@@ -29,7 +43,8 @@ import javax.validation.Valid;
 public class DeliveryOrderController {
     @Resource
     DeliveryOrderService deliveryOrderService;
-
+    @Resource
+    DeliveryOrderDrugService deliveryOrderDrugService;
     /**
      * @return
      */
@@ -198,6 +213,26 @@ public class DeliveryOrderController {
         }
         return result;
     }
-
+    @RequestMapping(value = "/downDeliveryOrder.do")
+    @ResponseBody
+    public ResponseEntity<byte[]> downDeliveryOrder(Long id) {
+        Map<String, Object> dataMap = new HashMap<String, Object>(2);
+        byte[] fileByte = null;
+        try {
+            DeliveryOrder deliveryOrder = deliveryOrderService.getDeliveryOrder(id);
+            dataMap.put("deliveryOrder", deliveryOrder);
+            DeliveryOrderDrugCondition deliveryOrderDrugCondition = new DeliveryOrderDrugCondition();
+            deliveryOrderDrugCondition.setCode(deliveryOrder.getCode());
+            List<DeliveryOrderDrug> deliveryOrderDrugList = deliveryOrderDrugService.listDeliveryOrderDrug(deliveryOrderDrugCondition);
+            dataMap.put("deliveryOrderDrugList", deliveryOrderDrugList);
+            fileByte = WordUtil.createWordByte(dataMap, "deliveryOrder.ftl", "出库单.doc");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData("attachment", URLEncoder.encode(deliveryOrder.getCode()+"出库单.doc", "utf-8"));
+            return new ResponseEntity<byte[]>(fileByte, headers, HttpStatus.CREATED);
+        } catch (Exception e) {
+            log.error("导出出库单失败 id:{}", id, e);
+        }
+        return null;
+    }
 
 }
