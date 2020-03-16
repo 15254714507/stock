@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.drug.stock.constant.ErrorConstant;
 import com.drug.stock.constant.SuccessConstant;
 import com.drug.stock.constant.SystemConstant;
-import com.drug.stock.entity.domain.User;
-import com.drug.stock.service.UserService;
+import com.drug.stock.entity.condition.*;
+import com.drug.stock.entity.domain.*;
+import com.drug.stock.service.*;
 import com.drug.stock.sumbit.ChangePasswordForm;
 import com.drug.stock.sumbit.UserForm;
 import com.drug.stock.until.Result;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,17 +33,57 @@ public class MainController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private PurchaseOrderService purchaseOrderService;
+    @Resource
+    private DeliveryOrderService deliveryOrderService;
+    @Resource
+    private DrugService drugService;
+    @Resource
+    private ProviderService providerService;
+    @Resource
+    private OverdueDrugService overdueDrugService;
+    @Resource
+    private RiskAssessmentService riskAssessmentService;
 
     /**
-     * 进入登录页面
+     * 进入home页
      *
      * @param model
      * @return
      */
     @RequestMapping(value = "/home.do")
-    public String init(Model model) {
+    public String init(Model model, HttpSession session) {
+        UserCondition userCondition = new UserCondition();
+        List<User> userList = userService.listUser(userCondition);
+        model.addAttribute("users",userList.size());
+        PurchaseOrderCondition purchaseOrderCondition = new PurchaseOrderCondition();
+        purchaseOrderCondition.setStatus(true);
+        List<PurchaseOrder> purchaseOrderList = purchaseOrderService.listPurchaseOrder(purchaseOrderCondition);
+        model.addAttribute("purchaseOrders",purchaseOrderList.size());
+        DeliveryOrderCondition deliveryOrderCondition = new DeliveryOrderCondition();
+        deliveryOrderCondition.setStatus(true);
+        List<DeliveryOrder> deliveryOrderList = deliveryOrderService.listDeliveryOrder(deliveryOrderCondition);
+        model.addAttribute("deliveryOrders",deliveryOrderList.size());
+        DrugCondition drugCondition = new DrugCondition();
+        List<Drug> drugList = drugService.listDrug(drugCondition);
+        model.addAttribute("drugs",drugList.size());
+        ProviderCondition providerCondition = new ProviderCondition();
+        List<Provider> providerList = providerService.listProvider(providerCondition);
+        model.addAttribute("providers",providerList.size());
+        OverdueDrugCondition overdueDrugCondition = new OverdueDrugCondition();
+        overdueDrugCondition.setStatus(false);
+        List<OverdueDrug> overdueDrugList = overdueDrugService.listOverdueDrug(overdueDrugCondition);
+        model.addAttribute("overdueDrugs",overdueDrugList.size());
+        RiskAssessmentCondition riskAssessmentCondition = new RiskAssessmentCondition();
+        List<RiskAssessment> allRiskAssessment = riskAssessmentService.listRiskAssessment(riskAssessmentCondition);
+        riskAssessmentCondition = new RiskAssessmentCondition();
+        riskAssessmentCondition.setDelayedMaterialRisk(0);
+        List<RiskAssessment> riskAssessmentList = riskAssessmentService.listRiskAssessment(riskAssessmentCondition);
+        model.addAttribute("riskAssessments",allRiskAssessment.size()-riskAssessmentList.size());
         return "main/home";
     }
+
     /**
      * 面包屑的首页
      *
@@ -49,10 +91,10 @@ public class MainController {
      * @return
      */
     @RequestMapping(value = "/main.do")
-    public String main(Model model,HttpSession session) {
-        String account = (String)session.getAttribute(session.getId());
+    public String main(Model model, HttpSession session) {
+        String account = (String) session.getAttribute(session.getId());
         User user = userService.getUserByAccount(account);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "main/main";
     }
 

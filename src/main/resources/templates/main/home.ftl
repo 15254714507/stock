@@ -40,7 +40,7 @@
                         <i class="icon-group"></i>
                     </div>
                     <div class="value">
-                        <h1>22</h1>
+                        <h1>${(users)!}</h1>
                         <p>系统用户</p>
                     </div>
                 </a>
@@ -52,7 +52,7 @@
                     <i class="icon-bookmark"></i>
                 </div>
                 <div class="value">
-                    <h1>3</h1>
+                    <h1>${(overdueDrugs)}</h1>
                     <p>过期药品</p>
                 </div>
             </section>
@@ -63,7 +63,7 @@
                     <i class="icon-credit-card"></i>
                 </div>
                 <div class="value">
-                    <h1>10</h1>
+                    <h1>${(purchaseOrders)}</h1>
                     <p>入库订单</p>
                 </div>
             </section>
@@ -74,7 +74,7 @@
                     <i class="icon-cogs"></i>
                 </div>
                 <div class="value">
-                    <h1>11</h1>
+                    <h1>${(drugs)!}</h1>
                     <p>药品信息</p>
                 </div>
             </section>
@@ -89,7 +89,7 @@
                         <i class="icon-user"></i>
                     </div>
                     <div class="value">
-                        <h1>10</h1>
+                        <h1>${(providers)!}</h1>
                         <p>供应商</p>
                     </div>
                 </a>
@@ -101,7 +101,7 @@
                     <i class="icon-th-list"></i>
                 </div>
                 <div class="value">
-                    <h1>10</h1>
+                    <h1>${(deliveryOrders)!}</h1>
                     <p>出库订单</p>
                 </div>
             </section>
@@ -112,7 +112,7 @@
                     <i class="icon-comments-alt"></i>
                 </div>
                 <div class="value">
-                    <h1>10</h1>
+                    <h1>${(riskAssessments)!}</h1>
                     <p>库存异常</p>
                 </div>
             </section>
